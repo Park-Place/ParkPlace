@@ -1,0 +1,31 @@
+@import '../styles/variables.css';
+
+#container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-areas:
+  "header"
+  "main"
+  "footer";
+  grid-template-rows: auto 1fr auto;
+}
+#header { grid-area: header; }
+#main { grid-area: main; } 
+#footer { grid-area: footer; }
+
+#footer {
+  text-align: center;
+  ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    li {
+      margin: .3rem .5rem;
+      a {
+        color: black;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}
