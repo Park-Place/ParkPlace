@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './app.css';
+import { connect } from 'react-redux';
 
-export default class App extends Component {
+class App extends Component {
 
   state = {
 
@@ -37,9 +38,35 @@ export default class App extends Component {
               </a>
             </li>
           </ul>
-          <small>&copy; 2018 Grace Provost | Student Work</small>
+          <ul>
+            <li>
+
+            </li>
+            <li>
+
+            </li>
+            <li>
+
+            </li>
+          </ul>
+          <ul>
+            <li>
+
+            </li>
+            <li>
+
+            </li>
+            <li>
+
+            </li>
+          </ul>
+          <small>&copy; 2018 Grace Provost | Christina Mills | Jacob Perez | Student Work</small>
         </footer>
       </div>
     );
   }
 }
+
+export default connect(
+  null
+)(App);
