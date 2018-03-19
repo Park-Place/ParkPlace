@@ -4,10 +4,42 @@ import { userReview } from './actions';
 
 class ReviewForm extends Component {
 
-  handleFormData(event, review) {
+//   handleEmailChange: function(e) {
+//     this.setState({email: e.target.value});
+//  },
+//  handlePasswordChange: function(e) {
+//     this.setState({password: e.target.value});
+//  },
+//  render : function() {
+//        return (
+//          <form>
+//            <input type="text" name="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} />
+//            <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}/>
+//            <button type="button" onClick={this.handleLogin}>Login</button>
+//          </form>);
+//  },
+//  handleLogin: function() {
+//      console.log("EMail: " + this.state.email);
+//      console.log("Password: " + this.state.password);
+//  }
+
+  // handleReviewChange(event) {
+  //   event.preventDefault();
+  //   console.log(event.target.value);
+  //   this.setState({ review: event.target.value });
+  // }
+
+  handleFormData(event) {
     event.preventDefault();
-    console.log(review);
-    this.props.userReview(review);
+    const sendReview = {
+      review: event.target.review.value,
+      parkType: event.target.parkType.value,
+      rating: event.target.rating.value,
+      parking: event.target.parking.value,
+      timeOfYear: event.target.timeOfYear.value
+    };
+    console.log(sendReview);
+    this.props.userReview(sendReview);
   }
 
   render() {
@@ -15,10 +47,10 @@ class ReviewForm extends Component {
     return (
       <div>
         Add a review!
-        <form onSubmit={(event) => this.handleFormData(event, 'review sent')}>
+        <form onSubmit={(event) => this.handleFormData(event)}>
           <ul>
-            <li><input htmlFor="review" placeholder="How was your visit?"/></li>
-            <li><input htmlFor="type-of-park" placeholder="Who visits this park?"/></li>
+            <li><input id="review" htmlFor="review" placeholder="How was your visit?"/></li>
+            <li><input id="parkType" htmlFor="type-of-park" placeholder="Who visits this park?"/></li>
             <h6>Rating:</h6>
             <select id="rating">
               Rating:
@@ -36,7 +68,7 @@ class ReviewForm extends Component {
               <option value="Awful">Awful</option>
             </select>
             <h6>Time of year visited</h6>
-            <select id="time-of-year">
+            <select id="timeOfYear">
               <option value="Spring">Spring</option>
               <option value="Summer">Summer</option>
               <option value="Winter">Winter</option>
@@ -62,8 +94,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    userReview(review) {
-      dispatch(userReview(review));
+    userReview() {
+      dispatch(userReview());
     }
   };
 }

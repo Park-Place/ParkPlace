@@ -11,10 +11,11 @@ export const initialState = {
 export default function reviews(state = initialState, { type, payload }) {
   switch(type) {
     case SUBMIT_REVIEW: {
-      return {
-        ...state,
-        ...payload
+
+      return { 
+        payload
       };
+
     }
     default:
       return state;
