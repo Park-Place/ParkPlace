@@ -9,7 +9,6 @@ import ReviewForm from './ReviewForm';
 import Search from '../search/Search';
 import User from '../auth/User';
 
-
 class App extends Component {
 
   state = {
