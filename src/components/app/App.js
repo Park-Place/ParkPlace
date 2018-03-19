@@ -6,6 +6,7 @@ import UserDetail from './UserDetail';
 import Home from './Home';
 import ParkDetail from './ParkDetail';
 import ReviewForm from './ReviewForm';
+import Search from '../search/Search';
 
 
 class App extends Component {
@@ -21,8 +22,9 @@ class App extends Component {
         <header id="header">
           <h1>ParkPlace</h1>
         </header>
-        <Router>
-          <main role="main">
+        <main id="main" role="main">
+          <Search/>
+          <Router>
             <Switch>
               <Route exact path="/" component={Home}/>
               <Route exact path="/User" component={UserDetail}/>
@@ -30,8 +32,11 @@ class App extends Component {
               <Route exact path="/ReviewForm" component={ReviewForm}/>
               <Redirect to="/"/>
             </Switch>
-          </main>
-        </Router>
+          </Router>
+        </main>
+        <footer id="footer" role="contentinfo">
+          <small>&copy; 2018 ParkPlace | Student Work</small>
+        </footer>
       </div>
     );
   }
