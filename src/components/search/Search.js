@@ -17,10 +17,11 @@ class Search extends Component {
   handleSubmit = (event) => {
     event.preventDefault();    
     const { currentForm } = this.state;
-    console.log('submit fired');
-    
+    const { searchByKeyword } = this.props;
+
     event.preventDefault();
     if(currentForm === 'Keyword') searchByKeyword(event.target.elements.keyword.value);
+    
     // if(currentForm === 'Location') searchByLocation(event.target.elements.location.value);
   };
 

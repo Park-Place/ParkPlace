@@ -11,3 +11,11 @@ exports.getPlacesByTextSearch = functions.https.onRequest((req, res) => {
       .catch(({ error }) => res.status(500).send(error));
   });
 });
+
+
+
+(`${BASE_MAPS_URL}place/geocode/json?address=${encodeURI(query)}&${API_KEY}`)
+  .then(response => {
+    const lat = response.results[0].geometry.location.lat;
+    const long = response.results[0].geometry.location.lng;
+    return { lat, long };
