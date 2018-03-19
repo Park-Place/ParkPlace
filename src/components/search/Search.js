@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { searchByKeyword } from './actions';
 
 
-export default class App extends Component {
+class Search extends Component {
 
   state = {
     currentForm: 'Keyword'
@@ -10,6 +12,16 @@ export default class App extends Component {
   handleFormChange = (event) => {
     event.preventDefault();
     this.setState({ currentForm: event.target.value });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();    
+    const { currentForm } = this.state;
+    console.log('submit fired');
+    
+    event.preventDefault();
+    if(currentForm === 'Keyword') searchByKeyword(event.target.elements.keyword.value);
+    // if(currentForm === 'Location') searchByLocation(event.target.elements.location.value);
   };
 
   render() {
@@ -40,3 +52,8 @@ export default class App extends Component {
     );
   }
 }
+
+export default connect(
+  null,
+  ({ searchByKeyword })
+)(Search);
