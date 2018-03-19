@@ -1,4 +1,4 @@
-@import './components/variables.css';
+@import './variables.css';
 
 * {
   box-sizing: border-box;
@@ -40,7 +40,6 @@ a {
   text-decoration: none;
 }
 
-// screen reader friendly
 .clip {
   position: absolute !important;
   clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
