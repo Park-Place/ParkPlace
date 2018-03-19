@@ -69,8 +69,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    userReview() {
-      dispatch(userReview());
+    userReview(sendReview) {
+      dispatch(userReview(sendReview));
     }
   };
 }
