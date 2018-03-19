@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import UserDetail from './UserDetail';
 import Home from './Home';
 import ParkDetail from './ParkDetail';
-import ReviewForm from './ReviewForm';
+import ReviewForm from './reviewForm/ReviewForm';
 import Search from '../search/Search';
 import User from '../auth/User';
 

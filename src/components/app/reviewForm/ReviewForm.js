@@ -4,8 +4,10 @@ import { userReview } from './actions';
 
 class ReviewForm extends Component {
 
-  handleFormData() {
-    this.props.userReview();
+  handleFormData(event, review) {
+    event.preventDefault();
+    console.log(review);
+    this.props.userReview(review);
   }
 
   render() {
@@ -13,7 +15,7 @@ class ReviewForm extends Component {
     return (
       <div>
         Add a review!
-        <form>
+        <form onSubmit={(event) => this.handleFormData(event, 'review sent')}>
           <ul>
             <li><input htmlFor="review" placeholder="How was your visit?"/></li>
             <li><input htmlFor="type-of-park" placeholder="Who visits this park?"/></li>
@@ -41,32 +43,32 @@ class ReviewForm extends Component {
               <option value="Autumn">Autumn</option>
             </select>
           </ul>
-          <button type="submit" onSubmit={() => this.handleFormData()}>Submit</button>
+          <button type="submit">Submit</button>
         </form>
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    review: state.reviews.review,
-    parkType: state.reviews.parkType,
-    rating: state.reviews.rating,
-    parking: state.reviews.parking,
-    timeOfYear: state.reviews.timeOfYear
-  };
-}
+// function mapStateToProps(state) {
+//   return {
+//     review: state.reviews.review,
+//     parkType: state.reviews.parkType,
+//     rating: state.reviews.rating,
+//     parking: state.reviews.parking,
+//     timeOfYear: state.reviews.timeOfYear
+//   };
+// }
 
 function mapDispatchToProps(dispatch) {
   return {
-    userReview() {
-      dispatch(userReview());
+    userReview(review) {
+      dispatch(userReview(review));
     }
   };
 }
 
 export default connect(
-  mapStateToProps,
+  // mapStateToProps,
   mapDispatchToProps
 )(ReviewForm);
