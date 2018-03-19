@@ -50,15 +50,15 @@ class ReviewForm extends Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   return {
-//     review: state.reviews.review,
-//     parkType: state.reviews.parkType,
-//     rating: state.reviews.rating,
-//     parking: state.reviews.parking,
-//     timeOfYear: state.reviews.timeOfYear
-//   };
-// }
+function mapStateToProps(state) {
+  return {
+    review: state.reviews.review,
+    parkType: state.reviews.parkType,
+    rating: state.reviews.rating,
+    parking: state.reviews.parking,
+    timeOfYear: state.reviews.timeOfYear
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -69,6 +69,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  // mapStateToProps,
+  mapStateToProps,
   mapDispatchToProps
 )(ReviewForm);
