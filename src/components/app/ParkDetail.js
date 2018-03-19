@@ -4,13 +4,19 @@ import { Link } from 'react-router-dom';
 import Reviews from './Reviews';
 import Search from '../search/Search';
 import Header from './Header';
+import { userReview } from '../reviewForm/actions';
 
 class ParkDetail extends Component {
 
   render() {
 
+    // const something = (this.props.keyword)
+    //   ? <p>{this.props.keyword[0].formattedAddress}</p>
+    //   : null;
+
     return (
       <div>
+        {/* {something} */}
         <Header/>
         <ul className="nav">
           <li><Link to="Home">Home</Link></li>
@@ -19,7 +25,7 @@ class ParkDetail extends Component {
         </ul>
         <Search/>
         <div className="park-info">
-          <h4>123 Address rd SE Portland, Or</h4>
+          {/* <h4>{something}</h4> */}
           <ul>
             Hours
             <li>Sunday:</li>
@@ -56,6 +62,21 @@ class ParkDetail extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    keyword: state.keyword
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    userReview() {
+      dispatch(userReview());
+    }
+  };
+}
+
 export default connect(
-  null
+  mapStateToProps,
+  mapDispatchToProps
 )(ParkDetail);
