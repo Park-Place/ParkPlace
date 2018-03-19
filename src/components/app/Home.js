@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Header from './Header';
+import Search from '../search/Search';
 
 class Home extends Component {
 
@@ -8,6 +10,8 @@ class Home extends Component {
 
     return (
       <div>
+        <Header/>
+        <Search/>
         <ul className="nav">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/UserDetail">User(test)</Link></li>

@@ -6,7 +6,6 @@ import UserDetail from './UserDetail';
 import Home from './Home';
 import ParkDetail from './ParkDetail';
 import ReviewForm from '../reviewForm/ReviewForm';
-import Search from '../search/Search';
 import User from '../auth/User';
 
 class App extends Component {
@@ -19,11 +18,7 @@ class App extends Component {
     
     return (
       <div id="container">
-        <header id="header">
-          <h1>ParkPlace</h1>
-        </header>
         <main id="main" role="main">
-          <Search/>
           <Router>
             <Switch>
               <Route exact path="/" component={Home}/>

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Reviews from './Reviews';
+import Search from '../search/Search';
+import Header from './Header';
 
 class ParkDetail extends Component {
 
@@ -9,11 +11,13 @@ class ParkDetail extends Component {
 
     return (
       <div>
+        <Header/>
         <ul className="nav">
           <li><Link to="Home">Home</Link></li>
           <li><Link to="/User">User(test)</Link></li>
           <li><Link to="/Park">Park(test)</Link></li>
         </ul>
+        <Search/>
         <div className="park-info">
           <h4>123 Address rd SE Portland, Or</h4>
           <ul>
