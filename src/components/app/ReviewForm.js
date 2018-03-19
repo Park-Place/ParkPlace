@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { userReview } from './actions';
 
 class ReviewForm extends Component {
 
-  handleFormData(){
-    
+  handleFormData() {
+    this.props.userReview();
   }
 
   render() {
@@ -40,13 +41,32 @@ class ReviewForm extends Component {
               <option value="Autumn">Autumn</option>
             </select>
           </ul>
-          <button type="submit" onSubmit={() => handleFormData()}>Submit</button>
+          <button type="submit" onSubmit={() => this.handleFormData()}>Submit</button>
         </form>
       </div>
     );
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    review: state.reviews.review,
+    parkType: state.reviews.parkType,
+    rating: state.reviews.rating,
+    parking: state.reviews.parking,
+    timeOfYear: state.reviews.timeOfYear
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    userReview() {
+      dispatch(userReview());
+    }
+  };
+}
+
 export default connect(
-  null
+  mapStateToProps,
+  mapDispatchToProps
 )(ReviewForm);

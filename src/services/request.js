@@ -1,5 +1,6 @@
 function request(url, options = {}, data) {
   if(data) options.body = JSON.stringify(data);
+  console.log('fired request');
 
   return fetch(url, options)
     .then(response => [response.ok, response.json()])
