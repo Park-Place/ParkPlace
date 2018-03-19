@@ -14,12 +14,13 @@ exports.getPlacesByTextSearch = functions.https.onRequest((req, res) => {
 
 
 exports.getGeocodeByQuery = functions.https.onRequest((req, res) => {
-  cors(res, res, () => {
-    client.get(`${BASE_MAPS_URL}place/geocode/json?address=${encodeURI(query)}&${API_KEY}`)
+  cors(req, res, () => {
+    client.get(`${BASE_MAPS_URL}geocode/json?address=${req.query.query}&key=${API_KEY}`)
       .then(({ body }) => { 
         const lat = body.results[0].geometry.location.lat;
-        const long = body.results[0].geometry.location.lng;
+        const long = body.results[0].geometry.location.lng;    
         return { lat, long };
       })
+      .catch(({ error }) => res.status(500).send(error));
   })
 })
