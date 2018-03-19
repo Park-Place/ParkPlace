@@ -10,13 +10,13 @@ class ParkDetail extends Component {
 
   render() {
 
-    // const something = (this.props.keyword)
-    //   ? <p>{this.props.keyword[0].formattedAddress}</p>
-    //   : null;
+    const something = (this.props.keyword)
+      ? <p>{this.props.keyword[0].formattedAddress}</p>
+      : null;
 
     return (
       <div>
-        {/* {something} */}
+        {something}
         <Header/>
         <ul className="nav">
           <li><Link to="Home">Home</Link></li>

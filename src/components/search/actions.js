@@ -5,10 +5,10 @@ export function searchByKeyword(query) {
   return dispatch => {
     getPlacesByTextSearch(query)
       .then(response => {
-        console.log(response.results);
+        console.log(response); // here as well
         dispatch({
           type: KEYWORD_SEARCH,
-          payload: response.results
+          payload: response // was response.results
         });
       });
   };
