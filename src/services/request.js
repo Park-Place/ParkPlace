@@ -15,5 +15,6 @@ const headers = {
 };
 
 export const get = url => request(url);
+export const getCORS = (url, options) => request(url, options);
 export const post = (url, data) => request(url, { method: 'POST', headers }, data);
 //TODO: add edit functionality to reviews put request

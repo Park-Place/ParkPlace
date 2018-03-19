@@ -1,12 +1,12 @@
 import firebase from 'firebase';
 
 export const config = {
-  apiKey: 'AIzaSyAdzahA9sPJmrJkJ0vpF3r2AMSvoY4wMMw',
-  authDomain: 'poke-hang.firebaseapp.com',
-  databaseURL: 'https://poke-hang.firebaseio.com',
-  projectId: 'poke-hang',
-  storageBucket: 'poke-hang.appspot.com',
-  messagingSenderId: '336129779503'
+  apiKey: 'AIzaSyCcWQftr51E8GZR0nFG2N207HZm8cLIM2Y',
+  authDomain: 'park-place-pnw.firebaseapp.com',
+  databaseURL: 'https://park-place-pnw.firebaseio.com',
+  projectId: 'park-place-pnw',
+  storageBucket: 'park-place-pnw.appspot.com',
+  messagingSenderId: '886597794085'
 };
 
 const firebaseApp = firebase.initializeApp(config);

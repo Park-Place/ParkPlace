@@ -2,7 +2,6 @@ import { KEYWORD_SEARCH, LOCATION_SEARCH } from './reducers';
 import { getPlacesByTextSearch } from '../../services/googleAPI';
 
 export function searchByKeyword(query) {
-  console.log('action fired');
   return dispatch => {
     getPlacesByTextSearch(query)
       .then(response => {
@@ -14,3 +13,4 @@ export function searchByKeyword(query) {
       });
   };
 }
+
