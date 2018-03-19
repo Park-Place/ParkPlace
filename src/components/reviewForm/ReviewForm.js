@@ -4,31 +4,6 @@ import { userReview } from './actions';
 
 class ReviewForm extends Component {
 
-//   handleEmailChange: function(e) {
-//     this.setState({email: e.target.value});
-//  },
-//  handlePasswordChange: function(e) {
-//     this.setState({password: e.target.value});
-//  },
-//  render : function() {
-//        return (
-//          <form>
-//            <input type="text" name="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} />
-//            <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}/>
-//            <button type="button" onClick={this.handleLogin}>Login</button>
-//          </form>);
-//  },
-//  handleLogin: function() {
-//      console.log("EMail: " + this.state.email);
-//      console.log("Password: " + this.state.password);
-//  }
-
-  // handleReviewChange(event) {
-  //   event.preventDefault();
-  //   console.log(event.target.value);
-  //   this.setState({ review: event.target.value });
-  // }
-
   handleFormData(event) {
     event.preventDefault();
     const sendReview = {
