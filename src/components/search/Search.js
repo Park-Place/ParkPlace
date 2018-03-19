@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { searchByKeyword } from './actions';
+import { searchByKeyword, searchByLocation } from './actions';
 
 
 class Search extends Component {
@@ -17,12 +17,12 @@ class Search extends Component {
   handleSubmit = (event) => {
     event.preventDefault();    
     const { currentForm } = this.state;
-    const { searchByKeyword } = this.props;
+    const { searchByKeyword, searchByLocation } = this.props;
 
     event.preventDefault();
     if(currentForm === 'Keyword') searchByKeyword(event.target.elements.keyword.value);
     
-    // if(currentForm === 'Location') searchByLocation(event.target.elements.location.value);
+    if(currentForm === 'Location') searchByLocation(event.target.elements.location.value);
   };
 
   render() {
@@ -56,5 +56,5 @@ class Search extends Component {
 
 export default connect(
   null,
-  ({ searchByKeyword })
+  ({ searchByKeyword, searchByLocation })
 )(Search);

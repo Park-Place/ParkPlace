@@ -7,8 +7,11 @@ const cors = require('cors')();
 exports.getPlacesByTextSearch = functions.https.onRequest((req, res) => {
   cors(req, res, () => {
     client.get(`${BASE_MAPS_URL}place/textsearch/json?query=${req.query.query}&types=park&key=${API_KEY}`)
-      .then(({ body }) => res.json(body))
-      .catch(({ error }) => res.status(500).send(error));
+      .then(({ body }) => res.json(body.results))
+      .catch(error => {
+        console.log(error);
+        res.sendStatus(500);
+      });
   });
 });
 
@@ -19,8 +22,22 @@ exports.getGeocodeByQuery = functions.https.onRequest((req, res) => {
       .then(({ body }) => { 
         const lat = body.results[0].geometry.location.lat;
         const long = body.results[0].geometry.location.lng;    
-        return { lat, long };
+        res.json({ lat, long });
       })
-      .catch(({ error }) => res.status(500).send(error));
-  })
-})
+      .catch(error => {
+        console.log(error);
+        res.sendStatus(500);
+      });
+  });
+});
+
+exports.getParksByLocation = functions.https.onRequest((req, res) => {
+  cors(req, res, () => {
+    client.get(`${BASE_MAPS_URL}place/nearbysearch/json?location=${req.query.lat},${req.query.long}&radius=500000&types=park&key=${API_KEY}`)
+      .then(({ body }) => res.json(body.results))
+      .catch(error => {
+        console.log(error);
+        res.sendStatus(500);
+      });
+  });
+});
