@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import UserDetail from './UserDetail';
 import Home from './Home';
+import ParkDetail from './ParkDetail';
+import ReviewForm from './ReviewForm';
 
 
 class App extends Component {
@@ -24,6 +26,8 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Home}/>
               <Route exact path="/User" component={UserDetail}/>
+              <Route exact path="/Park" component={ParkDetail}/>
+              <Route exact path="/ReviewForm" component={ReviewForm}/>
               <Redirect to="/"/>
             </Switch>
           </main>

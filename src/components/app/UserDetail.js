@@ -13,6 +13,7 @@ class UserDetail extends Component {
           <ul className="nav">
             <li><Link to="/">Home</Link></li>
             <li><Link to="/UserDetail">User(test)</Link></li>
+            <li><Link to="/Park">Park(test)</Link></li>
           </ul>
         </div>
         <div className="user-info">

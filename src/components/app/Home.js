@@ -11,6 +11,7 @@ class Home extends Component {
         <ul className="nav">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/User">User(test)</Link></li>
+          <li><Link to="/Park">Park(test)</Link></li>
         </ul>
       </div>
     );
