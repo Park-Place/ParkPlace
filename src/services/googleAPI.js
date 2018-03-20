@@ -7,7 +7,6 @@ export const getPlacesByTextSearch = (query) => get(`https://us-central1-park-pl
 
 export const getGeocodeByQuery = (query) => get(`https://us-central1-park-place-pnw.cloudfunctions.net/getGeocodeByQuery?query=${query}`);
 
-
 export const getPlacesByLocation = (query) => getGeocodeByQuery(query)
   .then(({ lat, long }) => get(`https://us-central1-park-place-pnw.cloudfunctions.net/getParksByLocation?lat=${lat}&long=${long}`));
 
