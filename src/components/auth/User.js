@@ -19,7 +19,9 @@ class User extends PureComponent {
 
     const credentials = {
       email: elements.email.value,
-      password: elements.password.value
+      password: elements.password.value,
+      picture: elements.image.value,
+      location: elements.location.value
     };
 
     const { from } = location.state || { from: { pathname: '/' } };

@@ -1,5 +1,6 @@
 import { USER_SET } from './reducers';
 import { onUserStateChange, onSignUp, onSignIn, onSignOut } from '../../services/parkApi';
+import { db } from '../../services/firebase';
 
 export function listenForUser() {
   return dispatch => {
