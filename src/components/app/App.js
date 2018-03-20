@@ -3,8 +3,9 @@ import './app.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from './header/Header';
-import Home from './Home';
+import { listenForUser } from '../auth/actions';
 import UserDetail from './UserDetail';
+import Home from './Home';
 import ReviewForm from '../reviewForm/ReviewForm';
 import ParkList from '../parkList/ParkList';
 import SignIn from '../auth/SignIn';
@@ -13,6 +14,10 @@ import Search from '../search/Search';
 import ParkDetail from '../parkDetail/ParkDetail';
 
 class App extends Component {
+
+  componentDidMount() {
+    this.props.listenForUser();
+  }
 
   render() {
 
@@ -47,5 +52,5 @@ class App extends Component {
 
 export default connect(
   state => ({ results: state.searchResults }),
-  null
+  ({ listenForUser })
 )(App);

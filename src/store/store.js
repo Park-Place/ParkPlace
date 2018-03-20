@@ -5,13 +5,16 @@ import { searchResults } from '../components/search/reducers';
 import { reviews } from '../components/reviewForm/reducers';
 import { loading, error } from '../components/app/reducers';
 import { detailResult } from '../components/parkDetail/reducers';
+import { user as loggedIn, checkedUser } from '../components/auth/reducers';
 
 const reducer = combineReducers({
   searchResults,
   reviews,
   loading,
   detailResult,
-  error
+  error,
+  loggedIn,
+  checkedUser
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
