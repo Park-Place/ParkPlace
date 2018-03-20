@@ -31,7 +31,7 @@ class User extends PureComponent {
 
   render() {
     const { error } = this.state;
-    const { buttonText, legendText } = this.props;
+    const { buttonText, legendText, username, location, picture } = this.props;
 
     return (
 
@@ -43,6 +43,9 @@ class User extends PureComponent {
         <label htmlFor="password" type="password"> Password:
         <input name="password"/>
         </label>
+        {username}
+        {location}
+        {picture}
         <button>{buttonText}</button>
         <pre style={{ color: 'red' }}>
           {error && error.message}
@@ -55,7 +58,10 @@ class User extends PureComponent {
 export const Signup = connect(
   () => ({ 
     buttonText: 'Create Account',
-    legendText: 'Sign Up'
+    legendText: 'Sign Up',
+    username: <label htmlFor="username"> Username: <input name="username"/></label>,
+    location: <label htmlFor="location"> Location: <input name="location"/></label>,
+    picture: <label htmlFor="picture"> Profile picture: <input name="picture"/></label>
   }),
   { onSubmit: signup }
 )(User);

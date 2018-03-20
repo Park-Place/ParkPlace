@@ -8,6 +8,7 @@ import ReviewForm from '../reviewForm/ReviewForm';
 import User from '../auth/User';
 import ParkList from '../parkList/ParkList';
 import Header from './Header';
+import { Signin, Signup } from '../auth/User';
 
 class App extends Component {
 
@@ -31,6 +32,8 @@ class App extends Component {
               {/* <Route exact path="/Park" component={ParkDetail}/> */}
               <Route exact path="/ReviewForm" component={ReviewForm}/>
               <Route exact path="/User" component={User}/>
+              <Route exact path="/auth/Signin" component={Signin}/>
+              <Route exact path="/auth/Signup" component={Signup}/>
               <Redirect to="/"/>
             </Switch>
           </main>

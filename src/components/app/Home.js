@@ -14,7 +14,7 @@ class Home extends Component {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/UserDetail">User(test)</Link></li>
           <li><Link to="/Park">Park(test)</Link></li>
-          <li><Link to="/User">Sign Up / Sign In</Link></li>
+          <li><Link to="/auth/Signin">Sign In</Link> / <Link to="/auth/Signup">Signup</Link></li>
         </ul>
       </div>
     );
