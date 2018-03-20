@@ -12,29 +12,6 @@ class User extends PureComponent {
     disable: false
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
-    const { elements } = event.target;
-    const { history, location } = this.props;
-
-    const credentials = {
-      email: elements.email.value,
-      password: elements.password.value,
-      picture: elements.image.value,
-      location: elements.location.value
-    };
-
-    const { from } = location.state || { from: { pathname: '/' } };
-    
-    this.props.onSubmit(credentials)
-      .then(() => {
-        setTimeout(() => {
-          history.push(from); //allows firebase to send the auth token prior to page move!
-        }, 100);
-      })
-      .catch(error => this.setState({ error }));
-  };
-
   handleUpload = ({ target }) => {
     const reader = new FileReader();
 
