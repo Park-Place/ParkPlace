@@ -10,13 +10,14 @@ class ParkDetail extends Component {
 
   render() {
 
-    const something = (this.props.keyword)
-      ? <p>{this.props.keyword[0].formattedAddress}</p>
-      : null;
+    const check = (!this.props.keyword)
+      ? null
+      : this.props.keyword[0].formatted_address ? (
+        <p>{this.props.keyword[0].formatted_address}</p>
+      ) : null;
 
     return (
       <div>
-        {something}
         <Header/>
         <ul className="nav">
           <li><Link to="Home">Home</Link></li>
@@ -25,6 +26,7 @@ class ParkDetail extends Component {
         </ul>
         <Search/>
         <div className="park-info">
+          {check}
           {/* <h4>{something}</h4> */}
           <ul>
             Hours
