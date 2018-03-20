@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { signup, signin } from './actions';
+import { Route } from 'react-router-dom';
 
 class User extends PureComponent {
 
@@ -38,14 +39,28 @@ class User extends PureComponent {
       <form className="player-form" onSubmit={this.handleSubmit}>
         <legend>{legendText}</legend>
         <label htmlFor="email"> Email:
-        <input name="email"/>
+        <input name="email" required/>
         </label>
-        <label htmlFor="password" type="password"> Password:
-        <input name="password"/>
+
+        <label htmlFor="password" > Password:
+        <input name="password" type="password" required/>
         </label>
-        {username}
-        {location}
-        {picture}
+
+        <Route path="/auth/signup" render={() => (
+          <Fragment>
+            <label htmlFor="username"> Username: 
+            <input name="username" required/>
+            </label>
+
+            <label htmlFor="location"> Location: 
+            <input name="location"/>
+            </label>
+
+            <label htmlFor="picture"> Profile picture: 
+            <input name="picture"/>
+            </label>
+          </Fragment>
+        )}/>
         <button>{buttonText}</button>
         <pre style={{ color: 'red' }}>
           {error && error.message}
@@ -58,10 +73,7 @@ class User extends PureComponent {
 export const Signup = connect(
   () => ({ 
     buttonText: 'Create Account',
-    legendText: 'Sign Up',
-    username: <label htmlFor="username"> Username: <input name="username"/></label>,
-    location: <label htmlFor="location"> Location: <input name="location"/></label>,
-    picture: <label htmlFor="picture"> Profile picture: <input name="picture"/></label>
+    legendText: 'Sign Up' 
   }),
   { onSubmit: signup }
 )(User);
