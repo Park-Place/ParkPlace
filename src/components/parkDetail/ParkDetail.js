@@ -10,19 +10,28 @@ import { userReview } from '../reviewForm/actions';
 export class ParkDetail extends Component {
 
   componentDidMount(){
+    
     const { id } = this.props;
-    console.log(id);
-
+    console.log('id', id);
     this.props.getParkById(id);
+
+   
+
+    //where is the info
+    //it goes to a parkDetail but everything is undefined
+
 
     //call action that has calls getParkDetail
     //that wil have updated store - store will have whole object
 
   }
 
+
+
   render() {
 
     // const check = this.props.results[0].formatted_address ?
+    console.log(this.props.results);
 
     return (
       <div>
@@ -87,7 +96,8 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(
   (state, props) => ({
-    id: props.match.params.id 
+    id: props.match.params.id,
+    results: state.detailResult.result 
     //current park: data that call brings
   }),
   ({ getParkById })

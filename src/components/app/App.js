@@ -28,9 +28,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Home}/>
               <Route exact path="/UserDetail" component={UserDetail}/>
-              <Route path="/parkDetail/:id" component={({ match }) => {
-                return <ParkDetail id={match.params.id}/>;
-              }}/>
+              <Route path="/parkDetail/:id" component={ParkDetail}/>
 
               <Route exact path="/ReviewForm" component={ReviewForm}/>
               <Route exact path="/User" component={User}/>
