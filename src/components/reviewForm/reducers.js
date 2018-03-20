@@ -8,7 +8,7 @@ export const initialState = {
   timeOfYear: ''
 };
 
-export default function reviews(state = initialState, { type, payload }) {
+export function reviews(state = initialState, { type, payload }) {
   switch(type) {
     case SUBMIT_REVIEW: {
 

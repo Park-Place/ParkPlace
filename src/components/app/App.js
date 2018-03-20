@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import UserDetail from './UserDetail';
 import Home from './Home';
-import ParkDetail from './ParkDetail';
 import ReviewForm from '../reviewForm/ReviewForm';
 import User from '../auth/User';
+import ParkList from '../parkList/ParkList';
+import Header from './Header';
 
 class App extends Component {
 
@@ -15,29 +16,34 @@ class App extends Component {
   };
 
   render() {
+
+    const { results } = this.props;
     
     return (
-      <div id="container">
-        <main id="main" role="main">
-          <Router>
+      <Router>
+        <div id="container">
+          <Header/>
+          <main id="main" role="main">
+            {results && <ParkList/>}
             <Switch>
               <Route exact path="/" component={Home}/>
               <Route exact path="/UserDetail" component={UserDetail}/>
-              <Route exact path="/Park" component={ParkDetail}/>
+              {/* <Route exact path="/Park" component={ParkDetail}/> */}
               <Route exact path="/ReviewForm" component={ReviewForm}/>
               <Route exact path="/User" component={User}/>
               <Redirect to="/"/>
             </Switch>
-          </Router>
-        </main>
-        <footer id="footer" role="contentinfo">
-          <small>&copy; 2018 ParkPlace | Student Work</small>
-        </footer>
-      </div>
+          </main>
+          <footer id="footer" role="contentinfo">
+            <small>&copy; 2018 ParkPlace | Student Work</small>
+          </footer>
+        </div>
+      </Router>
     );
   }
 }
 
 export default connect(
+  state => ({ results: state.searchResults }),
   null
 )(App);

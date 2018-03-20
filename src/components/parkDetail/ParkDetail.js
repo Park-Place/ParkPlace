@@ -10,11 +10,7 @@ class ParkDetail extends Component {
 
   render() {
 
-    const check = (!this.props.keyword)
-      ? null
-      : this.props.keyword[0].formatted_address ? (
-        <p>{this.props.keyword[0].formatted_address}</p>
-      ) : null;
+    // const check = this.props.results[0].formatted_address ?
 
     return (
       <div>
@@ -25,9 +21,8 @@ class ParkDetail extends Component {
           <li><Link to="/Park">Park(test)</Link></li>
         </ul>
         <Search/>
-        <div className="park-info">
+        <div className="park-details">
           {check}
-          {/* <h4>{something}</h4> */}
           <ul>
             Hours
             <li>Sunday:</li>
@@ -66,7 +61,7 @@ class ParkDetail extends Component {
 
 function mapStateToProps(state) {
   return {
-    keyword: state.keyword
+    results: state.results
   };
 }
 
