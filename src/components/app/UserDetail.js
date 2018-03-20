@@ -6,6 +6,8 @@ class UserDetail extends Component {
 
   render() {
 
+    const userObject = this.props.reviews;
+
     return (
       <section className="user">
         {/* <Header/> */}
@@ -19,8 +21,9 @@ class UserDetail extends Component {
         {/* <Search/> */}
         <div className="user-info">
           <img src="#" alt="#"/>
-          <h4>Location: #######</h4>
-          <h4>## reviews</h4>
+          <h4>{userObject.review}</h4>
+          <h4>{userObject.parkType}</h4>
+          <h4>{userObject.rating}</h4>
         </div>
         <div>
           {/* <Reviews /> */}
@@ -31,5 +34,6 @@ class UserDetail extends Component {
 }
 
 export default connect(
+  state => ({ reviews: state.reviews }),
   null
 )(UserDetail);

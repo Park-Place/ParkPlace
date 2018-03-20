@@ -27,9 +27,9 @@ class App extends Component {
             {results && <ParkList/>}
             <Switch>
               <Route exact path="/" component={Home}/>
-              <Route exact path="/UserDetail" component={UserDetail}/>
+              <Route exact path="/UserDetail:id" component={UserDetail}/>
               <Route path="/parkDetail/:id" component={ParkDetail}/>
-
+              <Route path="/UserDetail" component={UserDetail}/>
               <Route exact path="/ReviewForm" component={ReviewForm}/>
               <Route exact path="/auth/Signin" component={SignIn}/>
               <Route exact path="/auth/Signup" component={SignUp}/>
