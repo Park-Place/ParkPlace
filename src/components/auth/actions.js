@@ -10,7 +10,7 @@ export function listenForUser() {
     onUserStateChange(user =>
       dispatch({
         type: USER_SET,
-        payload: user
+        payload: users.child(user.uid).once('value').then(data => data.val())
       })
     );
   };

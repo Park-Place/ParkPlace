@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './app.css';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { listenForUser } from '../auth/actions';
 import UserDetail from './UserDetail';
 import Home from './Home';
 import ReviewForm from '../reviewForm/ReviewForm';
@@ -12,6 +13,10 @@ import SignUp from '../auth/SignUp';
 import Search from '../search/Search';
 
 class App extends Component {
+
+  componentDidMount() {
+    this.props.listenForUser();
+  }
 
   render() {
 
@@ -44,5 +49,5 @@ class App extends Component {
 
 export default connect(
   state => ({ results: state.searchResults }),
-  null
+  ({ listenForUser })
 )(App);
