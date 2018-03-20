@@ -41,3 +41,14 @@ exports.getParksByLocation = functions.https.onRequest((req, res) => {
       });
   });
 });
+
+exports.getParkImage = functions.https.onRequest((req, res) => {
+  cors(req, res, () => {
+    client.get(`${BASE_MAPS_URL}place/photo?photoreference=${req.query.photoId}&maxwidth=${req.query.maxWidth}&key=${API_KEY}`)
+      .then(({ body }) => res.json(body))
+      .catch(error => {
+        console.log(error);
+        res.sendStatus(500);
+      });
+  });
+});
