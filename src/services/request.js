@@ -1,5 +1,6 @@
 function request(url, options = {}, data) {
   if(data) options.body = JSON.stringify(data);
+  console.log('fired request');
 
   return fetch(url, options)
     .then(response => [response.ok, response.json()])
@@ -14,5 +15,6 @@ const headers = {
 };
 
 export const get = url => request(url);
+export const getCORS = (url, options) => request(url, options);
 export const post = (url, data) => request(url, { method: 'POST', headers }, data);
 //TODO: add edit functionality to reviews put request
