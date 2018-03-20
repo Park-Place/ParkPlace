@@ -6,7 +6,9 @@ import { Route } from 'react-router-dom';
 class User extends PureComponent {
 
   state = {
-    error: null
+    error: null,
+    image: null,
+    disable: false
   };
 
   handleSubmit = event => {
@@ -31,11 +33,22 @@ class User extends PureComponent {
   };
 
   handleUpload = ({ target }) => {
+    const reader = new FileReader();
 
+    reader.readAsDataURL(target.files[0]);
+
+    reader.onload = () => {
+      this.setState({ image: reader.result, disable: true });
+    };
+  };
+
+  handleImageRemove = () => {
+    this.setState({ image: null, disable: false });
+    this.pictureInput.value = '';
   };
 
   render() {
-    const { error } = this.state;
+    const { error, image, disable } = this.state;
     const { buttonText, legendText } = this.props;
 
     return (
@@ -61,12 +74,19 @@ class User extends PureComponent {
             </label>
 
             <label htmlFor="image"> Add Profile Picture:
-            <input type="file" name="image" onChange={this.handleUpload}/>
+            <input ref={(input) => { this.pictureInput = input; }} type="file" name="image" onChange={this.handleUpload} disabled={disable}/>
             </label>
+
+            { image && (
+              <figure>
+                <button type="button" onClick={this.handleImageRemove}>x</button>
+                <img className="preview" src={image}/>
+              </figure>
+            )}
 
           </Fragment>
         )}/>
-        <button>{buttonText}</button>
+        <button type="submit">{buttonText}</button>
         <pre style={{ color: 'red' }}>
           {error && error.message}
         </pre>
