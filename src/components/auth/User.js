@@ -2,12 +2,13 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { signup, signin } from './actions';
 import { Route } from 'react-router-dom';
+import blankImage from '../app/default.png';
 
 class User extends PureComponent {
 
   state = {
     error: null,
-    image: null,
+    image: blankImage,
     disable: false
   };
 
@@ -44,7 +45,7 @@ class User extends PureComponent {
 
   handleImageRemove = () => {
     this.setState({ image: null, disable: false });
-    this.pictureInput.value = '';
+    this.pictureInput.value = ''; //clears file 
   };
 
   render() {
@@ -74,15 +75,13 @@ class User extends PureComponent {
             </label>
 
             <label htmlFor="image"> Add Profile Picture:
-            <input ref={(input) => { this.pictureInput = input; }} type="file" name="image" onChange={this.handleUpload} disabled={disable}/>
+            <input ref={(input) => { this.pictureInput = input; }} type="file" name="image" onChange={this.handleUpload} disabled={disable} required/>
             </label>
 
-            { image && (
-              <figure>
-                <button type="button" onClick={this.handleImageRemove}>x</button>
-                <img className="preview" src={image}/>
-              </figure>
-            )}
+            <figure>
+              { (image !== blankImage) && <button type="button" onClick={this.handleImageRemove}>x</button> }
+              <img className="preview" src={image}/>
+            </figure>
 
           </Fragment>
         )}/>
