@@ -8,6 +8,12 @@ import { userReview } from '../reviewForm/actions';
 
 class ParkDetail extends Component {
 
+  componentDidMount(){
+    //call action that has calls getParkDetail
+    //that wil have update store - store will have whole object
+
+  }
+
   render() {
 
     // const check = this.props.results[0].formatted_address ?
@@ -74,6 +80,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  mapStateToProps,
+  (state, props) => ({
+    id: props.match.params.id 
+    //current park: data that call brings
+  }),
   mapDispatchToProps
+  //bring in detail action
 )(ParkDetail);

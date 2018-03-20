@@ -14,3 +14,4 @@ export const getPlacesByLocation = (query) => getGeocodeByQuery(query)
 export const getParkImage = (id, width) => `${BASE_MAPS_URL}place/photo?photoreference=${id}&maxwidth=${width}&key=${API_KEY}`;
 
 
+export const getParkDetail = (id) => `https://us-central1-park-place-pnw.cloudfunctions.net/getParkDetail?id=${id}`;
