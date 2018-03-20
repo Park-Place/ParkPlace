@@ -3,25 +3,19 @@ import { getPlacesByTextSearch, getPlacesByLocation } from '../../services/googl
 
 export function searchByKeyword(query) {
   return dispatch => {
-    getPlacesByTextSearch(encodeURI(query))
-      .then(response => {
-        dispatch({
-          type: RESULTS_SET,
-          payload: response
-        });
-      });
+    dispatch({
+      type: RESULTS_SET,
+      payload: getPlacesByTextSearch(encodeURI(query))
+    });
   };
 }
 
 export function searchByLocation(query) {
   return dispatch => {
-    getPlacesByLocation(encodeURI(query))
-      .then(response => {
-        dispatch({
-          type: RESULTS_SET,
-          payload: response
-        });
-      });
+    dispatch({
+      type: RESULTS_SET,
+      payload: getPlacesByLocation(encodeURI(query))
+    });
   };
 }
 

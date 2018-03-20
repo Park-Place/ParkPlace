@@ -7,7 +7,8 @@ import Home from './Home';
 import ReviewForm from '../reviewForm/ReviewForm';
 import User from '../auth/User';
 import ParkList from '../parkList/ParkList';
-import Header from './Header';
+import Header from './header/Header';
+import Search from '../search/Search';
 
 class App extends Component {
 
@@ -24,6 +25,7 @@ class App extends Component {
         <div id="container">
           <Header/>
           <main id="main" role="main">
+          <Search/>
             {results && <ParkList/>}
             <Switch>
               <Route exact path="/" component={Home}/>

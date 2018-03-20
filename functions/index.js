@@ -7,11 +7,7 @@ const cors = require('cors')();
 exports.getPlacesByTextSearch = functions.https.onRequest((req, res) => {
   cors(req, res, () => {
     client.get(`${BASE_MAPS_URL}place/textsearch/json?query=${req.query.query}&types=park&key=${API_KEY}`)
-      .then(({ body }) => res.json(body.results))
-      .catch(error => {
-        console.log(error);
-        res.sendStatus(500);
-      });
+      .pipe(res);
   });
 });
 
@@ -34,21 +30,6 @@ exports.getGeocodeByQuery = functions.https.onRequest((req, res) => {
 exports.getParksByLocation = functions.https.onRequest((req, res) => {
   cors(req, res, () => {
     client.get(`${BASE_MAPS_URL}place/nearbysearch/json?location=${req.query.lat},${req.query.long}&radius=500000&types=park&key=${API_KEY}`)
-      .then(({ body }) => res.json(body.results))
-      .catch(error => {
-        console.log(error);
-        res.sendStatus(500);
-      });
-  });
-});
-
-exports.getParkImage = functions.https.onRequest((req, res) => {
-  cors(req, res, () => {
-    client.get(`${BASE_MAPS_URL}place/photo?photoreference=${req.query.photoId}&maxwidth=${req.query.maxWidth}&key=${API_KEY}`)
-      .then(({ body }) => res.json(body))
-      .catch(error => {
-        console.log(error);
-        res.sendStatus(500);
-      });
+      .pipe(res);
   });
 });
