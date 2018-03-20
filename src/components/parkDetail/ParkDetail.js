@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
+import { getParkById } from './actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Reviews from './Reviews';
 import Search from '../search/Search';
-import Header from './Header';
+import Header from '../app/header/Header';
 import { userReview } from '../reviewForm/actions';
 
-class ParkDetail extends Component {
+export class ParkDetail extends Component {
 
   componentDidMount(){
+    const { id } = this.props;
+    console.log(id);
+
+    this.props.getParkById(id);
+
     //call action that has calls getParkDetail
-    //that wil have update store - store will have whole object
+    //that wil have updated store - store will have whole object
 
   }
 
@@ -28,7 +34,7 @@ class ParkDetail extends Component {
         </ul>
         <Search/>
         <div className="park-details">
-          {check}
+          {/* {check} */}
           <ul>
             Hours
             <li>Sunday:</li>
@@ -84,6 +90,6 @@ export default connect(
     id: props.match.params.id 
     //current park: data that call brings
   }),
-  mapDispatchToProps
+  ({ getParkById })
   //bring in detail action
 )(ParkDetail);

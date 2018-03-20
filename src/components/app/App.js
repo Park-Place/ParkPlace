@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import './app.css';
-import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import UserDetail from './UserDetail';
+import { connect } from 'react-redux';
+import Header from './header/Header';
 import Home from './Home';
+import UserDetail from './UserDetail';
 import ReviewForm from '../reviewForm/ReviewForm';
 import User from '../auth/User';
 import ParkList from '../parkList/ParkList';
-import Header from './header/Header';
+import ParkDetail from '../parkDetail/ParkDetail';
 import { Signin, Signup } from '../auth/User';
 import Search from '../search/Search';
 
@@ -27,6 +28,10 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Home}/>
               <Route exact path="/UserDetail" component={UserDetail}/>
+              <Route path="/parkDetail/:id" component={({ match }) => {
+                return <ParkDetail id={match.params.id}/>;
+              }}/>
+
               <Route exact path="/ReviewForm" component={ReviewForm}/>
               <Route exact path="/User" component={User}/>
               <Route exact path="/auth/Signin" component={Signin}/>
