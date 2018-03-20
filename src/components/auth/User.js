@@ -30,9 +30,13 @@ class User extends PureComponent {
       .catch(error => this.setState({ error }));
   };
 
+  handleUpload = ({ target }) => {
+
+  };
+
   render() {
     const { error } = this.state;
-    const { buttonText, legendText, username, location, picture } = this.props;
+    const { buttonText, legendText } = this.props;
 
     return (
 
@@ -56,9 +60,10 @@ class User extends PureComponent {
             <input name="location"/>
             </label>
 
-            <label htmlFor="picture"> Profile picture: 
-            <input name="picture"/>
+            <label htmlFor="image"> Add Profile Picture:
+            <input type="file" name="image" onChange={this.handleUpload}/>
             </label>
+
           </Fragment>
         )}/>
         <button>{buttonText}</button>
