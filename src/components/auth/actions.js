@@ -1,5 +1,5 @@
 import { USER_SET } from './reducers';
-import { onUserStateChange, onSignUp, onSignIn, onSignOut } from '../../services/gameApi';
+import { onUserStateChange, onSignUp, onSignIn, onSignOut } from '../../services/parkApi';
 
 export function listenForUser() {
   return dispatch => {

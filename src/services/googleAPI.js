@@ -1,7 +1,4 @@
-import { get, getCORS } from './request';
-const BASE_MAPS_URL = 'https://maps.googleapis.com/maps/api/';
-const API_KEY = 'AIzaSyCcWQftr51E8GZR0nFG2N207HZm8cLIM2Y';
-
+import { get } from './request';
 
 export const getPlacesByTextSearch = (query) => get(`https://us-central1-park-place-pnw.cloudfunctions.net/getPlacesByTextSearch?query=${query}`);
 

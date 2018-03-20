@@ -2,11 +2,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import promiseMiddleware from './promiseMiddleware';
 import { searchResults } from '../components/search/reducers';
+import { reviews } from '../components/reviewForm/reducers';
 
 const reducer = combineReducers({
-  searchResults
+  searchResults,
+  reviews
 });
-
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
