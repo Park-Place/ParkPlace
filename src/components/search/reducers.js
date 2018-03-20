@@ -1,18 +1,9 @@
-export const KEYWORD_SEARCH = 'KEYWORD_SEARCH';
-export const LOCATION_SEARCH = 'LOCATION_SEARCH';
+export const RESULTS_SET = 'RESULTS_SET';
 
-export function keyword(state = null, { type, payload }) {
-  switch(type) {
-    case KEYWORD_SEARCH:
-      return payload;
-    default:
-      return state;
-  }
-}
 
-export function location(state = null, { type, payload }) {
+export function searchResults(state = null, { type, payload }) {
   switch(type) {
-    case LOCATION_SEARCH:
+    case RESULTS_SET:
       return payload;
     default:
       return state;
