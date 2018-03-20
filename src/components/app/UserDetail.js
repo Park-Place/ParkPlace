@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import Reviews from '../parkDetail/Reviews';
 import { Link } from 'react-router-dom';
-// import Search from '../search/Search';
-// import Header from './Header';
 
 class UserDetail extends Component {
 

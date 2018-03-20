@@ -4,11 +4,13 @@ import promiseMiddleware from './promiseMiddleware';
 import { searchResults } from '../components/search/reducers';
 import { reviews } from '../components/reviewForm/reducers';
 import { loading, error } from '../components/app/reducers';
+import { detailResult } from '../components/parkDetail/reducers';
 
 const reducer = combineReducers({
   searchResults,
   reviews,
   loading,
+  detailResult,
   error
 });
 

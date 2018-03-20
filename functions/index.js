@@ -33,3 +33,13 @@ exports.getParksByLocation = functions.https.onRequest((req, res) => {
       .pipe(res);
   });
 });
+
+
+exports.getParkDetail = functions.https.onRequest((req, res) => {
+  cors(req, res, () => {
+    client.get(`${BASE_MAPS_URL}place/details/json?placeid=${req.query.id}&key=${API_KEY}`)
+      .pipe(res);
+  });
+});
+// https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&key=YOUR_API_KEY
+
