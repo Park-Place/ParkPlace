@@ -5,10 +5,10 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import UserDetail from './UserDetail';
 import Home from './Home';
 import ReviewForm from '../reviewForm/ReviewForm';
-import User from '../auth/User';
 import ParkList from '../parkList/ParkList';
 import Header from './header/Header';
-import { Signin, Signup } from '../auth/User';
+import SignIn from '../auth/SignIn';
+import SignUp from '../auth/SignUp';
 import Search from '../search/Search';
 
 class App extends Component {
@@ -28,9 +28,8 @@ class App extends Component {
               <Route exact path="/" component={Home}/>
               <Route exact path="/UserDetail" component={UserDetail}/>
               <Route exact path="/ReviewForm" component={ReviewForm}/>
-              <Route exact path="/User" component={User}/>
-              <Route exact path="/auth/Signin" component={Signin}/>
-              <Route exact path="/auth/Signup" component={Signup}/>
+              <Route exact path="/auth/Signin" component={SignIn}/>
+              <Route exact path="/auth/Signup" component={SignUp}/>
               <Redirect to="/"/>
             </Switch>
           </main>

@@ -16,45 +16,26 @@ export function listenForUser() {
   };
 }
 
-export function handleSubmit(event) {
-  event.preventDefault();
-  const { elements } = event.target;
-  const { history, location } = this.props;
-
-  const credentials = {
-    email: elements.email.value,
-    password: elements.password.value,
-    picture: elements.image.value,
-    location: elements.location.value
-  };
-
-  const { from } = location.state || { from: { pathname: '/' } };
-  
-  this.props.onSubmit(credentials)
-    .then(() => {
-      setTimeout(() => {
-        history.push(from); //allows firebase to send the auth token prior to page move!
-      }, 100);
-    })
-    .catch(error => this.setState({ error }));
-}
-
-export function handleFirebaseUpload(file) {
-  const userAvi = this.userAvi.push();
-  const uploadTask = this.userAviStorage.child(userAvi.key).put(file);
+export function handleImageUpload(file, id) {
+  const uploadTask = userAviStorage.child(id).put(file);
+  const user = users.child(id);
 
   uploadTask.on('state_changed', () => {
     
   }, err => {
     this.setState({ error: err });
   }, () => {
-    const downloadUrl = uploadTask.snapshot.downloadUrl;
-    userAvi.set(downloadUrl);      
+    const downloadUrl = uploadTask.snapshot.downloadURL;
+    user.update({ 'image': downloadUrl });      
   });
 }
 
-export function signup({ email, password }) {
-  return () => onSignUp(email, password);
+export function signup({ email, password, image, location, userName }) {
+  return () => onSignUp(email, password)
+    .then(user => {
+      users.child(user.uid).set({ location, userName })
+        .then(() => handleImageUpload(image, user.uid));
+    });
 }
 
 export function signin({ email, password }) {
