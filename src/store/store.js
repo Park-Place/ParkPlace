@@ -3,10 +3,13 @@ import thunk from 'redux-thunk';
 import promiseMiddleware from './promiseMiddleware';
 import { searchResults } from '../components/search/reducers';
 import { reviews } from '../components/reviewForm/reducers';
+import { loading, error } from '../components/app/reducers';
 
 const reducer = combineReducers({
   searchResults,
-  reviews
+  reviews,
+  loading,
+  error
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -1,16 +1,13 @@
 import { RESULTS_SET } from './reducers';
-import { getPlacesByTextSearch } from '../../services/googleAPI';
+import { getPlacesByTextSearch, getPlacesByLocation } from '../../services/googleAPI';
 
 export function searchByKeyword(query) {
 
   return dispatch => {
-    getPlacesByTextSearch(encodeURI(query))
-      .then(response => {
-        dispatch({
-          type: RESULTS_SET,
-          payload: response
-        });
-      });
+    dispatch({
+      type: RESULTS_SET,
+      payload: getPlacesByTextSearch(encodeURI(query))
+    });
   };
 }
 
@@ -18,13 +15,10 @@ export function searchByKeyword(query) {
 export function searchByLocation(query) {
 
   return dispatch => {
-    getPlacesByTextSearch(encodeURI(query))
-      .then(response => {
-        dispatch({
-          type: RESULTS_SET,
-          payload: response
-        });
-      });
+    dispatch({
+      type: RESULTS_SET,
+      payload: getPlacesByLocation(encodeURI(query))
+    });
   };
 }
 
