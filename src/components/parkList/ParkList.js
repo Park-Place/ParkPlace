@@ -9,7 +9,7 @@ class ParkList extends Component {
     const { results } = this.props;
     return (
       <ul>
-        {results.results.map(result => <Park key={result.id} result={result} />)}
+        {results.map(result => <Park key={result.id} result={result} />)}
       </ul>
     );
   }

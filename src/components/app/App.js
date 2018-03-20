@@ -13,10 +13,6 @@ import Search from '../search/Search';
 
 class App extends Component {
 
-  state = {
-
-  };
-
   render() {
 
     const { results } = this.props;
