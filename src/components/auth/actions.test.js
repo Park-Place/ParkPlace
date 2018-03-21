@@ -1,16 +1,16 @@
-// jest.mock('../../services/gameApi', () => ({
-//   onUserStateChange: jest.fn(handler => {
-//     handler({});
-//   }),
-//   onSignUp: jest.fn((email, password) => {
-//     return { email, password };
-//   }),
-//   onSignIn: jest.fn((email, password) => {
-//     return { email, password };
-//   }),
-//   onSignOut: jest.fn(() => {})
+jest.mock('../../services/gameApi', () => ({
+  onUserStateChange: jest.fn(handler => {
+    handler({});
+  }),
+  onSignUp: jest.fn((email, password) => {
+    return { email, password };
+  }),
+  onSignIn: jest.fn((email, password) => {
+    return { email, password };
+  }),
+  onSignOut: jest.fn(() => {})
 
-// }));
+}));
 
 import { USER_SET } from './reducers';
 import { listenForUser, signup, signin, logout } from './actions';

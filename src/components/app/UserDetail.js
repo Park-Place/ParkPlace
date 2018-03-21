@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import Reviews from '../parkDetail/Reviews';
 import { Link } from 'react-router-dom';
-// import Search from '../search/Search';
-// import Header from './Header';
 
 class UserDetail extends Component {
 
   render() {
 
+    const { loggedIn } = this.props;
+    console.log(loggedIn);
+     // image, location, username
     return (
       <section className="user">
-        {/* <Header/> */}
         <div className="nav">
           <ul>
             <li><Link to="/">Home</Link></li>
@@ -19,14 +18,12 @@ class UserDetail extends Component {
             <li><Link to="/Park">Park(test)</Link></li>
           </ul>
         </div>
-        {/* <Search/> */}
         <div className="user-info">
           <img src="#" alt="#"/>
-          <h4>Location: #######</h4>
-          <h4>## reviews</h4>
+          {/* <h4>{loggedIn.userName}</h4> */}
+          {/* <h4>{loggedIn.location}</h4> */}
         </div>
         <div>
-          {/* <Reviews /> */}
         </div>
       </section>
     );
@@ -34,5 +31,6 @@ class UserDetail extends Component {
 }
 
 export default connect(
+  state => ({ loggedIn: state.loggedIn }),
   null
 )(UserDetail);

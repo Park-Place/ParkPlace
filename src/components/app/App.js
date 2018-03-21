@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import './app.css';
-import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Header from './header/Header';
 import { listenForUser } from '../auth/actions';
 import UserDetail from './UserDetail';
 import Home from './Home';
 import ReviewForm from '../reviewForm/ReviewForm';
 import ParkList from '../parkList/ParkList';
-import Header from './header/Header';
 import SignIn from '../auth/SignIn';
 import SignUp from '../auth/SignUp';
 import Search from '../search/Search';
+import ParkDetail from '../parkDetail/ParkDetail';
 
 class App extends Component {
 
@@ -31,7 +32,9 @@ class App extends Component {
             {results && <ParkList/>}
             <Switch>
               <Route exact path="/" component={Home}/>
-              <Route exact path="/UserDetail" component={UserDetail}/>
+              <Route exact path="/UserDetail:id" component={UserDetail}/>
+              <Route path="/parkDetail/:id" component={ParkDetail}/>
+              <Route path="/UserDetail" component={UserDetail}/>
               <Route exact path="/ReviewForm" component={ReviewForm}/>
               <Route exact path="/auth/Signin" component={SignIn}/>
               <Route exact path="/auth/Signup" component={SignUp}/>
