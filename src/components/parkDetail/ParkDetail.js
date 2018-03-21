@@ -1,42 +1,58 @@
 import React, { Component } from 'react';
 import { getParkById } from './actions';
 import { connect } from 'react-redux';
+import { getParkImage } from '../../services/googleAPI';
 import { Link } from 'react-router-dom';
 import Reviews from './Reviews';
+import ReactModal from 'react-modal';
 
 export class ParkDetail extends Component {
 
+  state = {
+    open: false
+  };
+
   componentDidMount(){
-    
     const { id } = this.props;
-    console.log('id', id);
     this.props.getParkById(id);
   }
 
+  componentWillMount() {
+    ReactModal.setAppElement('body');
+  }
 
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
 
   render() {
     
-    // console.log('result', this.props.result);
     if(!this.props.result) return null;
     
-    const { name, formatted_address, international_phone_number } = this.props.result;
+    const { name, formatted_address, international_phone_number, photos, rating } = this.props.result;
     const { weekday_text } = this.props.result.opening_hours;
-    console.log('formatted add', formatted_address);
-    console.log('weekday', weekday_text);
+    const { open } = this.state;
+
 
     return (
       <div className="park-details">
-        {/* {check} */}
+        <div className="splash-photo">
+          <img src={getParkImage(photos[0].photo_reference, 500)} alt={name}/>
+        </div>
         <div>
-          <p>Address!: {formatted_address}</p>
           <p>Name: {name}</p>
+          <p>Rating: {rating}</p>
+          <p>Address!: {formatted_address}</p>
           <p>Phone: {international_phone_number}</p>
           <p> { weekday_text.map((weekday, i) => <li key={i}>{weekday}</li>)}</p>
         </div>
         <div>
-          {/* { weekday_text.map((weekday, i) => <li key={i}>{weekday}</li>)} */}
         </div>
+
         <div className="tags">
             Top tags
           <ul className="tag-list">
@@ -44,18 +60,18 @@ export class ParkDetail extends Component {
             <li>bad</li>
           </ul>
         </div>
-        <div className="photos">
-          <ul className="photos-list">
-            <li><img src="#" alt="#"/></li>
-            <li><img src="#" alt="#"/></li>
-            <li><img src="#" alt="#"/></li>
-            <li><img src="#" alt="#"/></li>
-          </ul>
-        </div>
         <div className="park-reviews">
           <h4>Reviews:</h4>
-          <Reviews />
+          <Reviews/>
         </div>
+        <button onClick={this.handleOpen}>open modal</button>
+        <ReactModal
+          isOpen={open}
+          onRequestClose={this.handleClose}
+        >
+          <button onClick={this.handleClose}>x</button>
+          <p>test</p>
+        </ReactModal>
         <button id="add-review"><Link to="/ReviewForm">Review Park</Link></button>
       </div>
     );
