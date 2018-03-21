@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { connect } from 'react-redux';
 import Header from './header/Header';
 import { listenForUser } from '../auth/actions';
-import UserDetail from './UserDetail';
+import UserDetail from '../user/UserDetail';
 import Home from './Home';
 import ParkList from '../parkList/ParkList';
 import SignIn from '../auth/SignIn';
@@ -28,7 +28,7 @@ class App extends Component {
           <main id="main" role="main">
             <Switch>
               <Route exact path="/" component={Home}/>
-              <Route exact path="/UserDetail:id" component={UserDetail}/>
+              <Route path="/users/:id" component={UserDetail}/>
               <Route exact path="/searchResults" component={ParkList}/>
               <Route path="/parkDetail/:id" component={ParkDetail}/>
               <Route exact path="/auth/Signin" component={SignIn}/>

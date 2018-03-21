@@ -14,15 +14,17 @@ class UserDetail extends Component {
 
     const { currentUser } = this.props;
     
-    console.log(currentUser.name);
+    if(!currentUser) return null;
+    
+    const { userName, location, image } = this.props.currentUser;
 
     return (
       <section className="main">
-        <section classNme="user_info">
+        <section className="user_info">
           <p> I AM USER DETAIL COMPONENT</p>
-          {/* <p>Name: {name}</p>
+          <p>Name: {userName}</p>
           <p>Location: {location}</p>
-          <img src={user_image}/> */}
+          <img src={image}/>
 
         </section>
         <section className="user-review-list">
