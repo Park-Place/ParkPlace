@@ -10,7 +10,7 @@ class Reviews extends Component {
       <div>
         <ul>
           <li>
-            <Review />
+            <Review/>
           </li>
         </ul>
       </div>

@@ -6,14 +6,19 @@ class ReviewForm extends Component {
 
   handleFormData(event) {
     event.preventDefault();
+
+    const { loggedIn, detailResult } = this.props;
+    
+
     const sendReview = {
       review: event.target.review.value,
       parkType: event.target.parkType.value,
       rating: event.target.rating.value,
       parking: event.target.parking.value,
-      timeOfYear: event.target.timeOfYear.value
+      timeOfYear: event.target.timeOfYear.value,
+      reviewer: loggedIn.userName,
+      parkId: detailResult.result.id
     };
-    console.log(sendReview);
     this.props.userReview(sendReview);
   }
 
@@ -63,7 +68,9 @@ function mapStateToProps(state) {
     parkType: state.reviews.parkType,
     rating: state.reviews.rating,
     parking: state.reviews.parking,
-    timeOfYear: state.reviews.timeOfYear
+    timeOfYear: state.reviews.timeOfYear,
+    loggedIn: state.loggedIn,
+    detailResult: state.detailResult
   };
 }
 
@@ -76,6 +83,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
+  // state => ({ loggedIn: state.loggedIn }),
   mapStateToProps,
   mapDispatchToProps
 )(ReviewForm);
