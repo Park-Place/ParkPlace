@@ -8,6 +8,7 @@ import Reviews from './Reviews';
 import ReactModal from 'react-modal';
 import ReviewForm from './ReviewForm';
 import { auth } from '../../services/firebase';
+import './parkDetail.css';
 
 export class ParkDetail extends Component {
 
@@ -56,7 +57,7 @@ export class ParkDetail extends Component {
     return (
       <div className="park-details">
         <figure className="splash-photo">
-          <img src={getParkImage(photos[0].photo_reference, 500)} alt={name}/>
+          <img id="park-detail-pic" src={getParkImage(photos[0].photo_reference, 500)} alt={name}/>
           <h2>{name}</h2>
           <p>{formatted_address}</p>
           <p>Rating (#reviews)</p>
