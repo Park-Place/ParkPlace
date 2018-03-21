@@ -4,7 +4,7 @@ import { getPlacesByTextSearch, getPlacesByLocation } from '../../services/googl
 export function searchByKeyword(query) {
 
   return dispatch => {
-    dispatch({
+    return dispatch({
       type: RESULTS_SET,
       payload: getPlacesByTextSearch(encodeURI(query))
     });
@@ -15,7 +15,7 @@ export function searchByKeyword(query) {
 export function searchByLocation(query) {
 
   return dispatch => {
-    dispatch({
+    return dispatch({
       type: RESULTS_SET,
       payload: getPlacesByLocation(encodeURI(query))
     });
