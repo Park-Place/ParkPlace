@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
+import { loadUser } from './actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 class UserDetail extends Component {
 
+  componentDidMount(){
+    const { id } = this.props;
+    this.props.loadUser(id);
+  }
+
   render() {
-    return(
+
+    const { currentUser } = this.props;
+    console.log(currentUser);
+
+    return (
       <section className="main">
         <section classNme="user_info">
-          <p>Name: {name}</p>
+
+          {/* <p>Name: {name}</p>
           <p>Location: {location}</p>
-          <img src={user_image}/>
+          <img src={user_image}/> */}
 
         </section>
         <section className="user-review-list">
@@ -21,6 +32,12 @@ class UserDetail extends Component {
       </section>
     );
   }
-
-
 }
+
+
+export default connect(
+  ({ currentUser }, { match }) => ({
+    id: match.params.id
+  }),
+  ({ loadUser })
+)(UserDetail);

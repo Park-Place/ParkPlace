@@ -5,7 +5,7 @@ import { USER_LOAD } from './reducers';
 const users = db.ref('users');
 
 
-export function UserLoad(id) {
+export function loadUser(id) {
 
   return dispatch => {
 
