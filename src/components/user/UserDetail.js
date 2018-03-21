@@ -21,9 +21,8 @@ class UserDetail extends Component {
     return (
       <section className="main">
         <section className="user_info">
-          <p> I AM USER DETAIL COMPONENT</p>
-          <p>Name: {userName}</p>
-          <p>Location: {location}</p>
+          <h1>Name: {userName}</h1>
+          <h3>Location: {location}</h3>
           <img src={image}/>
 
         </section>
