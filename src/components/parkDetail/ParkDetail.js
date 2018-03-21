@@ -1,73 +1,104 @@
 import React, { Component } from 'react';
-import { getParkById } from './actions';
+import { getParkById, loadReviews } from './actions';
 import { connect } from 'react-redux';
+import { getParkImage } from '../../services/googleAPI';
 import { Link } from 'react-router-dom';
+import ActionButton from '../actionButton/ActionButton';
 import Reviews from './Reviews';
+import ReactModal from 'react-modal';
+import ReviewForm from './ReviewForm';
+import { auth } from '../../services/firebase';
 
 export class ParkDetail extends Component {
 
+  state = {
+    open: false
+  };
+
+  customStyles = {
+    content : {
+      top: '20%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)'
+    }
+  };
+
   componentDidMount(){
-    
     const { id } = this.props;
-    console.log('id', id);
     this.props.getParkById(id);
+    this.props.loadReviews(id);
   }
 
+  componentWillMount() {
+    ReactModal.setAppElement('body');
+  }
 
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
 
   render() {
     
-    // console.log('result', this.props.result);
     if(!this.props.result) return null;
     
-    const { name, formatted_address, international_phone_number } = this.props.result;
-    const { weekday_text } = this.props.result.opening_hours;
-    console.log('formatted add', formatted_address);
-    console.log('weekday', weekday_text);
+    const { name, formatted_address, international_phone_number, photos, opening_hours, url } = this.props.result;
+    const { weekday_text } = opening_hours;
+    const { open } = this.state;
+    const { hasReviewed } = this.props;
 
     return (
       <div className="park-details">
-        {/* {check} */}
+        <figure className="splash-photo">
+          <img src={getParkImage(photos[0].photo_reference, 500)} alt={name}/>
+          <h2>{name}</h2>
+          <p>{formatted_address}</p>
+          <p>Rating (#reviews)</p>
+        </figure>
         <div>
-          <p>Address!: {formatted_address}</p>
-          <p>Name: {name}</p>
           <p>Phone: {international_phone_number}</p>
-          <p> { weekday_text.map((weekday, i) => <li key={i}>{weekday}</li>)}</p>
+          <ul>Hours: { weekday_text.map((weekday, i) => <li key={i}>{weekday}</li>)}</ul>
+          <Link to={url} target="_blank" rel="noopener noreferrer"><span className="fa fa-external-link"></span>Directions</Link>
         </div>
-        <div>
-          {/* { weekday_text.map((weekday, i) => <li key={i}>{weekday}</li>)} */}
-        </div>
-        <div className="tags">
-            Top tags
-          <ul className="tag-list">
-            <li>good</li>
-            <li>bad</li>
-          </ul>
-        </div>
-        <div className="photos">
-          <ul className="photos-list">
-            <li><img src="#" alt="#"/></li>
-            <li><img src="#" alt="#"/></li>
-            <li><img src="#" alt="#"/></li>
-            <li><img src="#" alt="#"/></li>
-          </ul>
-        </div>
+        <ul className="tag-list">
+          <li>good</li>
+          <li>bad</li>
+        </ul>
         <div className="park-reviews">
           <h4>Reviews:</h4>
-          <Reviews />
+          <Reviews/>
         </div>
-        <button id="add-review"><Link to="/ReviewForm">Review Park</Link></button>
+        {auth.currentUser && <ActionButton onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
+        <ReactModal
+          isOpen={open}
+          style={this.customStyles}
+          onRequestClose={this.handleClose}
+        >
+          <button onClick={this.handleClose}>x</button>
+          <ReviewForm handleClose={this.handleClose}/>
+        </ReactModal>
       </div>
     );
   }
 }
 
+const checkReviewed = (reviews) => {
+  if(auth.currentUser) reviews.hasOwnProperty(auth.currentUser.uid);
+  else return false;
+};
+
 export default connect(
-  (state, props) => ({
-    id: props.match.params.id,
-    result: state.detailResult.result
-    //current park: data that call brings
+  ({ currentPark, currentParkReviews }, { match }) => ({
+    id: match.params.id,
+    result: currentPark,
+    reviews: currentParkReviews,
+    hasReviewed: currentParkReviews && checkReviewed(currentParkReviews)
   }),
-  ({ getParkById })
-  //bring in detail action
+  ({ getParkById, loadReviews })
 )(ParkDetail);

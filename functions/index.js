@@ -43,3 +43,24 @@ exports.getParkDetail = functions.https.onRequest((req, res) => {
 });
 // https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&key=YOUR_API_KEY
 
+exports.updateAverageReviewRating = functions.database.ref('/parksReviewed/{parkId}/reviews').onWrite((event) => {
+  const reviews = event.data.val();
+  const avgRating = event.data.ref.parent.child('averageRating');
+  const reviewsArray = Object.keys(reviews).map(key => reviews[key]);
+  const averageRating = (reviewsArray.map(review => review.rating).reduce((a, b) => a + b)) / reviewsArray.length;
+
+  const tags = reviewsArray.reduce((map, review) => {
+    review.tags.forEach(tag => {
+      if(map[tag]) map[tag]++;
+      else map[tag] = 1;
+    });
+    return map;
+  }, Object.create(null));
+    
+
+});
+
+// exports.updateAmenitiesList = functions.database.ref('/parksReviewed/{parkId}/reviews/{parkId}/amenities').onWrite((event) => {
+//   const amenities = event.data.val();
+
+// });

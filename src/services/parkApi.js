@@ -1,28 +1,29 @@
-// import { db } from './firebase';
+import { db } from './firebase';
 import { auth } from './firebase';
 
 
-// const scoresRef = db.ref('scores').orderByChild('score').limitToLast(5);
+const parksReviewed = db.ref('parksReviewed');
+const users = db.ref('users');
 
-// export const onScoresList = handler => {
-//   scoresRef.on('value', data => {
-//     const scores = data.val();
-//     if(!scores) return [];
+export const onReviewsList = (id, handler) => {
+  parksReviewed.child(id).child('reviews').on('value', data => {
+    const reviews = data.val();
+    if(!reviews) return [];
 
-//     const scoresSorted = Object.keys(scores).map(key => {
-//       const score = scores[key];
-//       score.key = key;
-//       return score;
-//     });
-//     scoresSorted.sort((a, b) => b.score - a.score);
+    handler(reviews);
+  });
+};
 
-//     handler(scoresSorted);
-//   });
-// };
+export const onUserLoad = (id, handler) => {
+  users.child(id).once('value', data => {
+    const userInfo = data.val(); 
+    
+    handler(userInfo);
+  });
+};
 
 export const onUserStateChange = handler => {
   auth.onAuthStateChanged(user => {
-    if(user) user.name = user.email.split('@')[0];
     handler(user);
   });
 };
