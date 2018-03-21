@@ -2,19 +2,18 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import promiseMiddleware from './promiseMiddleware';
 import { searchResults } from '../components/search/reducers';
-import { reviews } from '../components/reviewForm/reducers';
 import { loading, error } from '../components/app/reducers';
-import { detailResult } from '../components/parkDetail/reducers';
+import { currentPark, currentParkReviews } from '../components/parkDetail/reducers';
 import { user as loggedIn, checkedUser } from '../components/auth/reducers';
 
 const reducer = combineReducers({
   searchResults,
-  reviews,
-  loading,
-  detailResult,
-  error,
+  currentPark,
   loggedIn,
-  checkedUser
+  currentParkReviews,
+  checkedUser,
+  loading,
+  error
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

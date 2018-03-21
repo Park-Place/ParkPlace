@@ -6,18 +6,21 @@ class Reviews extends Component {
 
   render() {
 
+    const { reviews } = this.props;
+
+    if(!reviews) return null;
+
+    const reviewsArr = Object.keys(reviews);
+
     return (
-      <div>
-        <ul>
-          <li>
-            <Review/>
-          </li>
-        </ul>
-      </div>
+      <ul>
+        {reviewsArr.map(key => <Review key={key} {...reviews[key]}/>)}
+      </ul>
     );
   }
 }
 
 export default connect(
+  state => ({ reviews: state.currentParkReviews }),
   null
 )(Reviews);
