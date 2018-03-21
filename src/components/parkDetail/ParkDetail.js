@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 import { getParkImage } from '../../services/googleAPI';
 import { Link } from 'react-router-dom';
 import Reviews from './Reviews';
-import Search from '../search/Search';
-import Header from '../app/header/Header';
-import { userReview } from '../reviewForm/actions';
 
 export class ParkDetail extends Component {
 
@@ -68,20 +65,6 @@ export class ParkDetail extends Component {
       </div>
     );
   }
-}
-
-function mapStateToProps(state) {
-  return {
-    results: state.results
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    userReview() {
-      dispatch(userReview());
-    }
-  };
 }
 
 export default connect(

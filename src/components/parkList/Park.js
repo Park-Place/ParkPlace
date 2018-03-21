@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getParkImage } from '../../services/googleAPI';
 import { Link } from 'react-router-dom';
-import { ParkDetail } from '../parkDetail/ParkDetail';
+// import { ParkDetail } from '../parkDetail/ParkDetail';
 
 export class Park extends Component {
 

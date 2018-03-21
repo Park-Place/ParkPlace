@@ -1,9 +1,9 @@
 export const SUBMIT_REVIEW = 'SUBMIT_REVIEW';
 
 export const initialState = {
-  review: '',
-  parkType: '',
-  rating: '',
+  review: 'name',
+  parkType: 'location',
+  rating: 'bio',
   parking: '',
   timeOfYear: ''
 };

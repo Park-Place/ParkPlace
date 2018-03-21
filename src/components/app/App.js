@@ -3,16 +3,21 @@ import './app.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from './header/Header';
-import Home from './Home';
+import { listenForUser } from '../auth/actions';
 import UserDetail from './UserDetail';
+import Home from './Home';
 import ReviewForm from '../reviewForm/ReviewForm';
-import User from '../auth/User';
 import ParkList from '../parkList/ParkList';
-import ParkDetail from '../parkDetail/ParkDetail';
-import { Signin, Signup } from '../auth/User';
+import SignIn from '../auth/SignIn';
+import SignUp from '../auth/SignUp';
 import Search from '../search/Search';
+import ParkDetail from '../parkDetail/ParkDetail';
 
 class App extends Component {
+
+  componentDidMount() {
+    this.props.listenForUser();
+  }
 
   render() {
 
@@ -27,13 +32,12 @@ class App extends Component {
             {results && <ParkList/>}
             <Switch>
               <Route exact path="/" component={Home}/>
-              <Route exact path="/UserDetail" component={UserDetail}/>
+              <Route exact path="/UserDetail:id" component={UserDetail}/>
               <Route path="/parkDetail/:id" component={ParkDetail}/>
-
+              <Route path="/UserDetail" component={UserDetail}/>
               <Route exact path="/ReviewForm" component={ReviewForm}/>
-              <Route exact path="/User" component={User}/>
-              <Route exact path="/auth/Signin" component={Signin}/>
-              <Route exact path="/auth/Signup" component={Signup}/>
+              <Route exact path="/auth/Signin" component={SignIn}/>
+              <Route exact path="/auth/Signup" component={SignUp}/>
               <Redirect to="/"/>
             </Switch>
           </main>
@@ -48,5 +52,5 @@ class App extends Component {
 
 export default connect(
   state => ({ results: state.searchResults }),
-  null
+  ({ listenForUser })
 )(App);
