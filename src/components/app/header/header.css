@@ -3,6 +3,9 @@
 #header {
   img {
     display: inline-block;
-    max-width: 50px;
+    max-width: 1.3em;
+  }
+  h1{
+    font-size: 1.7em;
   }
 }
