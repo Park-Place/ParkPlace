@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { searchByKeyword, searchByLocation } from './actions';
 import { Form, Button, ControlLabel, FormControl } from 'react-bootstrap';
 import './search.css';
+import { withRouter } from 'react-router-dom';
+
 
 class Search extends Component {
 
@@ -23,8 +25,8 @@ class Search extends Component {
     const { searchByKeyword, searchByLocation } = this.props;
 
     event.preventDefault();
-    if(currentForm === 'Keyword') searchByKeyword(keyword);
-    if(currentForm === 'Location') searchByLocation(location);
+    if(currentForm === 'Keyword') searchByKeyword(keyword).then(() => this.props.history.push('/searchResults'));
+    if(currentForm === 'Location') searchByLocation(location).then(() => this.props.history.push('/searchResults'));
   };
 
   handleChange = ({ target }) => {
@@ -62,7 +64,7 @@ class Search extends Component {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   null,
   ({ searchByKeyword, searchByLocation })
-)(Search);
+)(Search));

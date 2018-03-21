@@ -3,10 +3,11 @@ import { getParkById, loadReviews } from './actions';
 import { connect } from 'react-redux';
 import { getParkImage } from '../../services/googleAPI';
 import { Link } from 'react-router-dom';
-
+import ActionButton from '../actionButton/ActionButton';
 import Reviews from './Reviews';
 import ReactModal from 'react-modal';
 import ReviewForm from './ReviewForm';
+import { auth } from '../../services/firebase';
 
 export class ParkDetail extends Component {
 
@@ -50,6 +51,7 @@ export class ParkDetail extends Component {
     const { name, formatted_address, international_phone_number, photos, opening_hours, url } = this.props.result;
     const { weekday_text } = opening_hours;
     const { open } = this.state;
+    const { hasReviewed } = this.props;
 
     return (
       <div className="park-details">
@@ -72,7 +74,7 @@ export class ParkDetail extends Component {
           <h4>Reviews:</h4>
           <Reviews/>
         </div>
-        <button onClick={this.handleOpen}>open modal</button>
+        {auth.currentUser && <ActionButton onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
         <ReactModal
           isOpen={open}
           style={this.customStyles}
@@ -86,10 +88,17 @@ export class ParkDetail extends Component {
   }
 }
 
+const checkReviewed = (reviews) => {
+  if(auth.currentUser) reviews.hasOwnProperty(auth.currentUser.uid);
+  else return false;
+};
+
 export default connect(
-  (state, props) => ({
-    id: props.match.params.id,
-    result: state.currentPark
+  ({ currentPark, currentParkReviews }, { match }) => ({
+    id: match.params.id,
+    result: currentPark,
+    reviews: currentParkReviews,
+    hasReviewed: currentParkReviews && checkReviewed(currentParkReviews)
   }),
   ({ getParkById, loadReviews })
 )(ParkDetail);

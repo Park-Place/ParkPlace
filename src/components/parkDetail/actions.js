@@ -64,3 +64,4 @@ export function submitReview(state, parkObj, userObj) {
   parksReviewed.child(parkObj.parkId).child('reviews').update({ [userObj.userId]: reviewObj });
 
 }
+

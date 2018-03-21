@@ -9,7 +9,6 @@ import Home from './Home';
 import ParkList from '../parkList/ParkList';
 import SignIn from '../auth/SignIn';
 import SignUp from '../auth/SignUp';
-import Search from '../search/Search';
 import ParkDetail from '../parkDetail/ParkDetail';
 
 class App extends Component {
@@ -20,20 +19,16 @@ class App extends Component {
 
   render() {
 
-    const { results } = this.props;
-    
     return (
       <Router>
         <div id="container">
           <Header/>
           <main id="main" role="main">
-            <Search/>
-            {results && <ParkList/>}
             <Switch>
               <Route exact path="/" component={Home}/>
               <Route exact path="/UserDetail:id" component={UserDetail}/>
+              <Route exact path="/searchResults" component={ParkList}/>
               <Route path="/parkDetail/:id" component={ParkDetail}/>
-              <Route path="/UserDetail" component={UserDetail}/>
               <Route exact path="/auth/Signin" component={SignIn}/>
               <Route exact path="/auth/Signup" component={SignUp}/>
               <Redirect to="/"/>
