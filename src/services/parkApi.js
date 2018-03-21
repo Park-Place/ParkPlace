@@ -22,15 +22,6 @@ export const onUserLoad = (id, handler) => {
   });
 };
 
-export const onUserReviewsLoad = (id, handler) => {
-  users.child(id).child('reviews').on('value', data => {
-    const reviews = data.val();
-    if(!reviews) return [];
-
-    handler(reviews);
-  });
-};
-
 export const onUserStateChange = handler => {
   auth.onAuthStateChanged(user => {
     handler(user);

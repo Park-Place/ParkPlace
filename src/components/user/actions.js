@@ -1,6 +1,6 @@
 import { db } from '../../services/firebase';
-import { onUserLoad } from '../../services/parkApi';
-import { USER_LOAD } from './reducers';
+import { onUserLoad, onUserReviewsLoad } from '../../services/parkApi';
+import { USER_LOAD, USER_REVIEWS_LOAD } from './reducers';
 
 const users = db.ref('users');
 
