@@ -2,33 +2,36 @@ import React, { Component } from 'react';
 import { loadUser } from './actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import  Reviews from './Reviews';
 
 class UserDetail extends Component {
 
   componentDidMount(){
-    const { id } = this.props;
-    this.props.loadUser(id);
+    const { id, loadUser } = this.props;
+    loadUser(id);
   }
 
   render() {
 
     const { currentUser } = this.props;
     
-    console.log(currentUser.name);
-
+    if(!currentUser) return null;
+    
+    const { userName, location, image } = this.props.currentUser;
+    
+    
     return (
       <section className="main">
-        <section classNme="user_info">
-          <p> I AM USER DETAIL COMPONENT</p>
-          {/* <p>Name: {name}</p>
-          <p>Location: {location}</p>
-          <img src={user_image}/> */}
+        <section className="user_info">
+          <h1>Name: {userName}</h1>
+          <h3>Location: {location}</h3>
+          <img src={image}/>
 
         </section>
         <section className="user-review-list">
-          <ul>
-            {/* <Review> */}
-          </ul>
+          <div>
+            <Reviews/>
+          </div>
         </section>
       </section>
     );
