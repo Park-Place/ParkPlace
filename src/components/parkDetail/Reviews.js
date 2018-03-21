@@ -12,11 +12,9 @@ class Reviews extends Component {
 
     const reviewsArr = Object.keys(reviews);
 
-    console.log(reviewsArr);
-
     return (
       <ul>
-        {reviews.map(review => <Review key={review.userObj.userId} {...review}/>)}
+        {reviewsArr.map(key => <Review key={key} {...reviews[key]}/>)}
       </ul>
     );
   }

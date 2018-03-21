@@ -47,9 +47,10 @@ export function submitReview(state, parkObj, userObj) {
 
   const filteredAmenities = filterDuplicates(splitAmenities);
   const filteredTags = filterDuplicates(splitTags);
+  const date = new Date();
 
   const reviewObj = {
-    timeStamp: new Date(),
+    timeStamp: date.toLocaleString(),
     rating,
     amenities: filteredAmenities,
     tags: filteredTags,
