@@ -5,6 +5,7 @@ import { ClipLoader } from 'react-spinners';
 import { logout } from '../../auth/actions';
 import svg from './ParkPlace.svg';
 import Error from '../Error';
+import Search from '../../search/Search';
 import './header.css';
 
 class Header extends Component {
@@ -38,6 +39,7 @@ class Header extends Component {
         <div className="loader">
           <ClipLoader size={65} loading={loading}/>
         </div>
+        <Search/>
       </header>
     );
   }

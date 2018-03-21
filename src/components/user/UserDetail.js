@@ -13,12 +13,13 @@ class UserDetail extends Component {
   render() {
 
     const { currentUser } = this.props;
-    console.log(currentUser);
+    
+    console.log(currentUser.name);
 
     return (
       <section className="main">
         <section classNme="user_info">
-
+          <p> I AM USER DETAIL COMPONENT</p>
           {/* <p>Name: {name}</p>
           <p>Location: {location}</p>
           <img src={user_image}/> */}
