@@ -5,6 +5,7 @@ import { onReviewsList } from '../../services/parkApi';
 
 const users = db.ref('users');
 const parksReviewed = db.ref('parksReviewed');
+
 let listening;
 
 const filterDuplicates = (array) => {
