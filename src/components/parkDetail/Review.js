@@ -7,7 +7,6 @@ class Review extends Component {
   render() {
     const { userObj, timeStamp, rating, review } = this.props;
     const { userId, image, userName } = userObj;
-    console.log('userId from review', userId);
 
     return (
       <li className="park-review">

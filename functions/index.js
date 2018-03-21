@@ -42,23 +42,26 @@ exports.getParkDetail = functions.https.onRequest((req, res) => {
   });
 });
 
-exports.updateAverageReviewRating = functions.database.ref('/parksReviewed/{parkId}/reviews').onWrite((event) => {
+exports.updateUserDerived = functions.database.ref('/parksReviewed/{parkId}/reviews').onWrite((event) => {
   const reviews = event.data.val();
   const averageRatingRef = event.data.ref.parent.child('averageRating');
   const tagsRef = event.data.ref.parent.child('tags');
   const amenitiesRef = event.data.ref.parent.child('amenities');
   const reviewsArray = Object.keys(reviews).map(key => reviews[key]);
 
-  const averageRating = (reviewsArray.map(review => review.rating).reduce((a, b) => a + b)) / reviewsArray.length;
+  const sum = reviewsArray.map(review => review.rating).reduce((a, b) => a + b);
+  const count = reviewsArray.length;
+
+  const averageRating = Math.round(sum / count);
 
   const tags = createTagsObject(reviewsArray, 'tags');
   const amenities = createTagsObject(reviewsArray, 'amenities');
 
-  return Promise.all(
+  return Promise.all([
     averageRatingRef.set(averageRating),
     tagsRef.set(tags),
     amenitiesRef.set(amenities)
-  );
+  ]);
 });
 
 const createTagsObject = (array, tagName) => {

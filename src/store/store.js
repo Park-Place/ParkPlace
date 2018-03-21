@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import promiseMiddleware from './promiseMiddleware';
 import { searchResults } from '../components/search/reducers';
 import { loading, error } from '../components/app/reducers';
-import { currentPark, currentParkReviews } from '../components/parkDetail/reducers';
+import { currentPark, currentParkReviews, currentParkDerivedData } from '../components/parkDetail/reducers';
 import { user as loggedIn, checkedUser } from '../components/auth/reducers';
 import { currentUser } from '../components/user/reducers';
 
@@ -12,6 +12,7 @@ const reducer = combineReducers({
   currentPark,
   currentUser,
   loggedIn,
+  currentParkDerivedData,
   currentParkReviews,
   checkedUser,
   loading,
