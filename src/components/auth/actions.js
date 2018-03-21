@@ -4,13 +4,14 @@ import { db, storage } from '../../services/firebase';
 
 const userAviStorage = storage.ref('users');
 const users = db.ref('users');
+const getUser = uid => users.child(uid).once('value').then(d => d.val());
 
 export function listenForUser() {
   return dispatch => {
     onUserStateChange(user =>
       dispatch({
         type: USER_SET,
-        payload: users.child(user.uid).once('value').then(data => data.val())
+        payload: user ? getUser(user.uid) : null
       })
     );
   };
@@ -31,10 +32,10 @@ export function handleImageUpload(file, id) {
 }
 
 export function signup({ email, password, image, location, userName }) {
-  return () => onSignUp(email, password)
+  return () => onSignUp(email, password) //create the user in auth
     .then(user => {
-      users.child(user.uid).set({ location, userName })
-        .then(() => handleImageUpload(image, user.uid));
+      users.child(user.uid).set({ location, userName }) //create the user in firebase
+        .then(() => handleImageUpload(image, user.uid)); //add the image to storage and then database
     });
 }
 

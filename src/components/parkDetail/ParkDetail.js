@@ -1,67 +1,86 @@
 import React, { Component } from 'react';
-import { getParkById } from './actions';
+import { getParkById, loadReviews } from './actions';
 import { connect } from 'react-redux';
 import { getParkImage } from '../../services/googleAPI';
 import { Link } from 'react-router-dom';
+
 import Reviews from './Reviews';
+import ReactModal from 'react-modal';
+import ReviewForm from './ReviewForm';
 
 export class ParkDetail extends Component {
 
+  state = {
+    open: false
+  };
+
+  customStyles = {
+    content : {
+      top: '20%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)'
+    }
+  };
+
   componentDidMount(){
-    
     const { id } = this.props;
-    console.log('id', id);
     this.props.getParkById(id);
+    this.props.loadReviews(id);
   }
 
+  componentWillMount() {
+    ReactModal.setAppElement('body');
+  }
 
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
 
   render() {
     
-    // console.log('result', this.props.result);
     if(!this.props.result) return null;
     
-    const { name, formatted_address, international_phone_number, photos, rating } = this.props.result;
-    const { weekday_text } = this.props.result.opening_hours;
-    console.log('formatted add', formatted_address);
-    console.log('weekday', weekday_text);
+    const { name, formatted_address, international_phone_number, photos, opening_hours, url } = this.props.result;
+    const { weekday_text } = opening_hours;
+    const { open } = this.state;
 
     return (
       <div className="park-details">
-        {/* {check} */}
-        <div className="splash-photo">
+        <figure className="splash-photo">
           <img src={getParkImage(photos[0].photo_reference, 500)} alt={name}/>
-        </div>
+          <h2>{name}</h2>
+          <p>{formatted_address}</p>
+          <p>Rating (#reviews)</p>
+        </figure>
         <div>
-          <p>Name: {name}</p>
-          <p>Rating: {rating}</p>
-          <p>Address!: {formatted_address}</p>
           <p>Phone: {international_phone_number}</p>
-          <p> { weekday_text.map((weekday, i) => <li key={i}>{weekday}</li>)}</p>
+          <ul>Hours: { weekday_text.map((weekday, i) => <li key={i}>{weekday}</li>)}</ul>
+          <Link to={url} target="_blank" rel="noopener noreferrer"><span className="fa fa-external-link"></span>Directions</Link>
         </div>
-        <div>
-        </div>
-
-        <div className="tags">
-            Top tags
-          <ul className="tag-list">
-            <li>good</li>
-            <li>bad</li>
-          </ul>
-        </div>
-        {/* <div className="photos">
-          <ul className="photos-list">
-            <li><img src="#" alt="#"/></li>
-            <li><img src="#" alt="#"/></li>
-            <li><img src="#" alt="#"/></li>
-            <li><img src="#" alt="#"/></li>
-          </ul>
-        </div> */}
+        <ul className="tag-list">
+          <li>good</li>
+          <li>bad</li>
+        </ul>
         <div className="park-reviews">
           <h4>Reviews:</h4>
           <Reviews/>
         </div>
-        <button id="add-review"><Link to="/ReviewForm">Review Park</Link></button>
+        <button onClick={this.handleOpen}>open modal</button>
+        <ReactModal
+          isOpen={open}
+          style={this.customStyles}
+          onRequestClose={this.handleClose}
+        >
+          <button onClick={this.handleClose}>x</button>
+          <ReviewForm handleClose={this.handleClose}/>
+        </ReactModal>
       </div>
     );
   }
@@ -70,9 +89,7 @@ export class ParkDetail extends Component {
 export default connect(
   (state, props) => ({
     id: props.match.params.id,
-    result: state.detailResult.result
-    //current park: data that call brings
+    result: state.currentPark
   }),
-  ({ getParkById })
-  //bring in detail action
+  ({ getParkById, loadReviews })
 )(ParkDetail);

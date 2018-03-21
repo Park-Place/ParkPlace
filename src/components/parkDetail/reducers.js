@@ -1,11 +1,20 @@
-export const GET_DETAIL = 'GET_DETAIL';
+export const DETAIL_GET = 'DETAIL_GET';
+export const REVIEWS_LOAD = 'REVIEWS_LOAD';
 
-export function detailResult(state = [], { type, payload }) {
+export function currentPark(state = null, { type, payload }) {
   switch(type) {
-    case GET_DETAIL:
+    case DETAIL_GET:
       return payload;
     default:
       return state;
   }
+}
 
+export function currentParkReviews(state = null, { type, payload }) {
+  switch(type) {
+    case REVIEWS_LOAD:
+      return payload;
+    default:
+      return state;
+  }
 }
