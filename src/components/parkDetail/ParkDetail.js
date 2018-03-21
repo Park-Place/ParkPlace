@@ -48,6 +48,7 @@ export class ParkDetail extends Component {
     const { name, formatted_address, international_phone_number, photos, opening_hours, url } = this.props.result;
     const { weekday_text } = opening_hours;
     const { open } = this.state;
+    const { id } = this.props;
 
 
     return (
@@ -78,7 +79,7 @@ export class ParkDetail extends Component {
           onRequestClose={this.handleClose}
         >
           <button onClick={this.handleClose}>x</button>
-          <ReviewForm/>
+          <ReviewForm parkId={id}/>
         </ReactModal>
       </div>
     );
