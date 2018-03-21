@@ -28,7 +28,8 @@ class ReviewForm extends Component {
 
     const parkObj = {
       parkName: park.name,
-      parkId: park.place_id
+      parkId: park.place_id,
+      photoReference: park.photos[0].photo_reference
     };
 
     submitReview(this.state, parkObj, userObj);

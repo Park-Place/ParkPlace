@@ -43,8 +43,8 @@ export function submitReview(state, parkObj, userObj) {
 
   const { rating, amenities, review, tags } = state;
 
-  const splitAmenities = amenities.toLowerCase().split(' ');
-  const splitTags = tags.toLowerCase().split(' ');
+  const splitAmenities = amenities.toLowerCase().split(' ').map(s => s.trim()).filter(s => s);
+  const splitTags = tags.toLowerCase().split(' ').map(s => s.trim()).filter(s => s);
 
   const filteredAmenities = filterDuplicates(splitAmenities);
   const filteredTags = filterDuplicates(splitTags);

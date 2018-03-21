@@ -41,26 +41,35 @@ exports.getParkDetail = functions.https.onRequest((req, res) => {
       .pipe(res);
   });
 });
-// https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&key=YOUR_API_KEY
 
-exports.updateAverageReviewRating = functions.database.ref('/parksReviewed/{parkId}/reviews').onWrite((event) => {
+exports.updateUserDerived = functions.database.ref('/parksReviewed/{parkId}/reviews').onWrite((event) => {
   const reviews = event.data.val();
-  const avgRating = event.data.ref.parent.child('averageRating');
+  const averageRatingRef = event.data.ref.parent.child('averageRating');
+  const tagsRef = event.data.ref.parent.child('tags');
+  const amenitiesRef = event.data.ref.parent.child('amenities');
   const reviewsArray = Object.keys(reviews).map(key => reviews[key]);
-  const averageRating = (reviewsArray.map(review => review.rating).reduce((a, b) => a + b)) / reviewsArray.length;
 
-  const tags = reviewsArray.reduce((map, review) => {
-    review.tags.forEach(tag => {
+  const sum = reviewsArray.map(review => review.rating).reduce((a, b) => a + b);
+  const count = reviewsArray.length;
+
+  const averageRating = Math.round(sum / count);
+
+  const tags = createTagsObject(reviewsArray, 'tags');
+  const amenities = createTagsObject(reviewsArray, 'amenities');
+
+  return Promise.all([
+    averageRatingRef.set(averageRating),
+    tagsRef.set(tags),
+    amenitiesRef.set(amenities)
+  ]);
+});
+
+const createTagsObject = (array, tagName) => {
+  return array.reduce((map, review) => {
+    review[tagName].forEach(tag => {
       if(map[tag]) map[tag]++;
       else map[tag] = 1;
     });
     return map;
   }, Object.create(null));
-    
-
-});
-
-// exports.updateAmenitiesList = functions.database.ref('/parksReviewed/{parkId}/reviews/{parkId}/amenities').onWrite((event) => {
-//   const amenities = event.data.val();
-
-// });
+};
