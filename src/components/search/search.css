@@ -1,0 +1,31 @@
+form.form-inline{
+  margin: auto;
+}
+
+input.form-control{
+  width: 80%;
+  margin: 0.5em auto;
+}
+
+div.keyword-location{
+  width: 80%;
+  margin: 0 auto;
+}
+
+.btn-default{
+  width: 47%;
+  margin: 0 auto;
+}
+
+button#location{
+  margin-left: 6%;
+}
+
+button#search{
+  width: 80%;
+  margin: 0 10%;
+}
+
+.btn{
+  line-height: 1;
+}

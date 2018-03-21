@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { searchByKeyword, searchByLocation } from './actions';
 import { withRouter } from 'react-router-dom';
-
+import { Form, Button, ControlLabel, FormControl } from 'react-bootstrap';
+import './search.css';
 
 class Search extends Component {
 
@@ -36,26 +37,28 @@ class Search extends Component {
     const { currentForm, location, keyword } = this.state;
     
     return (
-      <form onSubmit={this.handleSubmit}>
-        <button type="button" onClick={event => this.handleFormChange(event)} name="Keyword" >By keyword</button>
-        <button type="button"onClick={event => this.handleFormChange(event)} name="Location" >By location</button>
+      <Form horizontal onSubmit={this.handleSubmit}>
+        <div className="keyword-location">
+          <Button className="search-type" type="button" onClick={event => this.handleFormChange(event)} name="Keyword" >By keyword</Button>
+          <Button className="search-type" id="location" type="button"onClick={event => this.handleFormChange(event)} name="Location" >By location</Button>
+        </div>
         <fieldset>
           { (currentForm === 'Keyword') && 
             <Fragment>
-              <label htmlFor="keyword" className="clip">Keyword:</label>
-              <input name="keyword" placeholder="name of park" value={keyword} onChange={this.handleChange}/>
+              <ControlLabel htmlFor="keyword" className="clip">Keyword:</ControlLabel>
+              <FormControl name="keyword" placeholder="name of park" value={keyword} onChange={this.handleChange}/>
             </Fragment>
           }
 
           { (currentForm === 'Location') && 
             <Fragment>
-              <label htmlFor="location" className="clip">Location:</label>
-              <input name="location" placeholder="City" onChange={this.handleChange} value={location}/>
+              <ControlLabel htmlFor="location" className="clip">Location:</ControlLabel>
+              <FormControl name="location" placeholder="City" onChange={this.handleChange} value={location}/>
             </Fragment>
           }
         </fieldset>
-        <button type="submit">Search</button>
-      </form>
+        <Button id="search" type="submit">Search</Button>
+      </Form>
     );
   }
 }

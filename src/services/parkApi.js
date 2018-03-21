@@ -3,6 +3,7 @@ import { auth } from './firebase';
 
 
 const parksReviewed = db.ref('parksReviewed');
+const users = db.ref('users');
 
 export const onReviewsList = (id, handler) => {
   parksReviewed.child(id).child('reviews').on('value', data => {
@@ -10,6 +11,14 @@ export const onReviewsList = (id, handler) => {
     if(!reviews) return [];
 
     handler(reviews);
+  });
+};
+
+export const onUserLoad = (id, handler) => {
+  users.child(id).once('value', data => {
+    const userInfo = data.val(); 
+    
+    handler(userInfo);
   });
 };
 

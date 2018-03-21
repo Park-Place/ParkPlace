@@ -5,10 +5,12 @@ import { searchResults } from '../components/search/reducers';
 import { loading, error } from '../components/app/reducers';
 import { currentPark, currentParkReviews } from '../components/parkDetail/reducers';
 import { user as loggedIn, checkedUser } from '../components/auth/reducers';
+import { currentUser } from '../components/user/reducers';
 
 const reducer = combineReducers({
   searchResults,
   currentPark,
+  currentUser,
   loggedIn,
   currentParkReviews,
   checkedUser,
