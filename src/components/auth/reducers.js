@@ -8,3 +8,12 @@ export function user(state = null, { type, payload }) {
       return state;
   }
 }
+
+export function checkedUser(state = false, { type }) {
+  switch(type) {
+    case USER_SET:
+      return true;
+    default:
+      return state;
+  }
+}

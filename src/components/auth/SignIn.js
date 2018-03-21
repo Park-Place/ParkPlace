@@ -1,14 +1,14 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { signup, signin } from './actions';
+import { signin } from './actions';
 
-class User extends PureComponent {
+class SignIn extends PureComponent {
 
   state = {
     error: null
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     const { elements } = event.target;
     const { history, location } = this.props;
@@ -19,7 +19,7 @@ class User extends PureComponent {
     };
 
     const { from } = location.state || { from: { pathname: '/' } };
-    
+
     this.props.onSubmit(credentials)
       .then(() => {
         setTimeout(() => {
@@ -31,19 +31,20 @@ class User extends PureComponent {
 
   render() {
     const { error } = this.state;
-    const { buttonText, legendText } = this.props;
-
+ 
     return (
 
       <form className="player-form" onSubmit={this.handleSubmit}>
-        <legend>{legendText}</legend>
+        <legend>Sign In</legend>
         <label htmlFor="email"> Email:
-        <input name="email"/>
+        <input name="email" required/>
         </label>
-        <label htmlFor="password" type="password"> Password:
-        <input name="password"/>
+
+        <label htmlFor="password" > Password:
+        <input name="password" type="password" required/>
         </label>
-        <button>{buttonText}</button>
+
+        <button type="submit">Sign In</button>
         <pre style={{ color: 'red' }}>
           {error && error.message}
         </pre>
@@ -52,18 +53,7 @@ class User extends PureComponent {
   }
 }
 
-export const Signup = connect(
-  () => ({ 
-    buttonText: 'Create Account',
-    legendText: 'Sign Up'
-  }),
-  { onSubmit: signup }
-)(User);
-
-export const Signin = connect(
-  () => ({ 
-    buttonText: 'Sign In',
-    legendText: 'Sign In'
-  }),
+export default connect(
+  null,
   { onSubmit: signin }
-)(User);
+)(SignIn);
