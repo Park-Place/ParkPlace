@@ -5,11 +5,23 @@ import { getParkImage } from '../../services/googleAPI';
 import { Link } from 'react-router-dom';
 import Reviews from './Reviews';
 import ReactModal from 'react-modal';
+import ReviewForm from './ReviewForm';
 
 export class ParkDetail extends Component {
 
   state = {
     open: false
+  };
+
+  customStyles = {
+    content : {
+      top: '20%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)'
+    }
   };
 
   componentDidMount(){
@@ -67,10 +79,11 @@ export class ParkDetail extends Component {
         <button onClick={this.handleOpen}>open modal</button>
         <ReactModal
           isOpen={open}
+          style={this.customStyles}
           onRequestClose={this.handleClose}
         >
           <button onClick={this.handleClose}>x</button>
-          <p>test</p>
+          <ReviewForm/>
         </ReactModal>
         <button id="add-review"><Link to="/ReviewForm">Review Park</Link></button>
       </div>
