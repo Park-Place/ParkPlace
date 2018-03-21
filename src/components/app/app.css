@@ -23,6 +23,7 @@
 
 #footer {
   text-align: center;
+  color: whitesmoke;
   ul {
     display: flex;
     justify-content: center;
@@ -37,3 +38,13 @@
     }
   }
 }
+
+body{
+  background-image: url("./park-pic-one.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/*main{
+  margin-top: 44%;
+}*/

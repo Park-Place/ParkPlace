@@ -1,5 +1,5 @@
-form.form-inline{
-  margin: auto;
+form.form-horizontal{
+  width: 100%;
 }
 
 input.form-control{
@@ -15,6 +15,7 @@ div.keyword-location{
 .btn-default{
   width: 47%;
   margin: 0 auto;
+  line-height: 1;
 }
 
 button#location{
@@ -26,6 +27,8 @@ button#search{
   margin: 0 10%;
 }
 
-.btn{
+.btn.btn-default{
   line-height: 1;
+  background-color: whitesmoke;
+  border: 1px solid white;
 }
