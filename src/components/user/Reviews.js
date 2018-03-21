@@ -6,11 +6,10 @@ class Reviews extends Component {
 
   render() {
 
-    const { reviews } = this.props.currentUser;
-    // console.log(reviews);
+    const { reviews } = this.props;
     
     if(!reviews) return null;
-
+    
     const reviewsArr = Object.keys(reviews);
 
     return (
@@ -22,6 +21,6 @@ class Reviews extends Component {
 }
 
 export default connect(
-  state => ({ currentUser: state.currentUser }),
+  state => ({ reviews: state.currentUser.reviews }),
   null
 )(Reviews);

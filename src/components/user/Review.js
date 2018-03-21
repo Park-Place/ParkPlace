@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getParkImage } from '../../services/googleAPI';
+
 
 class Review extends Component {
 
   render() {
-    const { userObj, timeStamp, rating, review } = this.props;
-    const { userId, image, userName } = userObj;
-    
+    const { timeStamp, rating, review, parkObj } = this.props;
+    const { parkName, photoReference, parkId } = parkObj;
 
     return (
       <li className="user-review">
-        <h4>{userName}</h4>
-        <img src={image}/>
+        <Link to={`/parks/${parkId}`}>
+          <h4>{parkName}</h4>
+          <img src={getParkImage(photoReference, 500)} alt={parkName}/>
+        </Link>
         <p>{timeStamp}</p>
         <p>{rating}</p>
         <p>{review}</p>
@@ -22,11 +25,6 @@ class Review extends Component {
 }
 
 export default connect(
-  // state => ({ reviews: state.reviews }),
   null
 )(Review);
 
-{/* <Link to={`/users/${userId}`}className="user-content"> 
-          <img src={image}/>
-          <h4>{userName}</h4>
-        </Link> */}
