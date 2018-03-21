@@ -7,9 +7,7 @@ class UserDetail extends Component {
   render() {
 
     const { loggedIn } = this.props;
-    console.log(loggedIn);
     
-     // image, location, username
     return (
       <section className="user">
         <div className="nav">
@@ -20,9 +18,15 @@ class UserDetail extends Component {
           </ul>
         </div>
         <div className="user-info">
-          <img src="#" alt="#"/>
-          {/* <h4>{loggedIn.userName}</h4> */}
-          {/* <h4>{loggedIn.location}</h4> */}
+          { loggedIn 
+            ? <img src={loggedIn.image} alt={loggedIn.userName}/> 
+            : null }
+          { loggedIn 
+            ? <h4>{loggedIn.userName}</h4>
+            : null }
+          { loggedIn 
+            ? <h4>{loggedIn.location}</h4> 
+            : null }
         </div>
         <div>
         </div>

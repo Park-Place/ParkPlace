@@ -15,7 +15,6 @@ class Home extends Component {
           {/* <li><Link to={`/UserDetail/${user_id}`}>User(test)</Link></li> */}
           <li><Link to="/UserDetail">User(test)</Link></li>
           <li><Link to="/Park">Park(test)</Link></li>
-          <li><Link to="/auth/Signin">Sign In</Link> / <Link to="/auth/Signup">Signup</Link></li>
         </ul>
       </div>
     );

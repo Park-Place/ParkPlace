@@ -24,5 +24,6 @@ class Review extends Component {
 }
 
 export default connect(
+  // state => ({ reviews: state.reviews }),
   null
 )(Review);
