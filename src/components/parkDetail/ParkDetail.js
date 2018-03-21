@@ -50,7 +50,7 @@ export class ParkDetail extends Component {
     
     const { name, formatted_address, international_phone_number, photos, opening_hours, url } = this.props.result;
     const { weekday_text } = opening_hours;
-    const { open, buttonActivation } = this.state;
+    const { open } = this.state;
     const { hasReviewed } = this.props;
 
     return (
@@ -74,7 +74,7 @@ export class ParkDetail extends Component {
           <h4>Reviews:</h4>
           <Reviews/>
         </div>
-        <ActionButton onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>
+        {auth.currentUser && <ActionButton onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
         <ReactModal
           isOpen={open}
           style={this.customStyles}
@@ -88,12 +88,17 @@ export class ParkDetail extends Component {
   }
 }
 
+const checkReviewed = (reviews) => {
+  if(auth.currentUser) reviews.hasOwnProperty(auth.currentUser.uid);
+  else return false;
+};
+
 export default connect(
   ({ currentPark, currentParkReviews }, { match }) => ({
     id: match.params.id,
     result: currentPark,
     reviews: currentParkReviews,
-    hasReviewed: currentParkReviews && currentParkReviews.hasOwnProperty(auth.currentUser.uid)
+    hasReviewed: currentParkReviews && checkReviewed(currentParkReviews)
   }),
   ({ getParkById, loadReviews })
 )(ParkDetail);
