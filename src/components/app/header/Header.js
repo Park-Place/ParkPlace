@@ -15,15 +15,15 @@ class Header extends Component {
 
     const { loading, error, user, logout, checkedUser } = this.props;
     
+    if(window.location.pathname === '/home') return null;
     if(!checkedUser) return null;
 
     return (
       <Navbar inverse collapseOnSelect id='header'>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/"><h1>Park <img src={svg}/> Place</h1></Link>
+            <Link to="/home"><h1>Park <img src={svg}/> Place</h1></Link>
           </Navbar.Brand>
-          {/* <Navbar.Toggle/> */}
         </Navbar.Header>
         <div className="user-header">
           {user && <h3><img src={user.image} alt={user.userName}/>{user.userName}</h3>}
@@ -52,6 +52,11 @@ class Header extends Component {
 }
 
 export default connect(
-  state => ({ loading: state.loading, error: state.error, user: state.loggedIn, checkedUser: state.checkedUser }),
+  (state) => ({ 
+    loading: state.loading, 
+    error: state.error, 
+    user: state.loggedIn, 
+    checkedUser: state.checkedUser
+   }),
   ({ logout })
 )(Header);
