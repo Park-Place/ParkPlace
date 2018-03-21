@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 class Review extends Component {
 
   render() {
-
+    const { userObj, timeStamp, rating, review } = this.props;
+    const { userId, image, userName } = userObj;
+    
     return (
       <li className="park-review">
         <Link to={`users/${userId}`}className="user-content"> 
