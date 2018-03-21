@@ -24,7 +24,7 @@ class App extends Component {
           <Header/>
           <main id="main" role="main">
             <Switch>
-              <Route exact path="/"/>
+              {/* <Route exact path="/home" component={Home}/> */}
               <Route exact path="/UserDetail:id" component={UserDetail}/>
               <Route exact path="/searchResults" component={ParkList}/>
               <Route path="/parkDetail/:id" component={ParkDetail}/>

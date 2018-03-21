@@ -48,11 +48,13 @@ export class ParkDetail extends Component {
   render() {
     
     if(!this.props.result) return null;
+    if(!this.props.derivedData) return null;
     
     const { name, formatted_address, international_phone_number, photos, opening_hours, url } = this.props.result;
     const { weekday_text } = opening_hours;
     const { open } = this.state;
-    const { hasReviewed } = this.props;
+    const { hasReviewed, derivedData } = this.props;
+    const { tags, amenities, averageRating } = derivedData;
 
     return (
       <div className="park-details">
@@ -60,7 +62,7 @@ export class ParkDetail extends Component {
           <img id="park-detail-pic" src={getParkImage(photos[0].photo_reference, 500)} alt={name}/>
           <h2>{name}</h2>
           <p>{formatted_address}</p>
-          <p>Rating (#reviews)</p>
+          <p>Average Rating: {averageRating}</p>
         </figure>
         <div>
           <p>Phone: {international_phone_number}</p>
@@ -68,8 +70,10 @@ export class ParkDetail extends Component {
           <Link to={url} target="_blank" rel="noopener noreferrer"><span className="fa fa-external-link"></span>Directions</Link>
         </div>
         <ul className="tag-list">
-          <li>good</li>
-          <li>bad</li>
+          {Object.keys(tags).map(key => <li key={key}>{key}</li>)}
+        </ul>
+        <ul className="amenities-list">
+          {Object.keys(amenities).map(key => <li key={key}>{key}</li>)}
         </ul>
         <div className="park-reviews">
           <h4>Reviews:</h4>
@@ -95,11 +99,12 @@ const checkReviewed = (reviews) => {
 };
 
 export default connect(
-  ({ currentPark, currentParkReviews }, { match }) => ({
+  ({ currentPark, currentParkReviews, currentParkDerivedData }, { match }) => ({
     id: match.params.id,
     result: currentPark,
     reviews: currentParkReviews,
-    hasReviewed: currentParkReviews && checkReviewed(currentParkReviews)
+    hasReviewed: currentParkReviews && checkReviewed(currentParkReviews),
+    derivedData: currentParkDerivedData
   }),
   ({ getParkById, loadReviews })
 )(ParkDetail);
