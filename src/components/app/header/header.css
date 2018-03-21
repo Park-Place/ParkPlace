@@ -7,5 +7,7 @@
   }
   h1{
     font-size: 1.7em;
+    color: green;
   }
+  background-color: rgba(245, 245, 245, 0.85);
 }

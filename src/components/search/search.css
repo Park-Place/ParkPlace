@@ -29,4 +29,6 @@ button#search{
 
 .btn.btn-default{
   line-height: 1;
+  background-color: whitesmoke;
+  border: 1px solid white;
 }
