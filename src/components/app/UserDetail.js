@@ -6,11 +6,11 @@ class UserDetail extends Component {
 
   render() {
 
-    const userObject = this.props.reviews;
-
+    const { loggedIn } = this.props;
+    console.log(loggedIn);
+     // image, location, username
     return (
       <section className="user">
-        {/* <Header/> */}
         <div className="nav">
           <ul>
             <li><Link to="/">Home</Link></li>
@@ -18,15 +18,12 @@ class UserDetail extends Component {
             <li><Link to="/Park">Park(test)</Link></li>
           </ul>
         </div>
-        {/* <Search/> */}
         <div className="user-info">
           <img src="#" alt="#"/>
-          <h4>{userObject.review}</h4>
-          <h4>{userObject.parkType}</h4>
-          <h4>{userObject.rating}</h4>
+          {/* <h4>{loggedIn.userName}</h4> */}
+          {/* <h4>{loggedIn.location}</h4> */}
         </div>
         <div>
-          {/* <Reviews /> */}
         </div>
       </section>
     );
@@ -34,6 +31,6 @@ class UserDetail extends Component {
 }
 
 export default connect(
-  state => ({ reviews: state.reviews }),
+  state => ({ loggedIn: state.loggedIn }),
   null
 )(UserDetail);

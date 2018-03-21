@@ -3,8 +3,6 @@ import { getParkById } from './actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Reviews from './Reviews';
-import Search from '../search/Search';
-import Header from '../app/header/Header';
 
 export class ParkDetail extends Component {
 
