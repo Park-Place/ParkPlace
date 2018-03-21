@@ -8,6 +8,7 @@ class UserDetail extends Component {
 
     const { loggedIn } = this.props;
     console.log(loggedIn);
+    
      // image, location, username
     return (
       <section className="user">

@@ -37,7 +37,8 @@ class UserDetail extends Component {
 
 export default connect(
   ({ currentUser }, { match }) => ({
-    id: match.params.id
+    id: match.params.id,
+    currentUser: currentUser
   }),
   ({ loadUser })
 )(UserDetail);

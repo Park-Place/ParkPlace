@@ -10,7 +10,7 @@ class Review extends Component {
 
     return (
       <li className="park-review">
-        <Link to={`users/${userId}`}className="user-content"> 
+        <Link to={`/users/${userId}`}className="user-content"> 
           <img src={image}/>
           <h4>{userName}</h4>
         </Link>
