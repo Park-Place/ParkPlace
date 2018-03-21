@@ -19,21 +19,19 @@ class App extends Component {
 
   render() {
 
-    const { results } = this.props;
-    
     return (
       <Router>
         <div id="container">
           <Header/>
           <main id="main" role="main">
             <Switch>
-              <Route exact path="/" component={Home}/>
+              <Route exact path="/home" component={Home}/>
               <Route exact path="/UserDetail:id" component={UserDetail}/>
               <Route exact path="/searchResults" component={ParkList}/>
               <Route path="/parkDetail/:id" component={ParkDetail}/>
               <Route exact path="/auth/Signin" component={SignIn}/>
               <Route exact path="/auth/Signup" component={SignUp}/>
-              <Redirect to="/"/>
+              <Redirect to="/home"/>
             </Switch>
           </main>
           <footer id="footer" role="contentinfo">
