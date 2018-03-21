@@ -48,8 +48,6 @@ export class ParkDetail extends Component {
     const { name, formatted_address, international_phone_number, photos, opening_hours, url } = this.props.result;
     const { weekday_text } = opening_hours;
     const { open } = this.state;
-    const { id } = this.props;
-
 
     return (
       <div className="park-details">
@@ -79,7 +77,7 @@ export class ParkDetail extends Component {
           onRequestClose={this.handleClose}
         >
           <button onClick={this.handleClose}>x</button>
-          <ReviewForm parkId={id}/>
+          <ReviewForm handleClose={this.handleClose}/>
         </ReactModal>
       </div>
     );
@@ -89,7 +87,7 @@ export class ParkDetail extends Component {
 export default connect(
   (state, props) => ({
     id: props.match.params.id,
-    result: state.detailResult
+    result: state.currentPark
   }),
   ({ getParkById })
 )(ParkDetail);

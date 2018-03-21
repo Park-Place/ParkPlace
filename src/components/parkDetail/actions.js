@@ -21,7 +21,7 @@ export function getParkById(id) {
   };
 }
 
-export function submitReview(state, parkId, userId) {
+export function submitReview(state, parkObj, userObj) {
 
   const { rating, amenities, review, tags } = state;
 
@@ -37,12 +37,12 @@ export function submitReview(state, parkId, userId) {
     amenities: filteredAmenities,
     tags: filteredTags,
     review,
-    parkId,
-    userId
+    parkObj,
+    userObj
   };
 
-  users.child(userId).child('reviews').update({ [parkId]: reviewObj });
+  users.child(userObj.userId).child('reviews').update({ [parkObj.parkId]: reviewObj });
 
-  parksReviewed.child(parkId).child('reviews').update({ [userId]: reviewObj });
+  parksReviewed.child(parkObj.parkId).child('reviews').update({ [userObj.userId]: reviewObj });
 
 }
