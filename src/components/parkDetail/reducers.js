@@ -1,11 +1,10 @@
-export const GET_DETAIL = 'GET_DETAIL';
+export const DETAIL_GET = 'DETAIL_GET';
 
-export function detailResult(state = [], { type, payload }) {
+export function detailResult(state = null, { type, payload }) {
   switch(type) {
-    case GET_DETAIL:
+    case DETAIL_GET:
       return payload;
     default:
       return state;
   }
-
 }

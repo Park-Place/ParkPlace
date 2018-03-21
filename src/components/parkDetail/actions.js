@@ -1,11 +1,11 @@
 import { getParkDetail } from '../../services/googleAPI';
-import { GET_DETAIL } from './reducers';
+import { DETAIL_GET } from './reducers';
 
 export function getParkById(id) {
 
   return dispatch => {
     dispatch({
-      type: GET_DETAIL,
+      type: DETAIL_GET,
       payload: getParkDetail(id)
     });
   };

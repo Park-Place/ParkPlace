@@ -45,33 +45,28 @@ export class ParkDetail extends Component {
     
     if(!this.props.result) return null;
     
-    const { name, formatted_address, international_phone_number, photos, rating } = this.props.result;
-    const { weekday_text } = this.props.result.opening_hours;
+    const { name, formatted_address, international_phone_number, photos, opening_hours, url } = this.props.result;
+    const { weekday_text } = opening_hours;
     const { open } = this.state;
 
 
     return (
       <div className="park-details">
-        <div className="splash-photo">
+        <figure className="splash-photo">
           <img src={getParkImage(photos[0].photo_reference, 500)} alt={name}/>
-        </div>
+          <h2>{name}</h2>
+          <p>{formatted_address}</p>
+          <p>Rating (#reviews)</p>
+        </figure>
         <div>
-          <p>Name: {name}</p>
-          <p>Rating: {rating}</p>
-          <p>Address!: {formatted_address}</p>
           <p>Phone: {international_phone_number}</p>
-          <p> { weekday_text.map((weekday, i) => <li key={i}>{weekday}</li>)}</p>
+          <ul>Hours: { weekday_text.map((weekday, i) => <li key={i}>{weekday}</li>)}</ul>
+          <Link to={url} target="_blank" rel="noopener noreferrer"><span className="fa fa-external-link"></span>Directions</Link>
         </div>
-        <div>
-        </div>
-
-        <div className="tags">
-            Top tags
-          <ul className="tag-list">
-            <li>good</li>
-            <li>bad</li>
-          </ul>
-        </div>
+        <ul className="tag-list">
+          <li>good</li>
+          <li>bad</li>
+        </ul>
         <div className="park-reviews">
           <h4>Reviews:</h4>
           <Reviews/>
@@ -85,7 +80,6 @@ export class ParkDetail extends Component {
           <button onClick={this.handleClose}>x</button>
           <ReviewForm/>
         </ReactModal>
-        <button id="add-review"><Link to="/ReviewForm">Review Park</Link></button>
       </div>
     );
   }
@@ -94,9 +88,7 @@ export class ParkDetail extends Component {
 export default connect(
   (state, props) => ({
     id: props.match.params.id,
-    result: state.detailResult.result
-    //current park: data that call brings
+    result: state.detailResult
   }),
   ({ getParkById })
-  //bring in detail action
 )(ParkDetail);
