@@ -1,9 +1,11 @@
 import { getParkDetail } from '../../services/googleAPI';
-import { DETAIL_GET } from './reducers';
+import { DETAIL_GET, REVIEWS_LOAD } from './reducers';
 import { db } from '../../services/firebase';
+import { onReviewsList } from '../../services/parkApi';
 
 const users = db.ref('users');
 const parksReviewed = db.ref('parksReviewed');
+let listening;
 
 const filterDuplicates = (array) => {
   return array.filter(function(item, pos, self) {
@@ -17,6 +19,21 @@ export function getParkById(id) {
     dispatch({
       type: DETAIL_GET,
       payload: getParkDetail(id)
+    });
+  };
+}
+
+export function loadReviews(id) {
+  
+  return dispatch => {
+    if(listening) return;
+    listening = true;
+
+    onReviewsList(id, reviews => {
+      dispatch({
+        type: REVIEWS_LOAD,
+        payload: reviews
+      });
     });
   };
 }

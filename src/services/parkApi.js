@@ -1,24 +1,17 @@
-// import { db } from './firebase';
+import { db } from './firebase';
 import { auth } from './firebase';
 
 
-// const scoresRef = db.ref('scores').orderByChild('score').limitToLast(5);
+const parksReviewed = db.ref('parksReviewed');
 
-// export const onScoresList = handler => {
-//   scoresRef.on('value', data => {
-//     const scores = data.val();
-//     if(!scores) return [];
+export const onReviewsList = (id, handler) => {
+  parksReviewed.child(id).child('reviews').on('value', data => {
+    const reviews = data.val();
+    if(!reviews) return [];
 
-//     const scoresSorted = Object.keys(scores).map(key => {
-//       const score = scores[key];
-//       score.key = key;
-//       return score;
-//     });
-//     scoresSorted.sort((a, b) => b.score - a.score);
-
-//     handler(scoresSorted);
-//   });
-// };
+    handler(reviews);
+  });
+};
 
 export const onUserStateChange = handler => {
   auth.onAuthStateChanged(user => {

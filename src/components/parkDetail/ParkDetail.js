@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { getParkById } from './actions';
+import { getParkById, loadReviews } from './actions';
 import { connect } from 'react-redux';
 import { getParkImage } from '../../services/googleAPI';
 import { Link } from 'react-router-dom';
+
 import Reviews from './Reviews';
 import ReactModal from 'react-modal';
 import ReviewForm from './ReviewForm';
@@ -27,6 +28,7 @@ export class ParkDetail extends Component {
   componentDidMount(){
     const { id } = this.props;
     this.props.getParkById(id);
+    this.props.loadReviews(id);
   }
 
   componentWillMount() {
@@ -89,5 +91,5 @@ export default connect(
     id: props.match.params.id,
     result: state.currentPark
   }),
-  ({ getParkById })
+  ({ getParkById, loadReviews })
 )(ParkDetail);
