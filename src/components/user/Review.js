@@ -20,7 +20,6 @@ class Review extends Component {
     const { parkName, photoReference, parkId } = parkObj;
     const { userId } = userObj;
     const { editing } = this.state;
-    console.log(parkObj);
 
     const uid = auth.currentUser ? auth.currentUser.uid : null;
 
