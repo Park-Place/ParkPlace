@@ -1,6 +1,7 @@
 @import '../../styles/variables.css';
 
 #header {
+  background-color: rgba(245, 245, 245, 0.85);
   img {
     display: inline-block;
     max-width: 1.3em;
@@ -9,8 +10,7 @@
     font-size: 1.7em;
     color: green;
   }
-  background-color: rgba(245, 245, 245, 0.85);
-  width: 100%;
-  // position: fixed;
-  margin: 0 auto;
+  .header-search {
+    width: 100%;
+  }
 }

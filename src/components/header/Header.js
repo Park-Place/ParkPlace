@@ -45,7 +45,7 @@ class Header extends Component {
         <div className="loader">
           <ClipLoader size={65} loading={loading}/>
         </div>
-        <Search/>
+        <Search classData={'header-search'}/>
       </Navbar>
     );
   }
