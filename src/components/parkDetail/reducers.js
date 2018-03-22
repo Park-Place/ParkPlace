@@ -3,6 +3,7 @@ export const REVIEWS_LOAD = 'REVIEWS_LOAD';
 import { RESULTS_SET } from '../search/reducers';
 
 const sortArray = (object) => {
+  if(!object) return [];
   const array = Object.keys(object).sort((a, b) => object[b] - object[a]).filter(a => a != 'empty');
   if(array.length > 5) array.length = 5;
 
