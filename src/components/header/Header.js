@@ -5,6 +5,7 @@ import { ClipLoader } from 'react-spinners';
 import { logout } from '../auth/actions';
 import { Navbar } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
+import { auth } from '../../services/firebase';
 import svg from '../assets/logo.svg';
 import Error from '../app/Error';
 import Search from '../search/Search';
@@ -20,6 +21,9 @@ class Header extends Component {
   render() {
 
     const { loading, error, user, checkedUser, location } = this.props;
+
+    const uid = auth.currentUser ? auth.currentUser.uid : null;
+    
     if(location.pathname === '/home') return null;
     if(!checkedUser) return null;
 
@@ -31,7 +35,7 @@ class Header extends Component {
           </Navbar.Brand>
         </Navbar.Header>
         <div className="user-header">
-          {user && <h3><img src={user.image} alt={user.userName}/>{user.userName}</h3>}
+          {user && <h3><img src={user.image} alt={user.userName}/><Link to={`/users/${uid}`}>{user.userName}</Link></h3>}
           <ul className="user-links">
             {
               user
