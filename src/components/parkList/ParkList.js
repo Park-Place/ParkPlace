@@ -18,7 +18,6 @@ class ParkList extends Component {
   runSearch(queryString) {
     const { searchByKeyword, searchByLocation } = this.props;
     const { type, search } = qs.parse(queryString);
-    // if(!type || !search) 
 
     const action = type === 'Keyword' ? searchByKeyword : searchByLocation;
     action(search);
@@ -33,7 +32,6 @@ class ParkList extends Component {
     return (
       <Fragment>
         <ul id="search-list">
-          {/* <h2>Search Results:</h2> */}
           {results.map(result => <Park key={result.id} result={result} />)}
         </ul>
       </Fragment>
