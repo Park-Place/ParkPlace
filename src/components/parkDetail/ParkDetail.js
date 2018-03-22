@@ -55,8 +55,8 @@ export class ParkDetail extends Component {
   
     let tags, amenities, averageRating;
     if(derivedData) {
-      tags = derivedData.tags;
-      amenities = derivedData.amenities;
+      tags = (derivedData.tags[0] === 'empty' && derivedData.tags.length === 1) ? null : derivedData.tags ;
+      amenities = (derivedData.amenities[0] === 'empty' && derivedData.amenities.length === 1) ? null : derivedData.amenities;
       averageRating = derivedData.averageRating;
     }
 
@@ -78,21 +78,21 @@ export class ParkDetail extends Component {
           <Link to={url} target="_blank" rel="noopener noreferrer"><span className="fa fa-external-link"></span>Directions</Link>
           <div className="tags-reviews">
             {tags && 
-          <ul className="tag-list">
-            {tags.map(key => <li key={key}>{key}</li>)}
-          </ul>
+            <ul className="tag-list">Tags:
+              {tags.map(key => <li key={key}>{key}</li>)}
+            </ul>
             }
             {amenities && 
-          <ul className="tag-list">
-            {amenities.map(key => <li key={key}>{key}</li>)}
-          </ul>
+            <ul className="tag-list">Amenities: 
+              {amenities.map(key => <li key={key}>{key}</li>)}
+            </ul>
             }
-            <div className="park-reviews">
-              <h4>Reviews:</h4>
-              <Reviews/>
-            </div>
-            {auth.currentUser && <ActionButton onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
           </div>
+          <div className="park-reviews">
+            <h4>Reviews:</h4>
+            <Reviews/>
+          </div>
+          {auth.currentUser && <ActionButton onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
         </div>
         <ReactModal
           isOpen={open}

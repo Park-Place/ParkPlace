@@ -10,7 +10,7 @@ let listening;
 
 const filterDuplicates = (string) => {
 
-  if(string === '') return null;
+  if(string === '') return ['empty'];
 
   const array = string.toLowerCase().split(' ').map(s => s.trim());
 

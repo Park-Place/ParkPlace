@@ -8,7 +8,7 @@ class Reviews extends Component {
 
     const { reviews } = this.props;
 
-    if(!reviews) return null;
+    if(!reviews) return (<p>There are no reviews yet</p>);
 
     const reviewsArr = Object.keys(reviews);
 
