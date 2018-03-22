@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ClipLoader } from 'react-spinners';
-import svg from '../assets/aParkPlace.svg';
+import svg from '../assets/logo-white.svg';
 import './home.css';
 import Search from '../search/Search';
 
@@ -14,7 +14,7 @@ class Home extends Component {
     return (
       <div className='home'>
         <div id='home-header'>
-          <h1>Park <img src={svg}/> Place</h1>
+          <h1>Park <img className="home-logo" src={svg}/> Place</h1>
         </div>
         <Search classData={'home-search'}/>
         <div className="loader">

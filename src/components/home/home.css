@@ -28,4 +28,8 @@
   background-attachment: fixed;
   height: 100%;
   width: 100%;
+
+  .home-logo {
+    filter: drop-shadow( .1rem .2rem .2rem black );
+  }
 } 

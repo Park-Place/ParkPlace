@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import { logout } from '../auth/actions';
-import svg from './ParkPlace.svg';
+import svg from '../assets/logo.svg';
 import Error from '../app/Error';
 import Search from '../search/Search';
 import './header.css';
