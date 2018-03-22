@@ -9,7 +9,8 @@ class ReviewForm extends Component {
     review: '',
     tags: '',
     amenities: '',
-    rating: 3
+    rating: 3,
+    ...this.props.reviewObj
   };
 
   handleChange = ({ target }) => {
@@ -18,7 +19,7 @@ class ReviewForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { handleClose, user, park } = this.props;
+    const { handleClose, user, park, priorReview } = this.props;
 
     const userObj = {
       userName: user.userName,
@@ -28,11 +29,13 @@ class ReviewForm extends Component {
 
     const parkObj = {
       parkName: park.name,
-      parkId: park.place_id
+      parkId: park.place_id,
+      photoReference: park.photos[0].photo_reference
     };
 
-    submitReview(this.state, parkObj, userObj);
+    submitReview(this.state, parkObj, userObj, priorReview);
     handleClose();
+    
   };
 
   render() {
@@ -40,7 +43,7 @@ class ReviewForm extends Component {
     const { review, tags, amenities, rating } = this.state;
 
     return (
-      <form className="review-form" onSubmit={event => this.handleSubmit(event)}>
+      <form className='review-form' onSubmit={event => this.handleSubmit(event)}>
         <legend>Write a Review</legend>
 
         <label htmlFor="review"> Review:

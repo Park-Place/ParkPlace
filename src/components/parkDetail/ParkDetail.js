@@ -8,6 +8,7 @@ import Reviews from './Reviews';
 import ReactModal from 'react-modal';
 import ReviewForm from './ReviewForm';
 import { auth } from '../../services/firebase';
+import './parkDetail.css';
 
 export class ParkDetail extends Component {
 
@@ -49,32 +50,50 @@ export class ParkDetail extends Component {
     if(!this.props.result) return null;
     
     const { name, formatted_address, international_phone_number, photos, opening_hours, url } = this.props.result;
-    const { weekday_text } = opening_hours;
     const { open } = this.state;
-    const { hasReviewed } = this.props;
+    const { hasReviewed, derivedData } = this.props;
+  
+    let tags, amenities, averageRating;
+    if(derivedData) {
+      tags = derivedData.tags;
+      amenities = derivedData.amenities;
+      averageRating = derivedData.averageRating;
+    }
 
     return (
       <div className="park-details">
         <figure className="splash-photo">
-          <img src={getParkImage(photos[0].photo_reference, 500)} alt={name}/>
+          <img id="park-detail-pic" src={getParkImage(photos[0].photo_reference, 500)} alt={name}/>
           <h2>{name}</h2>
           <p>{formatted_address}</p>
-          <p>Rating (#reviews)</p>
+          <p>Average Rating: {averageRating ? averageRating : 'No Reviews'}</p>
         </figure>
-        <div>
-          <p>Phone: {international_phone_number}</p>
-          <ul>Hours: { weekday_text.map((weekday, i) => <li key={i}>{weekday}</li>)}</ul>
+        <div className="park-info">
+          {international_phone_number && <p>Phone: {international_phone_number}</p>}
+          { opening_hours && 
+            <ul className="hours">Hours: 
+            {opening_hours.weekday_text.map((weekday, i) => <li key={i}>{weekday}</li>)}
+            </ul>
+          }
           <Link to={url} target="_blank" rel="noopener noreferrer"><span className="fa fa-external-link"></span>Directions</Link>
+          <div className="tags-reviews">
+            {tags && 
+          <ul className="tag-list">
+            {tags.map(key => <li key={key}>{key}</li>)}
+          </ul>
+            }
+            {amenities && 
+          <ul className="tag-list">
+            {amenities.map(key => <li key={key}>{key}</li>)}
+          </ul>
+            }
+            <div className="park-reviews">
+              <h4>Reviews:</h4>
+              <Reviews/>
+            </div>
+            {auth.currentUser && <ActionButton onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
+          </div>
         </div>
-        <ul className="tag-list">
-          <li>good</li>
-          <li>bad</li>
-        </ul>
-        <div className="park-reviews">
-          <h4>Reviews:</h4>
-          <Reviews/>
-        </div>
-        {auth.currentUser && <ActionButton onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
         <ReactModal
           isOpen={open}
           style={this.customStyles}
@@ -94,11 +113,12 @@ const checkReviewed = (reviews) => {
 };
 
 export default connect(
-  ({ currentPark, currentParkReviews }, { match }) => ({
+  ({ currentPark, currentParkReviews, currentParkDerivedData }, { match }) => ({
     id: match.params.id,
     result: currentPark,
     reviews: currentParkReviews,
-    hasReviewed: currentParkReviews && checkReviewed(currentParkReviews)
+    hasReviewed: currentParkReviews && checkReviewed(currentParkReviews),
+    derivedData: currentParkDerivedData
   }),
   ({ getParkById, loadReviews })
 )(ParkDetail);

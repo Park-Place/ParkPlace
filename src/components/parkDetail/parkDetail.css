@@ -1,0 +1,34 @@
+div.park-details{
+  background-color: white;
+  border: 2px solid lightgray;
+  padding: 5px;
+}
+
+#park-detail-pic{
+  border-radius: 5px;
+}
+
+.splash-photo h2, .splash-photo p{
+  margin-left: 5%;
+}
+
+.park-info{
+  padding: 5%;
+  ul.hours{
+    list-style-type: none;
+    border: 1px solid black;
+    margin: 0 -4%;
+    padding: 4%;
+  }
+  ul.tag-list{
+    list-style: none;
+  }
+  ul.tag-list li{
+    display: inline;
+    margin: 5px;
+    padding: 3px;
+    border: 1px solid darkgreen;
+    border-radius: 4px;
+    background-color: green;
+  }
+}

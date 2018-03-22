@@ -6,7 +6,7 @@ const parksReviewed = db.ref('parksReviewed');
 const users = db.ref('users');
 
 export const onReviewsList = (id, handler) => {
-  parksReviewed.child(id).child('reviews').on('value', data => {
+  parksReviewed.child(id).on('value', data => {
     const reviews = data.val();
     if(!reviews) return [];
 

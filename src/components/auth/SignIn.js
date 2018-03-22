@@ -34,7 +34,7 @@ class SignIn extends PureComponent {
  
     return (
 
-      <form className="player-form" onSubmit={this.handleSubmit}>
+      <form className="user-form" onSubmit={this.handleSubmit}>
         <legend>Sign In</legend>
         <label htmlFor="email"> Email:
         <input name="email" required/>

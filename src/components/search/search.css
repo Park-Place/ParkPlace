@@ -1,31 +1,32 @@
-form.form-inline{
-  margin: auto;
-}
-
-input.form-control{
-  width: 80%;
-  margin: 0.5em auto;
-}
-
-div.keyword-location{
-  width: 80%;
-  margin: 0 auto;
-}
-
-.btn-default{
-  width: 47%;
-  margin: 0 auto;
-}
-
-button#location{
-  margin-left: 6%;
-}
-
-button#search{
-  width: 80%;
-  margin: 0 10%;
-}
-
-.btn{
-  line-height: 1;
+.search-form {
+  .keyword-location {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  input.form-control {
+    width: 80%;
+    margin: 0.5em auto;
+  }
+  
+  .btn-default {
+    width: 47%;
+    margin: 0 auto;
+    line-height: 1;
+  }
+  
+  button#location{
+    margin-left: 6%;
+  }
+  
+  button#search{
+    width: 80%;
+    margin: 0 10%;
+  }
+  
+  .btn.btn-default{
+    line-height: 1;
+    background-color: whitesmoke;
+    border: 1px solid white;
+  }
 }

@@ -1,0 +1,16 @@
+@import '../../styles/variables.css';
+
+#header {
+  background-color: rgba(245, 245, 245, 0.85);
+  img {
+    display: inline-block;
+    max-width: 1.3em;
+  }
+  h1{
+    font-size: 1.7em;
+    color: green;
+  }
+  .header-search {
+    width: 100%;
+  }
+}

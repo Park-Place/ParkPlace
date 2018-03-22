@@ -1,0 +1,32 @@
+li.park{
+  padding: 4%;
+  border: 2px solid lightgray;
+  border-radius: 3px, 3px, 0px, 0px;
+}
+
+h2{
+  margin-left: 4%;
+  margin-top: 2%;
+  color: lightgray;
+}
+
+li h3{
+  color: green;
+  text-decoration: underline;
+  margin-bottom: 10px;
+}
+
+li img{
+  margin-bottom: 10px;
+  border-radius: 5px;
+  max-height: 50vh;
+}
+
+li p{
+  color: green;
+  margin-bottom: 10px;
+}
+
+ul#search-list{
+  background-color: white;
+}
