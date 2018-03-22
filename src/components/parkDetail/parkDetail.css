@@ -1,0 +1,16 @@
+div.park-details{
+  background-color: white;
+  margin: 4px;
+  border: 2px solid lightgray;
+  border-radius: 5px;
+  // margin-top: 10%;
+  padding: 5px;
+}
+
+#park-detail-pic{
+  border-radius: 5px;
+}
+
+.splash-photo h2, .splash-photo p{
+  margin-left: 5%;
+}

@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import Header from './header/Header';
 import { listenForUser } from '../auth/actions';
 import UserDetail from './UserDetail';
-import Home from './Home';
 import ParkList from '../parkList/ParkList';
 import SignIn from '../auth/SignIn';
 import SignUp from '../auth/SignUp';
@@ -25,13 +24,13 @@ class App extends Component {
           <Header/>
           <main id="main" role="main">
             <Switch>
-              <Route exact path="/home" component={Home}/>
+              {/* <Route exact path="/home" component={Home}/> */}
               <Route exact path="/UserDetail:id" component={UserDetail}/>
               <Route exact path="/searchResults" component={ParkList}/>
               <Route path="/parkDetail/:id" component={ParkDetail}/>
               <Route exact path="/auth/Signin" component={SignIn}/>
               <Route exact path="/auth/Signup" component={SignUp}/>
-              <Redirect to="/home"/>
+              <Redirect to="/"/>
             </Switch>
           </main>
           <footer id="footer" role="contentinfo">

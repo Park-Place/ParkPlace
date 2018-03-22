@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getParkImage } from '../../services/googleAPI';
 import { Link } from 'react-router-dom';
-// import { ParkDetail } from '../parkDetail/ParkDetail';
+import { Image } from 'react-bootstrap';
+import './park.css';
 
 export class Park extends Component {
 
@@ -18,7 +19,7 @@ export class Park extends Component {
       
       <Link to={`/parkDetail/${place_id}`}>
         <li className="park">
-          <img src={getParkImage(photos[0].photo_reference, 500)} alt={name}/>
+          <Image src={getParkImage(photos[0].photo_reference, 500)} alt={name} rounded responsive/>
           <div className="park-info">
             <h3>{name}</h3>
             <p>{formatted_address || vicinity}</p>

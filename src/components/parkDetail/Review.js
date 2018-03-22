@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { auth } from '../../services/firebase';
 
 class Review extends Component {
+
+  state = {
+    editing: false
+  };
 
   render() {
     const { userObj, timeStamp, rating, review } = this.props;
