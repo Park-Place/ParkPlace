@@ -11,6 +11,8 @@ class UserDetail extends Component {
     loadUser(id);
   }
 
+  
+
   render() {
 
     const { currentUser } = this.props;

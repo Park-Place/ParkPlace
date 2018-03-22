@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { auth } from '../../services/firebase';
 import { submitReview } from './actions';
+import { loadUser } from '../user/actions';
 
 class ReviewForm extends Component {
 
@@ -35,6 +36,7 @@ class ReviewForm extends Component {
     };
 
     submitReview(this.state, parkObj, userObj, priorReview);
+    // loadUser();
     handleClose();
   };
 
@@ -42,6 +44,9 @@ class ReviewForm extends Component {
 
     const { review, tags, amenities, rating } = this.state;
     const { legendText } = this.props;
+
+    console.log(this.props);
+    
     return (
       <form className='review-form' onSubmit={event => this.handleSubmit(event)}>
         <legend>{legendText}</legend>
