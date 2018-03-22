@@ -68,32 +68,41 @@ export class ParkDetail extends Component {
           <p>{formatted_address}</p>
           <p>Average Rating: {averageRating ? averageRating : 'No Reviews'}</p>
         </figure>
+
         <div className="park-info">
           {international_phone_number && <p>Phone: {international_phone_number}</p>}
+
           { opening_hours && 
             <ul className="hours">Hours: 
             {opening_hours.weekday_text.map((weekday, i) => <li key={i}>{weekday}</li>)}
             </ul>
           }
+
           <Link to={url} target="_blank" rel="noopener noreferrer"><span className="fa fa-external-link"></span>Directions</Link>
+
           <div className="tags-reviews">
+
             {tags && 
             <ul className="tag-list">Tags:
-              {tags.map(key => <li key={key}>{key}</li>)}
+            {tags.map(key => <li key={key}>{key}</li>)}
             </ul>
             }
+
             {amenities && 
             <ul className="tag-list">Amenities: 
-              {amenities.map(key => <li key={key}>{key}</li>)}
+            {amenities.map(key => <li key={key}>{key}</li>)}
             </ul>
             }
           </div>
+
           <div className="park-reviews">
             <h4>Reviews:</h4>
             <Reviews/>
           </div>
+
           {auth.currentUser && <ActionButton onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
         </div>
+
         <ReactModal
           isOpen={open}
           style={this.customStyles}
@@ -102,6 +111,7 @@ export class ParkDetail extends Component {
           <button onClick={this.handleClose}>x</button>
           <ReviewForm legendText={'Write a Review'} handleClose={this.handleClose}/>
         </ReactModal>
+
       </div>
     );
   }

@@ -3,18 +3,23 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import { logout } from '../auth/actions';
+import { Navbar } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 import svg from '../assets/logo.svg';
 import Error from '../app/Error';
 import Search from '../search/Search';
 import './header.css';
-import { Navbar } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom';
 
 class Header extends Component {
 
+  handleLogOut = (event) => {
+    event.preventDefault();
+    this.props.logout();
+  };
+
   render() {
 
-    const { loading, error, user, logout, checkedUser, location } = this.props;
+    const { loading, error, user, checkedUser, location } = this.props;
     if(location.pathname === '/home') return null;
     if(!checkedUser) return null;
 
@@ -30,11 +35,17 @@ class Header extends Component {
           <ul className="user-links">
             {
               user
-                ? <li><Link to="/home" onClick={logout}>Log out</Link></li>
+                ? <li><a href='#' onClick={this.handleLogOut}>Log out</a></li>
                 : 
                 <Fragment>
-                  <li><Link to="/auth/signin">Sign In</Link></li>
-                  <li><Link to="/auth/signup">Sign Up</Link></li>
+                  <li><Link to={{ 
+                    pathname: '/auth/signin', 
+                    state: { from: location } 
+                  }}>Sign In</Link></li>
+                  <li><Link to={{ 
+                    pathname: '/auth/signup', 
+                    state: { from: location } 
+                  }}>Sign Up</Link></li>
                 </Fragment>
             }
           </ul>
