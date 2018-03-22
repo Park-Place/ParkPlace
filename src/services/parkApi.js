@@ -8,7 +8,7 @@ const users = db.ref('users');
 export const onReviewsList = (id, handler) => {
   parksReviewed.child(id).on('value', data => {
     const reviews = data.val();
-    if(!reviews) return [];
+    if(!reviews) return { reviews: [] };
 
     handler(reviews);
   });
