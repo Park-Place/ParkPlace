@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { auth } from '../../services/firebase';
+import ReviewForm from './ReviewForm';
 
 class Review extends Component {
 
@@ -14,11 +15,18 @@ class Review extends Component {
   };
 
   render() {
-    const { userObj, timeStamp, rating, review } = this.props;
+    const { userObj, timeStamp, rating, review, amenities, tags } = this.props;
     const { userId, image, userName } = userObj;
     const { editing } = this.state;
 
     const uid = auth.currentUser ? auth.currentUser.uid : null;
+
+    const reviewObj = {
+      rating,
+      amenities: amenities.join(' '),
+      tags: tags.join(' '),
+      review
+    };
 
     return (
       <li className="park-review">
@@ -34,12 +42,14 @@ class Review extends Component {
             <p>{review}</p>
           </Fragment>
         }
+        {editing &&
+          <ReviewForm reviewObj={reviewObj} priorReview={true} handleClose={this.changeEditing}/>
+        }
       </li>
     );
   }
 }
 
 export default connect(
-  // state => ({ reviews: state.reviews }),
   null
 )(Review);

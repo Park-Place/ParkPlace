@@ -42,7 +42,7 @@ export function loadReviews(id) {
   };
 }
 
-export function submitReview(state, parkObj, userObj) {
+export function submitReview(state, parkObj, userObj, priorReview) {
 
   const { rating, amenities, review, tags } = state;
 
@@ -50,9 +50,11 @@ export function submitReview(state, parkObj, userObj) {
   const filteredTags = filterDuplicates(tags);
   const date = new Date();
 
+ 
+
   const reviewObj = {
-    timeStamp: date.toLocaleString(),
-    rating,
+    timeStamp: priorReview ? `Edited on ${date.toLocaleString()}` : date.toLocaleString(),
+    rating: parseInt(rating),
     amenities: filteredAmenities,
     tags: filteredTags,
     review,
