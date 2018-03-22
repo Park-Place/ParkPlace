@@ -2,10 +2,10 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
-import { logout } from '../../auth/actions';
+import { logout } from '../auth/actions';
 import svg from './ParkPlace.svg';
-import Error from '../Error';
-import Search from '../../search/Search';
+import Error from '../app/Error';
+import Search from '../search/Search';
 import './header.css';
 import { Navbar } from 'react-bootstrap';
 
@@ -57,6 +57,6 @@ export default connect(
     error: state.error, 
     user: state.loggedIn, 
     checkedUser: state.checkedUser
-   }),
+  }),
   ({ logout })
 )(Header);
