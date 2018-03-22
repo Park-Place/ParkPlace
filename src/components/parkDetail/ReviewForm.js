@@ -19,7 +19,7 @@ class ReviewForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { handleClose, user, park, priorReview } = this.props;
+    const { handleClose, user, park, parkReviewed, priorReview } = this.props;
 
     const userObj = {
       userName: user.userName,
@@ -28,9 +28,9 @@ class ReviewForm extends Component {
     };
 
     const parkObj = {
-      parkName: park.name,
-      parkId: park.place_id,
-      photoReference: park.photos[0].photo_reference
+      parkName: parkReviewed ? parkReviewed.parkName : park.name,
+      parkId: parkReviewed ? parkReviewed.parkId : park.place_id,
+      photoReference: parkReviewed ? parkReviewed.photoReference : park.photos[0].photo_reference
     };
 
     submitReview(this.state, parkObj, userObj, priorReview);
@@ -42,7 +42,7 @@ class ReviewForm extends Component {
 
     const { review, tags, amenities, rating } = this.state;
     const { legendText } = this.props;
-
+   
     return (
       <form className='review-form' onSubmit={event => this.handleSubmit(event)}>
         <legend>{legendText}</legend>
