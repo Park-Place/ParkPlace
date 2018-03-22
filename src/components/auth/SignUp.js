@@ -24,7 +24,7 @@ class SignUp extends PureComponent {
       userName: elements.username.value
     };
     
-    const { from } = location.state || { from: { pathname: '/' } };
+    const { from } = location.state || { from: { pathname: '/home' } };
 
     this.props.onSubmit(credentials)
       .then(() => {

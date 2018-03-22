@@ -4,7 +4,9 @@ import { searchByKeyword, searchByLocation } from './actions';
 import { withRouter } from 'react-router-dom';
 import { Form, Button, ControlLabel, FormControl } from 'react-bootstrap';
 import ActionButton from '../actionButton/ActionButton';
+import qs from 'query-string';
 import './search.css';
+
 
 class Search extends Component {
 
@@ -14,6 +16,18 @@ class Search extends Component {
     location: ''
   };
 
+  componentDidMount() {
+    this.saveInput(this.props.location.search);
+  }
+
+  saveInput(queryString) {
+    if(queryString === '') return;
+    const { type, search } = qs.parse(queryString);
+
+    const action = type === 'Keyword' ? 'keyword' : 'location';
+    this.setState({ currentForm: type, [action]: search });
+  }
+  
   handleFormChange = (event) => {
     event.preventDefault();
     this.setState({ currentForm: event.target.name });
@@ -22,14 +36,13 @@ class Search extends Component {
   handleSubmit = (event) => {
     event.preventDefault();    
     const { currentForm, keyword, location } = this.state;
-    const { searchByKeyword, searchByLocation } = this.props;
 
     event.preventDefault();
-    if(currentForm === 'Keyword') searchByKeyword(keyword).then(() => this.props.history.push('/searchResults'));
-    if(currentForm === 'Location') searchByLocation(location).then(() => this.props.history.push('/searchResults'));
+
+    this.props.history.push(`/searchResults?type=${currentForm}&search=${currentForm === 'Keyword' ? keyword : location}`);
   };
 
-  handleChange = ({ target }) => {
+  handleInputChange = ({ target }) => {
     this.setState({ [target.name]: target.value });
   };
 
@@ -42,20 +55,20 @@ class Search extends Component {
       <Form className={`search-form ${classData}`} horizontal onSubmit={this.handleSubmit}>
         <div className="keyword-location">
           <Button className="search-type" type="button" onClick={event => this.handleFormChange(event)} name="Keyword" >By keyword</Button>
-          <Button className="search-type" id="location" type="button"onClick={event => this.handleFormChange(event)} name="Location" >By location</Button>
+          <Button className="search-type" id="location" type="button" onClick={event => this.handleFormChange(event)} name="Location" >By location</Button>
         </div>
         <fieldset>
           { (currentForm === 'Keyword') && 
             <Fragment>
               <ControlLabel htmlFor="keyword" className="clip">Keyword:</ControlLabel>
-              <FormControl name="keyword" placeholder="name of park" value={keyword} onChange={this.handleChange}/>
+              <FormControl name="keyword" placeholder="name of park" value={keyword} onChange={this.handleInputChange}/>
             </Fragment>
           }
 
           { (currentForm === 'Location') && 
             <Fragment>
               <ControlLabel htmlFor="location" className="clip">Location:</ControlLabel>
-              <FormControl name="location" placeholder="City" onChange={this.handleChange} value={location}/>
+              <FormControl name="location" placeholder="City" onChange={this.handleInputChange} value={location}/>
             </Fragment>
           }
         </fieldset>
