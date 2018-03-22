@@ -7,6 +7,7 @@ class Reviews extends Component {
   render() {
 
     const { reviews } = this.props;
+    console.log(this.props);
     
     if(!reviews) return null;
     

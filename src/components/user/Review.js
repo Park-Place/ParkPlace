@@ -20,6 +20,7 @@ class Review extends Component {
     const { parkName, photoReference, parkId } = parkObj;
     const { userId } = userObj;
     const { editing } = this.state;
+    console.log(parkObj);
 
     const uid = auth.currentUser ? auth.currentUser.uid : null;
 
@@ -45,7 +46,7 @@ class Review extends Component {
         </Fragment>
         }
         {editing &&
-          <ReviewForm legendText={'Edit Your Review'} reviewObj={reviewObj} priorReview={true} handleClose={this.changeEditing}/>
+          <ReviewForm legendText={'Edit Your Review'} reviewObj={reviewObj} priorReview={true} handleClose={this.changeEditing} parkReviewed={parkObj}/>
         }
       </li>
     );
