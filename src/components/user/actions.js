@@ -1,13 +1,14 @@
-import { db } from '../../services/firebase';
-import { onUserLoad, onUserReviewsLoad } from '../../services/parkApi';
-import { USER_LOAD, USER_REVIEWS_LOAD } from './reducers';
+import { onUserLoad } from '../../services/parkApi';
+import { USER_LOAD } from './reducers';
 
-const users = db.ref('users');
 
+let listening;
 
 export function loadUser(id) {
 
   return dispatch => {
+    if(listening === id) return;
+    listening = id;
 
     onUserLoad(id, userInfo => {
       dispatch({
