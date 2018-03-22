@@ -100,7 +100,7 @@ export class ParkDetail extends Component {
           onRequestClose={this.handleClose}
         >
           <button onClick={this.handleClose}>x</button>
-          <ReviewForm handleClose={this.handleClose}/>
+          <ReviewForm legendText={'Write a Review'} handleClose={this.handleClose}/>
         </ReactModal>
       </div>
     );

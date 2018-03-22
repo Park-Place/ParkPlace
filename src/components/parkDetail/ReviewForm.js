@@ -41,10 +41,11 @@ class ReviewForm extends Component {
   render() {
 
     const { review, tags, amenities, rating } = this.state;
+    const { legendText } = this.props;
 
     return (
       <form className='review-form' onSubmit={event => this.handleSubmit(event)}>
-        <legend>Write a Review</legend>
+        <legend>{legendText}</legend>
 
         <label htmlFor="review"> Review:
         <textarea name="review" onChange={this.handleChange} value={review} required/>
