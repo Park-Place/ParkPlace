@@ -18,7 +18,7 @@ class SignIn extends PureComponent {
       password: elements.password.value
     };
 
-    const { from } = location.state || { from: { pathname: '/' } };
+    const { from } = location.state || { from: { pathname: '/home' } };
 
     this.props.onSubmit(credentials)
       .then(() => {

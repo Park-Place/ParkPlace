@@ -22,11 +22,13 @@ class Search extends Component {
   handleSubmit = (event) => {
     event.preventDefault();    
     const { currentForm, keyword, location } = this.state;
-    const { searchByKeyword, searchByLocation } = this.props;
+    // const { searchByKeyword, searchByLocation } = this.props;
 
     event.preventDefault();
-    if(currentForm === 'Keyword') searchByKeyword(keyword).then(() => this.props.history.push('/searchResults'));
-    if(currentForm === 'Location') searchByLocation(location).then(() => this.props.history.push('/searchResults'));
+
+    this.props.history.push(`/searchResults?type=${currentForm}&search=${currentForm === 'Keyword' ? keyword : location}`);
+
+    
   };
 
   handleChange = ({ target }) => {
