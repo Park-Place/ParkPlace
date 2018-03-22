@@ -23,8 +23,8 @@ class Review extends Component {
 
     const reviewObj = {
       rating,
-      amenities: amenities === ['empty'] ? amenities.join(' ') : '',
-      tags: tags === ['empty'] ? tags.join(' ') : '',
+      amenities: (amenities[0] === 'empty' && amenities.length === 1) ? '' : amenities.join(' '),
+      tags: (tags[0] === 'empty' && tags.length === 1) ? '' : tags.join(' '),
       review
     };
 
