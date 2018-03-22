@@ -23,7 +23,7 @@ class UserDetail extends Component {
           {/* <p>Name: {name}</p>
           <p>Location: {location}</p>
           <img src={user_image}/> */}
-
+          
         </section>
         <section className="user-review-list">
           <ul>
