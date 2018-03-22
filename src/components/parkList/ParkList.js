@@ -1,35 +1,35 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { searchByKeyword, searchByLocation } from '../search/actions';
 import qs from 'query-string';
 import Park from './Park';
 import './park.css';
-import { searchByLocation } from '../search/actions';
 
 class ParkList extends Component {
 
   componentDidMount() {
-    console.log(this.props.location.search);
+    this.runSearch(this.props.location.search);
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.location.search != this.props.location.search) console.log(nextProps.location.search);
+    if(nextProps.location.search != this.props.location.search) this.runSearch(nextProps.location.search);
   }
 
   runSearch(queryString) {
-    const {type, search} = qs.parse(queryString);
+    const { searchByKeyword, searchByLocation } = this.props;
+    const { type, search } = qs.parse(queryString);
     // if(!type || !search) 
 
     const action = type === 'Keyword' ? searchByKeyword : searchByLocation;
     action(search);
 
-
-    // if(currentForm === 'Keyword') searchByKeyword(keyword).then(() => this.props.history.push('/searchResults'));
-    // if(currentForm === 'Location') searchByLocation(location).then(() => this.props.history.push('/searchResults'));
   }
 
   render() {
     const { results } = this.props;
     if(!results) return null;
+    if(results.length === 0) return (<p>No results, try refining your search.</p>);
+
     return (
       <Fragment>
         <ul id="search-list">
@@ -43,5 +43,5 @@ class ParkList extends Component {
 
 export default connect(
   state => ({ results: state.searchResults }),
-  null
+  ({ searchByKeyword, searchByLocation })
 )(ParkList);
