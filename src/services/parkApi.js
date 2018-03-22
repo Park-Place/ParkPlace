@@ -15,7 +15,7 @@ export const onReviewsList = (id, handler) => {
 };
 
 export const onUserLoad = (id, handler) => {
-  users.child(id).once('value', data => {
+  users.child(id).on('value', data => {
     const userInfo = data.val(); 
     
     handler(userInfo);
