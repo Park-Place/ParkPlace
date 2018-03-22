@@ -50,8 +50,6 @@ export function submitReview(state, parkObj, userObj, priorReview) {
   const filteredTags = filterDuplicates(tags);
   const date = new Date();
 
- 
-
   const reviewObj = {
     timeStamp: priorReview ? `Edited on ${date.toLocaleString()}` : date.toLocaleString(),
     rating: parseInt(rating),

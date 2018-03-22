@@ -1,45 +1,31 @@
 @import '../../styles/variables.css';
 
 #home-header {
+  padding-top: 8rem;
+  text-align: center;
   img {
     display: inline-block;
-    max-width: 1.3em;
+    max-width: 100px;
   }
   h1{
-    font-size: 2.2rem;
-    color: green;
+    font-size: 4rem;
+    color: white;
+    text-shadow: 0.1rem 0.2rem 0.2rem black;
   }
-  background-color: rgba(255, 255, 255, 0.7);
-  width: 80%;
-  margin: 0 auto;
-  margin-top: 15%;
-  text-align: center;
 }
 
-div.navbar-header{
-  width: 100%;
-  margin: 0 auto;
-  text-align: center;
-}
-
-form.form-horizontal{
-  margin-top: 5%;
+.home-search{
   background-color: rgba(255, 255, 255, 0.7);
   padding: 3%;
   width: 80%;
   margin: 0 auto;
+  margin-top: 3rem;
 }
 
-.navbar-brand{
-  margin-right: 0 !important;
-}
-
-body{
+.home{
   background-image: url("../assets/park-pic-one.jpg");
   background-size: cover;
   background-attachment: fixed;
-}
-
-div.container{
-width: 100%;
-}
+  height: 100%;
+  width: 100%;
+} 

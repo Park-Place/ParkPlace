@@ -43,7 +43,7 @@ class ReviewForm extends Component {
     const { review, tags, amenities, rating } = this.state;
 
     return (
-      <form className="review-form" onSubmit={event => this.handleSubmit(event)}>
+      <form className='review-form' onSubmit={event => this.handleSubmit(event)}>
         <legend>Write a Review</legend>
 
         <label htmlFor="review"> Review:
