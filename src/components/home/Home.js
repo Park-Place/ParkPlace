@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Navbar } from 'react-bootstrap';
+import { ClipLoader } from 'react-spinners';
 import svg from '../assets/aParkPlace.svg';
 import './home.css';
 import Search from '../search/Search';
@@ -9,23 +9,22 @@ class Home extends Component {
 
   render() {
 
+    const { loading } = this.props;
+
     return (
-      <Fragment>
-        <Navbar inverse collapseOnSelect id='home-header'>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <div>
-                <h1 id="landing-header">&nbsp;Park <img src={svg}/> Place</h1>
-              </div>
-            </Navbar.Brand>
-          </Navbar.Header>
-        </Navbar>
-        <Search classData="search-home"/>
-      </Fragment>
+      <div className='home'>
+        <div id='home-header'>
+          <h1>Park <img src={svg}/> Place</h1>
+        </div>
+        <Search classData={'home-search'}/>
+        <div className="loader">
+          <ClipLoader size={65} loading={loading}/>
+        </div>
+      </div>
     );
   }
 }
 
 export default connect(
-  null
+  state => ({ loading: state.loading })
 )(Home);

@@ -15,7 +15,6 @@ class Header extends Component {
   render() {
 
     const { loading, error, user, logout, checkedUser, location } = this.props;
-    console.log(location);
     if(location.pathname === '/home') return null;
     if(!checkedUser) return null;
 
@@ -31,7 +30,7 @@ class Header extends Component {
           <ul className="user-links">
             {
               user
-                ? <li><Link to="/game" onClick={logout}>Log out</Link></li>
+                ? <li><Link to="/home" onClick={logout}>Log out</Link></li>
                 : 
                 <Fragment>
                   <li><Link to="/auth/signin">Sign In</Link></li>
@@ -46,7 +45,7 @@ class Header extends Component {
         <div className="loader">
           <ClipLoader size={65} loading={loading}/>
         </div>
-        <Search/>
+        <Search classData={'header-search'}/>
       </Navbar>
     );
   }
