@@ -6,7 +6,6 @@ li.park{
 
 h2{
   margin-left: 4%;
-  // margin-top: 10% !important;
   color: rgb(50, 100, 50) !important;
 }
 
@@ -29,6 +28,4 @@ li p{
 
 ul#search-list{
   background-color: white;
-  margin: 5px;
-  border-radius: 5px;
 }

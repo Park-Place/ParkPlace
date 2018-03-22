@@ -2,20 +2,21 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
-import { logout } from '../../auth/actions';
+import { logout } from '../auth/actions';
 import svg from './ParkPlace.svg';
-import Error from '../Error';
-import Search from '../../search/Search';
+import Error from '../app/Error';
+import Search from '../search/Search';
 import './header.css';
 import { Navbar } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 
 class Header extends Component {
 
   render() {
 
-    const { loading, error, user, logout, checkedUser } = this.props;
-    
-    if(window.location.pathname === '/home') return null;
+    const { loading, error, user, logout, checkedUser, location } = this.props;
+    console.log(location);
+    if(location.pathname === '/home') return null;
     if(!checkedUser) return null;
 
     return (
@@ -51,12 +52,12 @@ class Header extends Component {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   (state) => ({ 
     loading: state.loading, 
     error: state.error, 
     user: state.loggedIn, 
     checkedUser: state.checkedUser
-   }),
+  }),
   ({ logout })
-)(Header);
+)(Header));
