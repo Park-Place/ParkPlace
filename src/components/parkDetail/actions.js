@@ -8,10 +8,13 @@ const parksReviewed = db.ref('parksReviewed');
 
 let listening;
 
-const filterDuplicates = (array) => {
-  return array.filter(function(item, pos, self) {
-    return self.indexOf(item) == pos;
-  });
+const filterDuplicates = (string) => {
+
+  if(string === '') return null;
+
+  const array = string.toLowerCase().split(' ').map(s => s.trim());
+
+  return [...new Set(array).keys()]; //filters out duplicates
 };
 
 export function getParkById(id) {
@@ -27,8 +30,8 @@ export function getParkById(id) {
 export function loadReviews(id) {
   
   return dispatch => {
-    if(listening) return;
-    listening = true;
+    if(listening === id) return;
+    listening = id;
 
     onReviewsList(id, reviews => {
       dispatch({
@@ -39,20 +42,17 @@ export function loadReviews(id) {
   };
 }
 
-export function submitReview(state, parkObj, userObj) {
+export function submitReview(state, parkObj, userObj, priorReview) {
 
   const { rating, amenities, review, tags } = state;
 
-  const splitAmenities = amenities.toLowerCase().split(' ').map(s => s.trim()).filter(s => s);
-  const splitTags = tags.toLowerCase().split(' ').map(s => s.trim()).filter(s => s);
-
-  const filteredAmenities = filterDuplicates(splitAmenities);
-  const filteredTags = filterDuplicates(splitTags);
+  const filteredAmenities = filterDuplicates(amenities);
+  const filteredTags = filterDuplicates(tags);
   const date = new Date();
 
   const reviewObj = {
-    timeStamp: date.toLocaleString(),
-    rating,
+    timeStamp: priorReview ? `Edited on ${date.toLocaleString()}` : date.toLocaleString(),
+    rating: parseInt(rating),
     amenities: filteredAmenities,
     tags: filteredTags,
     review,

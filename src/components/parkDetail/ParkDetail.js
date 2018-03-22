@@ -48,13 +48,17 @@ export class ParkDetail extends Component {
   render() {
     
     if(!this.props.result) return null;
-    if(!this.props.derivedData) return null;
     
     const { name, formatted_address, international_phone_number, photos, opening_hours, url } = this.props.result;
-    const { weekday_text } = opening_hours;
     const { open } = this.state;
     const { hasReviewed, derivedData } = this.props;
-    const { tags, amenities, averageRating } = derivedData;
+  
+    let tags, amenities, averageRating;
+    if(derivedData) {
+      tags = derivedData.tags;
+      amenities = derivedData.amenities;
+      averageRating = derivedData.averageRating;
+    }
 
     return (
       <div className="park-details">
@@ -62,24 +66,34 @@ export class ParkDetail extends Component {
           <img id="park-detail-pic" src={getParkImage(photos[0].photo_reference, 500)} alt={name}/>
           <h2>{name}</h2>
           <p>{formatted_address}</p>
-          <p>Average Rating: {averageRating}</p>
+          <p>Average Rating: {averageRating ? averageRating : 'No Reviews'}</p>
         </figure>
-        <div>
-          <p>Phone: {international_phone_number}</p>
-          <ul>Hours: { weekday_text.map((weekday, i) => <li key={i}>{weekday}</li>)}</ul>
+        <div className="park-info">
+          {international_phone_number && <p>Phone: {international_phone_number}</p>}
+          { opening_hours && 
+            <ul className="hours">Hours: 
+            {opening_hours.weekday_text.map((weekday, i) => <li key={i}>{weekday}</li>)}
+            </ul>
+          }
           <Link to={url} target="_blank" rel="noopener noreferrer"><span className="fa fa-external-link"></span>Directions</Link>
+          <div className="tags-reviews">
+            {tags && 
+          <ul className="tag-list">
+            {tags.map(key => <li key={key}>{key}</li>)}
+          </ul>
+            }
+            {amenities && 
+          <ul className="tag-list">
+            {amenities.map(key => <li key={key}>{key}</li>)}
+          </ul>
+            }
+            <div className="park-reviews">
+              <h4>Reviews:</h4>
+              <Reviews/>
+            </div>
+            {auth.currentUser && <ActionButton onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
+          </div>
         </div>
-        <ul className="tag-list">
-          {Object.keys(tags).map(key => <li key={key}>{key}</li>)}
-        </ul>
-        <ul className="amenities-list">
-          {Object.keys(amenities).map(key => <li key={key}>{key}</li>)}
-        </ul>
-        <div className="park-reviews">
-          <h4>Reviews:</h4>
-          <Reviews/>
-        </div>
-        {auth.currentUser && <ActionButton onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
         <ReactModal
           isOpen={open}
           style={this.customStyles}

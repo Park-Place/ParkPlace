@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { signup } from './actions';
-import blankImage from '../app/default.png';
+import blankImage from '../assets/default.png';
 
 class SignUp extends PureComponent {
 

@@ -5,13 +5,11 @@
   display: grid;
   grid-template-areas:
   "header"
-  "main"
-  "footer";
-  grid-template-rows: auto 1fr auto;
+  "main";
+  grid-template-rows: auto 1fr;
 }
 #header { grid-area: header; }
 #main { grid-area: main; } 
-#footer { grid-area: footer; }
 
 .loader {
   position: absolute;
@@ -38,13 +36,3 @@
     }
   }
 }
-
-body{
-  background-image: url("./park-pic-one.jpg");
-  background-size: cover;
-  background-attachment: fixed;
-}
-
-/*main{
-  margin-top: 44%;
-}*/

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { searchByKeyword, searchByLocation } from './actions';
 import { withRouter } from 'react-router-dom';
 import { Form, Button, ControlLabel, FormControl } from 'react-bootstrap';
+import ActionButton from '../actionButton/ActionButton';
 import './search.css';
 
 class Search extends Component {
@@ -35,9 +36,10 @@ class Search extends Component {
   render() {
 
     const { currentForm, location, keyword } = this.state;
+    const { classData } = this.props;
     
     return (
-      <Form horizontal onSubmit={this.handleSubmit}>
+      <Form className={`search-form ${classData}`} horizontal onSubmit={this.handleSubmit}>
         <div className="keyword-location">
           <Button className="search-type" type="button" onClick={event => this.handleFormChange(event)} name="Keyword" >By keyword</Button>
           <Button className="search-type" id="location" type="button"onClick={event => this.handleFormChange(event)} name="Location" >By location</Button>
@@ -57,7 +59,7 @@ class Search extends Component {
             </Fragment>
           }
         </fieldset>
-        <Button id="search" type="submit">Search</Button>
+        <ActionButton id="search" type={'submit'} buttonText={'Search'} disabled={false}/>
       </Form>
     );
   }

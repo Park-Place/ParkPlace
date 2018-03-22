@@ -2,25 +2,25 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
-import { logout } from '../../auth/actions';
+import { logout } from '../auth/actions';
 import svg from './ParkPlace.svg';
-import Error from '../Error';
-import Search from '../../search/Search';
+import Error from '../app/Error';
+import Search from '../search/Search';
 import './header.css';
 import { Navbar } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 
 class Header extends Component {
 
   render() {
 
-    const { loading, error, user, logout, checkedUser } = this.props;
-    
-    if(window.location.pathname === '/home') return null;
+    const { loading, error, user, logout, checkedUser, location } = this.props;
+    if(location.pathname === '/home') return null;
     if(!checkedUser) return null;
 
     return (
       <Navbar inverse collapseOnSelect id='header'>
-        <Navbar.Header>
+        <Navbar.Header id="search-header">
           <Navbar.Brand>
             <Link to="/home"><h1>Park <img src={svg}/> Place</h1></Link>
           </Navbar.Brand>
@@ -30,7 +30,7 @@ class Header extends Component {
           <ul className="user-links">
             {
               user
-                ? <li><Link to="/game" onClick={logout}>Log out</Link></li>
+                ? <li><Link to="/home" onClick={logout}>Log out</Link></li>
                 : 
                 <Fragment>
                   <li><Link to="/auth/signin">Sign In</Link></li>
@@ -45,18 +45,18 @@ class Header extends Component {
         <div className="loader">
           <ClipLoader size={65} loading={loading}/>
         </div>
-        <Search/>
+        <Search classData={'header-search'}/>
       </Navbar>
     );
   }
 }
 
-export default connect(
+export default withRouter(connect(
   (state) => ({ 
     loading: state.loading, 
     error: state.error, 
     user: state.loggedIn, 
     checkedUser: state.checkedUser
-   }),
+  }),
   ({ logout })
-)(Header);
+)(Header));
