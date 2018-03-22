@@ -24,15 +24,17 @@ class App extends Component {
         <div id="container">
           <Header/>
           <main id="main" role="main">
-            <Switch>
-              <Route exact path="/home" component={Home}/>
-              <Route exact path="/users/:id" component={UserDetail}/>
-              <Route exact path="/searchResults" component={ParkList}/>
-              <Route path="/parks/:id" component={ParkDetail}/>
-              <Route exact path="/auth/Signin" component={SignIn}/>
-              <Route exact path="/auth/Signup" component={SignUp}/>
-              <Redirect to="/home"/>
-            </Switch>
+            <main id="layer">
+              <Switch>
+                <Route exact path="/home" component={Home}/>
+                <Route exact path="/users/:id" component={UserDetail}/>
+                <Route exact path="/searchResults" component={ParkList}/>
+                <Route path="/parks/:id" component={ParkDetail}/>
+                <Route exact path="/auth/Signin" component={SignIn}/>
+                <Route exact path="/auth/Signup" component={SignUp}/>
+                <Redirect to="/home"/>
+              </Switch>
+            </main>
           </main>
           <footer id="footer" role="contentinfo">
             <small>&copy; 2018 ParkPlace | Student Work</small>

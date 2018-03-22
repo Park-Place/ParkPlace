@@ -8,14 +8,15 @@ import Error from '../app/Error';
 import Search from '../search/Search';
 import './header.css';
 import { Navbar } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 
 class Header extends Component {
 
   render() {
 
-    const { loading, error, user, logout, checkedUser } = this.props;
-    
-    if(window.location.pathname === '/home') return null;
+    const { loading, error, user, logout, checkedUser, location } = this.props;
+    console.log(location);
+    if(location.pathname === '/home') return null;
     if(!checkedUser) return null;
 
     return (
@@ -51,7 +52,7 @@ class Header extends Component {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   (state) => ({ 
     loading: state.loading, 
     error: state.error, 
@@ -59,4 +60,4 @@ export default connect(
     checkedUser: state.checkedUser
   }),
   ({ logout })
-)(Header);
+)(Header));

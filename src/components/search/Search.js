@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { searchByKeyword, searchByLocation } from './actions';
 import { withRouter } from 'react-router-dom';
 import { Form, Button, ControlLabel, FormControl } from 'react-bootstrap';
+import ActionButton from '../actionButton/ActionButton';
 import './search.css';
 
 class Search extends Component {
@@ -57,7 +58,7 @@ class Search extends Component {
             </Fragment>
           }
         </fieldset>
-        <Button id="search" type="submit">Search</Button>
+        <ActionButton id="search" type={'submit'} buttonText={'Search'} disabled={false}/>
       </Form>
     );
   }
