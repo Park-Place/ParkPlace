@@ -36,9 +36,10 @@ class Search extends Component {
   render() {
 
     const { currentForm, location, keyword } = this.state;
-    
+    const { classData } = this.props;
+
     return (
-      <Form horizontal onSubmit={this.handleSubmit}>
+      <Form className={classData} horizontal onSubmit={this.handleSubmit}>
         <div className="keyword-location">
           <Button className="search-type" type="button" onClick={event => this.handleFormChange(event)} name="Keyword" >By keyword</Button>
           <Button className="search-type" id="location" type="button"onClick={event => this.handleFormChange(event)} name="Location" >By location</Button>

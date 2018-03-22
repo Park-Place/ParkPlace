@@ -15,12 +15,12 @@ class Home extends Component {
           <Navbar.Header>
             <Navbar.Brand>
               <div>
-                <h1>&nbsp;Park <img src={svg}/> Place</h1>
+                <h1 id="landing-header">&nbsp;Park <img src={svg}/> Place</h1>
               </div>
             </Navbar.Brand>
           </Navbar.Header>
         </Navbar>
-        <Search/>
+        <Search classData="search-home"/>
       </Fragment>
     );
   }

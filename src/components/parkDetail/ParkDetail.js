@@ -68,30 +68,32 @@ export class ParkDetail extends Component {
           <p>{formatted_address}</p>
           <p>Average Rating: {averageRating ? averageRating : 'No Reviews'}</p>
         </figure>
-        <div>
+        <div className="park-info">
           {international_phone_number && <p>Phone: {international_phone_number}</p>}
           { opening_hours && 
-            <ul>Hours: 
+            <ul className="hours">Hours: 
             {opening_hours.weekday_text.map((weekday, i) => <li key={i}>{weekday}</li>)}
             </ul>
           }
           <Link to={url} target="_blank" rel="noopener noreferrer"><span className="fa fa-external-link"></span>Directions</Link>
-        </div>
-        {tags && 
+          <div className="tags-reviews">
+            {tags && 
           <ul className="tag-list">
             {tags.map(key => <li key={key}>{key}</li>)}
           </ul>
-        }
-        {amenities && 
-          <ul className="amenities-list">
+            }
+            {amenities && 
+          <ul className="tag-list">
             {amenities.map(key => <li key={key}>{key}</li>)}
           </ul>
-        }
-        <div className="park-reviews">
-          <h4>Reviews:</h4>
-          <Reviews/>
+            }
+            <div className="park-reviews">
+              <h4>Reviews:</h4>
+              <Reviews/>
+            </div>
+            {auth.currentUser && <ActionButton onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
+          </div>
         </div>
-        {auth.currentUser && <ActionButton onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
         <ReactModal
           isOpen={open}
           style={this.customStyles}

@@ -16,24 +16,6 @@
   text-align: center;
 }
 
-div.navbar-header{
-  width: 100%;
-  margin: 0 auto;
-  text-align: center;
-}
-
-form.form-horizontal{
-  margin-top: 5%;
-  background-color: rgba(255, 255, 255, 0.7);
-  padding: 3%;
-  width: 80%;
-  margin: 0 auto;
-}
-
-.navbar-brand{
-  margin-right: 0 !important;
-}
-
 body{
   background-image: url("../assets/park-pic-one.jpg");
   background-size: cover;
@@ -41,5 +23,9 @@ body{
 }
 
 div.container{
-width: 100%;
+  width: 100%;
+}
+
+.search-home.form-horizontal{
+  width: 80%;
 }

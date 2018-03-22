@@ -11,7 +11,7 @@ class ParkList extends Component {
     return (
       <Fragment>
         <ul id="search-list">
-          <h2>Search Results:</h2>
+          {/* <h2>Search Results:</h2> */}
           {results.map(result => <Park key={result.id} result={result} />)}
         </ul>
       </Fragment>

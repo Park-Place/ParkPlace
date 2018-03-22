@@ -21,7 +21,7 @@ class Header extends Component {
 
     return (
       <Navbar inverse collapseOnSelect id='header'>
-        <Navbar.Header>
+        <Navbar.Header id="search-header">
           <Navbar.Brand>
             <Link to="/home"><h1>Park <img src={svg}/> Place</h1></Link>
           </Navbar.Brand>
