@@ -43,7 +43,7 @@ class Review extends Component {
           </Fragment>
         }
         {editing &&
-          <ReviewForm reviewObj={reviewObj} priorReview={true} handleClose={this.changeEditing}/>
+          <ReviewForm legendText={'Edit Your Review'} reviewObj={reviewObj} priorReview={true} handleClose={this.changeEditing}/>
         }
       </li>
     );
