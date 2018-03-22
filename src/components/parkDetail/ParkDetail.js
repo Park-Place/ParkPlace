@@ -52,6 +52,7 @@ export class ParkDetail extends Component {
     const { name, formatted_address, international_phone_number, photos, opening_hours, url } = this.props.result;
     const { open } = this.state;
     const { hasReviewed, derivedData } = this.props;
+
   
     let tags, amenities, averageRating;
     if(derivedData) {
@@ -118,7 +119,7 @@ export class ParkDetail extends Component {
 }
 
 const checkReviewed = (reviews) => {
-  if(auth.currentUser) reviews.hasOwnProperty(auth.currentUser.uid);
+  if(auth.currentUser) return reviews.hasOwnProperty(auth.currentUser.uid); 
   else return false;
 };
 
@@ -127,7 +128,7 @@ export default connect(
     id: match.params.id,
     result: currentPark,
     reviews: currentParkReviews,
-    hasReviewed: currentParkReviews && checkReviewed(currentParkReviews),
+    hasReviewed: !!currentParkReviews && checkReviewed(currentParkReviews),
     derivedData: currentParkDerivedData
   }),
   ({ getParkById, loadReviews })
