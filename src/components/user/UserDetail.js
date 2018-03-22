@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { loadUser } from './actions';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import  Reviews from './Reviews';
 
 class UserDetail extends Component {
