@@ -22,9 +22,17 @@
       top: 0;
     }
   }
-
+  .review-add-button {
+    width: 100%;
+  }
+  
 }
 
+.modal-button {
+  position: absolute;
+  top: .5rem;
+  right: 1rem;
+}
 .park-info{
   padding: 1rem;
   .hours {

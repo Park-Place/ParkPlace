@@ -15,9 +15,8 @@
     margin-left: 6%;
   }
   
-  button#search{
+  .search-form-button {
     width: 100%;
-    margin: 0 10%;
   }
   
   .btn.btn-default{

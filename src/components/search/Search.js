@@ -76,7 +76,7 @@ class Search extends Component {
             </Fragment>
           }
         </fieldset>
-        <ActionButton id="search" type={'submit'} buttonText={'Search'} disabled={false}/>
+        <ActionButton classData={'search-form-button'}id="search" type={'submit'} buttonText={'Search'} disabled={false}/>
       </Form>
     );
   }

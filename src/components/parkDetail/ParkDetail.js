@@ -18,12 +18,14 @@ export class ParkDetail extends Component {
 
   customStyles = {
     content : {
-      top: '20%',
+      top: '50%',
       left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)'
+      right: '2rem',
+      bottom: '2rem',
+      height: '650px',
+      marginRight: '2rem',
+      transform: 'translate(-50%, -50%)',
+      position: 'relative'
     }
   };
 
@@ -64,7 +66,7 @@ export class ParkDetail extends Component {
     return (
       <div className="park-details">
         <figure className="splash-photo">
-          <img id="park-detail-pic" src={getParkImage(photos[0].photo_reference, 500)} alt={name}/>
+          <img id="park-detail-pic" src={getParkImage(photos[0].photo_reference, 2000)} alt={name}/>
           <h2>{name}</h2>
           <p>Average Rating: {averageRating ? averageRating : 'No Reviews'}</p>
         </figure>
@@ -105,7 +107,7 @@ export class ParkDetail extends Component {
             <Reviews/>
           </div>
 
-          {auth.currentUser && <ActionButton onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
+          {auth.currentUser && <ActionButton classData={'review-add-button'}onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
         </div>
 
         <ReactModal
@@ -113,7 +115,7 @@ export class ParkDetail extends Component {
           style={this.customStyles}
           onRequestClose={this.handleClose}
         >
-          <button onClick={this.handleClose}>x</button>
+          <button className="modal-button" onClick={this.handleClose}>x</button>
           <ReviewForm legendText={'Write a Review'} handleClose={this.handleClose}/>
         </ReactModal>
 
