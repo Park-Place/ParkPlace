@@ -51,7 +51,7 @@ class ReviewForm extends Component {
   };
 
   render() {
-    console.log(this.props);
+   
     const { review, tags, amenities, rating } = this.state;
     const { legendText, priorReview } = this.props;
 
