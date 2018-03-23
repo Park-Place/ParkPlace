@@ -53,7 +53,7 @@ export class ParkDetail extends Component {
     
     const { name, formatted_address, international_phone_number, photos, opening_hours, url } = this.props.result;
     const { open } = this.state;
-    const { hasReviewed, derivedData } = this.props;
+    const { hasReviewed, derivedData, loggedIn } = this.props;
 
   
     let tags, amenities, averageRating;
@@ -114,7 +114,7 @@ export class ParkDetail extends Component {
           <Reviews/>
         </div>
 
-        {auth.currentUser && <ActionButton classData={'review-add-button'}onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
+        {loggedIn && <ActionButton classData={'review-add-button'}onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
 
         <ReactModal
           isOpen={open}
@@ -136,12 +136,13 @@ const checkReviewed = (reviews) => {
 };
 
 export default connect(
-  ({ currentPark, currentParkReviews, currentParkDerivedData }, { match }) => ({
+  ({ currentPark, currentParkReviews, currentParkDerivedData, loggedIn }, { match }) => ({
     id: match.params.id,
     result: currentPark,
     reviews: currentParkReviews,
     hasReviewed: !!currentParkReviews && checkReviewed(currentParkReviews),
-    derivedData: currentParkDerivedData
+    derivedData: currentParkDerivedData,
+    loggedIn
   }),
   ({ getParkById, loadReviews })
 )(ParkDetail);

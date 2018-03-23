@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { auth } from '../../services/firebase';
-import { submitReview } from './actions';
+import { submitReview, deleteReview } from './actions';
 import './reviewForm.css';
 import ActionButton from '../actionButton/ActionButton';
 
@@ -39,10 +39,21 @@ class ReviewForm extends Component {
     handleClose();
   };
 
+  handleDelete = (event) => {
+    event.preventDefault();
+    const { parkReviewed, park } = this.props;
+
+    const parkId = parkReviewed ? parkReviewed.parkId : park.place_id;
+    const userId = auth.currentUser.uid;
+
+    deleteReview(parkId, userId);
+    
+  };
+
   render() {
     console.log(this.props);
     const { review, tags, amenities, rating } = this.state;
-    const { legendText } = this.props;
+    const { legendText, priorReview } = this.props;
 
     return (
       <form className='review-form' onSubmit={event => this.handleSubmit(event)}>
@@ -65,6 +76,7 @@ class ReviewForm extends Component {
         </label>
 
         <ActionButton classData={'review-form-button'}type={'submit'} buttonText={'Submit'}/>
+        {priorReview && <ActionButton classData={'review-delete-button'}type={'button'} buttonText={'Delete'} onClick={this.handleDelete}/>}
       </form>
     );
   }
