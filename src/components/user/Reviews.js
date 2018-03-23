@@ -13,7 +13,7 @@ class Reviews extends Component {
     const reviewsArr = Object.keys(reviews);
 
     return (
-      <ul>
+      <ul className="reviews">
         {reviewsArr.map(key => <Review key={key} {...reviews[key]}/>)}
       </ul>
     );

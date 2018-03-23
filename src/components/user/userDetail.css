@@ -1,0 +1,30 @@
+@import '../../styles/variables.css';
+
+.user {
+  max-width: 1000px;
+  margin: 0 auto;
+  .user_info {
+    position: relative;
+    h1, h3 {
+      position: absolute;
+      text-align: center;
+      color: white;
+      background: rgba(0,0,0,.7);
+      width: 100%;
+    }
+    h1 {
+      top: 0;
+    }
+    h3 {
+      bottom: 0;
+      margin-bottom: 0;
+    }
+  }
+  .user-review-list {
+    padding: 1rem;
+    .user-review-title {
+      border-bottom: solid black 1px;
+    }
+
+  }
+}

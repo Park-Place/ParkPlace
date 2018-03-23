@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { loadUser } from './actions';
 import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom';
 import  Reviews from './Reviews';
+import './userDetail.css';
 
 class UserDetail extends Component {
 
@@ -10,8 +10,6 @@ class UserDetail extends Component {
     const { id, loadUser } = this.props;
     loadUser(id);
   }
-
-  
 
   render() {
 
@@ -23,19 +21,18 @@ class UserDetail extends Component {
     
     
     return (
-      <section className="main">
-        <section className="user_info">
-          <h1>Name: {userName}</h1>
-          <h3>Location: {location}</h3>
+      <div className="user">
+        <figure className="user_info">
+          <h1>{userName}</h1>
+          <h3>{location}</h3>
           <img src={image}/>
+        </figure>
 
-        </section>
         <section className="user-review-list">
-          <div>
-            <Reviews/>
-          </div>
+          <h4 className="user-review-title">Reviews:</h4>
+          <Reviews/>
         </section>
-      </section>
+      </div>
     );
   }
 }

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getParkImage } from '../../services/googleAPI';
 import ReviewForm from '../parkDetail/ReviewForm';
 import { auth } from '../../services/firebase';
+import './review.css';
 
 class Review extends Component {
 
@@ -31,22 +32,24 @@ class Review extends Component {
     };
 
     return (
-      <li className="user-review">
-        <Link to={`/parks/${parkId}`}>
-          <h4>{parkName}</h4>
+      <li className="park-review">
+        <Link to={`/parks/${parkId}`} className="user-content">
           <img src={getParkImage(photoReference, 500)} alt={parkName}/>
+          <h4>{parkName}</h4>
+          <p className="rating">{rating}</p>          
         </Link>
-        {(uid === userId) && <button onClick={this.changeEditing}>{editing ? 'x' : <span className="fa fa-pencil"></span>}</button>}
-        {!editing && 
-        <Fragment>
-          <p>{timeStamp}</p>
-          <p>{rating}</p>
-          <p>{review}</p>
-        </Fragment>
-        }
-        {editing &&
-          <ReviewForm legendText={'Edit Your Review'} reviewObj={reviewObj} priorReview={true} handleClose={this.changeEditing} parkReviewed={parkObj}/>
-        }
+        <div className="editing-zone">
+          {(uid === userId) && <button className="edit-button" onClick={this.changeEditing}>{editing ? 'x' : <span className="fa fa-pencil"></span>}</button>}
+          {!editing && 
+          <Fragment>
+            <p>{timeStamp}</p>
+            <p>{review}</p>
+          </Fragment>
+          }
+          {editing &&
+            <ReviewForm legendText={'Edit Your Review'} reviewObj={reviewObj} priorReview={true} handleClose={this.changeEditing} parkReviewed={parkObj}/>
+          }
+        </div>
       </li>
     );
   }
