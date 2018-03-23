@@ -1,12 +1,8 @@
 .search-form {
-  .keyword-location {
-    width: 80%;
-    margin: 0 auto;
-  }
   
   input.form-control {
-    width: 80%;
-    margin: 0.5em auto;
+    margin: 0.5rem auto;
+    text-align: center;    
   }
   
   .btn-default {
@@ -20,7 +16,7 @@
   }
   
   button#search{
-    width: 80%;
+    width: 100%;
     margin: 0 10%;
   }
   

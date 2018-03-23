@@ -1,4 +1,7 @@
+@import '../../styles/variables.css';
+
 #action-button{
-  width: 80%;
-  margin: 0 10%;
+  width: 100%;
+  background: $green;
+  color: white;
 }

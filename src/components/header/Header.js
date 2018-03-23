@@ -28,31 +28,29 @@ class Header extends Component {
     if(!checkedUser) return null;
 
     return (
-      <Navbar inverse collapseOnSelect id='header'>
-        <Navbar.Header id="search-header">
-          <Navbar.Brand>
-            <Link to="/home"><h1>Park <img src={svg}/> Place</h1></Link>
-          </Navbar.Brand>
-        </Navbar.Header>
-        <div className="user-header">
-          {user && <h3><img src={user.image} alt={user.userName}/><Link to={`/users/${uid}`}>{user.userName}</Link></h3>}
-          <ul className="user-links">
-            {
-              user
-                ? <li><a href='#' onClick={this.handleLogOut}>Log out</a></li>
-                : 
-                <Fragment>
-                  <li><Link to={{ 
-                    pathname: '/auth/signin', 
-                    state: { from: location } 
-                  }}>Sign In</Link></li>
-                  <li><Link to={{ 
-                    pathname: '/auth/signup', 
-                    state: { from: location } 
-                  }}>Sign Up</Link></li>
-                </Fragment>
-            }
-          </ul>
+      <header id="header">
+        <div className="top-header">
+          <Link to="/home"><h1>Park <img className="logo" src={svg}/> Place</h1></Link>
+          <div className="user-header">
+            {user && <h3><Link to={`/users/${uid}`}><img  src={user.image} alt={user.userName}/><span className="userName">{user.userName}</span></Link></h3>}
+            <ul className="user-links">
+              {
+                user
+                  ? <li><a href='#' onClick={this.handleLogOut}>Log out</a></li>
+                  : 
+                  <Fragment>
+                    <li><Link to={{ 
+                      pathname: '/auth/signin', 
+                      state: { from: location } 
+                    }}>Sign In</Link></li>
+                    <li><Link to={{ 
+                      pathname: '/auth/signup', 
+                      state: { from: location } 
+                    }}>Sign Up</Link></li>
+                  </Fragment>
+              }
+            </ul>
+          </div>
         </div>
 
         {error && <Error error={error}/>}
@@ -61,7 +59,7 @@ class Header extends Component {
           <ClipLoader size={65} loading={loading}/>
         </div>
         <Search classData={'header-search'}/>
-      </Navbar>
+      </header>
     );
   }
 }

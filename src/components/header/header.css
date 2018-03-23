@@ -1,16 +1,55 @@
 @import '../../styles/variables.css';
 
 #header {
-  background-color: rgba(245, 245, 245, 0.85);
-  img {
+  padding: 1rem;
+
+  .top-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .logo {
     display: inline-block;
-    max-width: 1.3em;
+    width: 50px;
   }
   h1{
     font-size: 1.7em;
-    color: green;
+    color: $green;
+  }
+  a {
+    text-decoration: none;
+    color: $darkest-green;
   }
   .header-search {
     width: 100%;
+  }
+  .user-links {
+    text-align: right;
+  }
+  .user-header {
+    .userName {
+      display: none;
+    }
+    img {
+      width: 40px;
+    }
+
+  }
+}
+
+@media (min-width: 700px) {
+  #header {
+    .user-header {
+      .userName {
+        display: inline;
+        vertical-align: bottom;
+      }
+      img {
+        display: inline-block;
+      }
+    }
+    h1 {
+      font-size: 3rem;
+    }
+
   }
 }

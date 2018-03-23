@@ -17,7 +17,7 @@ export class Park extends Component {
     
     return (
       
-      <Link to={`/parks/${place_id}`}>
+      <Link className="park-link" to={`/parks/${place_id}`}>
         <li className="park">
           <Image src={getParkImage(photos[0].photo_reference, 500)} alt={name} rounded responsive/>
           <div className="park-info">

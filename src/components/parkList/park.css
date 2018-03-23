@@ -1,32 +1,59 @@
-li.park{
-  padding: 4%;
-  border: 2px solid lightgray;
+@import '../../styles/variables.css';
+
+.park-link {
+
+  border: 2px solid $light-grey;
   border-radius: 3px, 3px, 0px, 0px;
+  display: block;
+  margin-bottom: 1rem;
 }
 
-h2{
-  margin-left: 4%;
-  margin-top: 2%;
-  color: lightgray;
+#park-list {
+  margin: 0 1rem;
 }
 
-li h3{
-  color: green;
-  text-decoration: underline;
-  margin-bottom: 10px;
+.park {
+  height: 100%;
+  padding: 1rem;
+  
+  h2{
+    margin-left: 4%;
+    margin-top: 2%;
+    color: $light-grey;
+  }
+  
+  h3{
+    color: $green;
+    text-decoration: underline;
+    margin-bottom: 10px;
+  }
+  
+  img{
+    margin-bottom: 10px;
+    border-radius: 5px;
+    max-height: 50vh;
+  }
+  
+  p{
+    color: $darkest-green;
+    margin-bottom: 10px;
+  }
+
 }
 
-li img{
-  margin-bottom: 10px;
-  border-radius: 5px;
-  max-height: 50vh;
-}
+@media (min-width: 700px) {
+  #park-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 1rem;
+  }
+  .park-link {
+    margin-bottom: 0;
+  }
 
-li p{
-  color: green;
-  margin-bottom: 10px;
-}
-
-ul#search-list{
-  background-color: white;
+  .park {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 }

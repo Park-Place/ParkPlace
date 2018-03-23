@@ -13,7 +13,8 @@ class Search extends Component {
   state = {
     currentForm: 'Keyword',
     keyword: '',
-    location: ''
+    location: '',
+    active: 'Keyword'
   };
 
   componentDidMount() {
@@ -30,7 +31,7 @@ class Search extends Component {
   
   handleFormChange = (event) => {
     event.preventDefault();
-    this.setState({ currentForm: event.target.name });
+    this.setState({ currentForm: event.target.name, active: event.target.name });
   };
 
   handleSubmit = (event) => {
@@ -48,20 +49,23 @@ class Search extends Component {
 
   render() {
 
-    const { currentForm, location, keyword } = this.state;
+    const { currentForm, location, keyword, active } = this.state;
     const { classData } = this.props;
+
+    const isActive = active === currentForm ? 'active' : '';
     
     return (
       <Form className={`search-form ${classData}`} horizontal onSubmit={this.handleSubmit}>
         <div className="keyword-location">
-          <Button className="search-type" type="button" onClick={event => this.handleFormChange(event)} name="Keyword" >By keyword</Button>
-          <Button className="search-type" id="location" type="button" onClick={event => this.handleFormChange(event)} name="Location" >By location</Button>
+          <Button className={isActive} type="button" onClick={event => this.handleFormChange(event)} name="Keyword" >keyword</Button>
+
+          <Button className={isActive} id="location" type="button" onClick={event => this.handleFormChange(event)} name="Location" >location</Button>
         </div>
         <fieldset>
           { (currentForm === 'Keyword') && 
             <Fragment>
               <ControlLabel htmlFor="keyword" className="clip">Keyword:</ControlLabel>
-              <FormControl name="keyword" placeholder="name of park" value={keyword} onChange={this.handleInputChange}/>
+              <FormControl name="keyword" placeholder="Name of Park" value={keyword} onChange={this.handleInputChange}/>
             </Fragment>
           }
 
