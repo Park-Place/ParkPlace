@@ -6,4 +6,7 @@
   border-radius: .3rem;
   padding: .5rem;
   font-size: 1.3rem;
+  &:disabled {
+    background: $light-grey;
+  }
 }
