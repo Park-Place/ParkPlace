@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Review from './Review';
+import './review.css';
+
 
 class Reviews extends Component {
 
@@ -13,7 +15,7 @@ class Reviews extends Component {
     const reviewsArr = Object.keys(reviews);
 
     return (
-      <ul>
+      <ul className="reviews">
         {reviewsArr.map(key => <Review key={key} {...reviews[key]}/>)}
       </ul>
     );

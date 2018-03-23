@@ -1,0 +1,67 @@
+@import '../../styles/variables.css';
+
+.reviews {
+
+  .park-review {
+    padding: .5rem;
+    border: 2px solid $light-grey;
+    border-radius: 3px, 3px, 0px, 0px;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  h4 {
+    color: $green;
+    text-decoration: underline;
+  }
+
+  .user-content {
+    position: relative;
+    display: block;
+    .rating {
+      color: $darkest-green;
+      position: absolute;
+      right: 0;
+      top: 0;
+      background: rgba(255,255,255, .6);
+      padding: .2rem .5rem;
+      font-size: 2rem;
+    }
+  }
+
+  .editing-zone {
+    position: relative;    
+    .edit-button {
+      position: absolute;
+      right: 0;
+      top: -2rem;
+      background: $green;
+      color: white;
+      border-radius: .3rem;
+      &:hover {
+        cursor: pointer;
+        background: $darkest-green;
+      }
+    }
+  }
+
+}
+
+@media (min-width: 500px) {
+  .reviews {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 1rem;
+
+    .park-review {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      margin-bottom: 0
+    }
+
+  }
+
+
+}
+

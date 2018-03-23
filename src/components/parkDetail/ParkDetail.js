@@ -101,7 +101,7 @@ export class ParkDetail extends Component {
           </div>
 
           <div className="park-reviews">
-            <h4>Reviews:</h4>
+            <h4 className="review-title">Reviews:</h4>
             <Reviews/>
           </div>
 
