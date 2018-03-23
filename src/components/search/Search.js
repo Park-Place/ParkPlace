@@ -13,8 +13,7 @@ class Search extends Component {
   state = {
     currentForm: 'Keyword',
     keyword: '',
-    location: '',
-    active: 'Keyword'
+    location: ''
   };
 
   componentDidMount() {
@@ -31,7 +30,7 @@ class Search extends Component {
   
   handleFormChange = (event) => {
     event.preventDefault();
-    this.setState({ currentForm: event.target.name, active: event.target.name });
+    this.setState({ currentForm: event.target.name });
   };
 
   handleSubmit = (event) => {
@@ -49,17 +48,15 @@ class Search extends Component {
 
   render() {
 
-    const { currentForm, location, keyword, active } = this.state;
+    const { currentForm, location, keyword } = this.state;
     const { classData } = this.props;
 
-    const isActive = active === currentForm ? 'active' : '';
-    
     return (
       <Form className={`search-form ${classData}`} horizontal onSubmit={this.handleSubmit}>
         <div className="keyword-location">
-          <Button className={isActive} type="button" onClick={event => this.handleFormChange(event)} name="Keyword" >keyword</Button>
+          <Button className={'Keyword' === currentForm ? 'active' : ''} type="button" onClick={event => this.handleFormChange(event)} name="Keyword" >keyword</Button>
 
-          <Button className={isActive} id="location" type="button" onClick={event => this.handleFormChange(event)} name="Location" >location</Button>
+          <Button className={'Location' === currentForm ? 'active' : ''} id="location" type="button" onClick={event => this.handleFormChange(event)} name="Location" >location</Button>
         </div>
         <fieldset>
           { (currentForm === 'Keyword') && 

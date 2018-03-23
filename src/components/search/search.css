@@ -1,3 +1,5 @@
+@import '../../styles/variables.css';
+
 .search-form {
   
   input.form-control {
@@ -14,6 +16,11 @@
   button#location{
     margin-left: 6%;
   }
+
+  .active {
+    color: $green;
+    border: solid .1rem $green;
+  }
   
   .search-form-button {
     width: 100%;
@@ -22,6 +29,5 @@
   .btn.btn-default{
     line-height: 1;
     background-color: whitesmoke;
-    border: 1px solid white;
   }
 }
