@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { getParkImage } from '../../services/googleAPI';
 import ReviewForm from '../parkDetail/ReviewForm';
 import { auth } from '../../services/firebase';
-import './review.css';
 
 class Review extends Component {
 

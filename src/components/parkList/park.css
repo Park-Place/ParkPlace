@@ -6,6 +6,9 @@
   border-radius: 3px, 3px, 0px, 0px;
   display: block;
   margin-bottom: 1rem;
+  &:hover {
+    transform: scale(1.02);
+  }
 }
 
 #park-list {

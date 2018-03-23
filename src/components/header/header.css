@@ -26,6 +26,9 @@
   }
   .user-links {
     text-align: right;
+    &:hover {
+      transform: scale(1.1);
+    }
   }
   .user-header {
     .userName {
@@ -33,6 +36,9 @@
     }
     img {
       width: 40px;
+      &:hover {
+        transform: scale(1.1);
+      }
     }
 
   }
@@ -42,9 +48,12 @@
   #header {
     .user-header {
       .userName {
-        display: inline;
+        display: inline-block;
         vertical-align: bottom;
         margin-left: 1rem;
+        &:hover {
+          transform: scale(1.1);
+        }
       }
       img {
         display: inline-block;
