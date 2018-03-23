@@ -41,7 +41,7 @@
     text-align: center;
   }
   .contact {
-    font-size: 1.3rem;
+    font-size: 1rem;
     margin-bottom: 1rem;
   }
 
@@ -56,10 +56,11 @@
       color: white;
     }
   }
-  .park-reviews {
-    .review-title {
-      border-bottom: solid black 1px;
-    }
+}
+.park-reviews {
+  padding: 0 1rem;
+  .review-title {
+    border-bottom: solid black 1px;
   }
 }
 
@@ -76,5 +77,25 @@
       min-width: 350px;
       margin-left: 1rem;
     }
+  }
+}
+
+@media (min-width: 900px) {
+  .top-half {
+    display: flex;
+    padding: 0 1rem;
+  }
+  .align {
+    display: block;
+  }
+  .park-details {
+
+    .splash-photo {
+      height: inherit;
+    }
+  }
+  .park-info {
+    padding: 0;
+    margin-left: 1rem;
   }
 }

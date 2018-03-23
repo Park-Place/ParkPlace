@@ -33,9 +33,8 @@ class SignUp extends PureComponent {
 
     this.props.onSubmit(credentials)
       .then(() => {
-        setTimeout(() => {
-          history.push(from); //allows firebase to send the auth token prior to page move!
-        }, 100);
+        history.push(from); //allows firebase to send the auth token prior to page move!
+
       })
       .catch(error => this.setState({ error }));
   };
