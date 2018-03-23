@@ -65,6 +65,7 @@ export class ParkDetail extends Component {
 
     return (
       <div className="park-details">
+      <div></div>
         <figure className="splash-photo">
           <img id="park-detail-pic" src={getParkImage(photos[0].photo_reference, 2000)} alt={name}/>
           <h2>{name}</h2>

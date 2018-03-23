@@ -1,6 +1,6 @@
 @import '../../styles/variables.css';
 
-#action-button {
+.action-button {
   background: $green;
   color: white;
   border-radius: .3rem;
