@@ -21,6 +21,8 @@
   }
   .header-search {
     width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
   }
   .user-links {
     text-align: right;
@@ -42,6 +44,7 @@
       .userName {
         display: inline;
         vertical-align: bottom;
+        margin-left: 1rem;
       }
       img {
         display: inline-block;
