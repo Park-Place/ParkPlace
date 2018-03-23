@@ -22,7 +22,7 @@ class ReviewForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const { handleClose, user, parkReviewed, priorReview, park } = this.props;
-
+    
     const userObj = {
       userName: user.userName,
       image: user.image,
@@ -40,7 +40,7 @@ class ReviewForm extends Component {
   };
 
   render() {
-
+    console.log(this.props);
     const { review, tags, amenities, rating } = this.state;
     const { legendText } = this.props;
 

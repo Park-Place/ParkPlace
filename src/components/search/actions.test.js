@@ -1,9 +1,12 @@
 jest.mock('../../services/googleAPI', () => ({
-  getPlacesByTextSearch: jest.fn(() => Promise.resolve('PAYLOAD'))
+  getPlacesByTextSearch: jest.fn(() => Promise.resolve('PAYLOAD')),
+  getPlacesByLocation: jest.fn(() => Promise.resolve('PAYLOAD'))
+
 }));
 
-import { searchByKeyword, searchByLocation} from './actions';
+import { searchByKeyword, searchByLocation } from './actions';
 import { RESULTS_SET } from './reducers';
+
 
 describe('search action tests: ', () => {
 

@@ -1,5 +1,5 @@
 {
-  "name": "meme-generator",
+  "name": "park-place",
   "version": "1.0.0",
   "description": "for lab",
   "main": "webpack.config.js",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Theartbug/meme-generator.git"
+    "url": "git+https://github.com/Park-Place/ParkPlace"
   },
   "author": "@TheArtBug",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/acl-devsign-winter-2018/meme-generator/issues"
+    "url": "https://github.com/Park-Place/ParkPlace/issues"
   },
-  "homepage": "https://github.com/acl-devsign-winter-2018/meme-generator#readme",
+  "homepage": "https://github.com/Park-Place/ParkPlace#readme",
   "devDependencies": {
     "autoprefixer": "^8.0.0",
     "babel-core": "^6.26.0",
