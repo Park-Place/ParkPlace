@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { signup } from './actions';
 import blankImage from '../assets/default.png';
 import { Form, Button, ControlLabel, FormControl } from 'react-bootstrap';
+import ActionButton from '../actionButton/ActionButton';
 import './auth.css';
 
 
@@ -50,7 +51,7 @@ class SignUp extends PureComponent {
   };
 
   handleImageRemove = () => {
-    this.setState({ image: null, disable: false });
+    this.setState({ image: blankImage, disable: false });
     this.pictureInput.value = ''; //clears file 
   };
 
@@ -60,38 +61,39 @@ class SignUp extends PureComponent {
 
     return (
 
-      <form className="user-form" onSubmit={this.handleSubmit}>
+      <Form className="user-form" onSubmit={this.handleSubmit}>
         <legend>{legendText}</legend>
-        <label htmlFor="email"> Email:
-        <input name="email" required/>
-        </label>
+        <ControlLabel htmlFor="email"> Email:
+        <FormControl name="email" required/>
+        </ControlLabel>
 
-        <label htmlFor="password" > Password:
-        <input name="password" type="password" required/>
-        </label>
+        <ControlLabel htmlFor="password" > Password:
+        <FormControl name="password" type="password" required/>
+        </ControlLabel>
 
-        <label htmlFor="username"> Username: 
-        <input name="username" required/>
-        </label>
+        <ControlLabel htmlFor="username"> Username: 
+        <FormControl name="username" required/>
+        </ControlLabel>
 
-        <label htmlFor="location"> Location: 
-        <input name="location"/>
-        </label>
+        <ControlLabel htmlFor="location"> Location: 
+        <FormControl name="location"/>
+        </ControlLabel>
+        <div className="picture-add">
+          <ControlLabel htmlFor="image"> Add Profile Picture:
+          <input ref={(input) => { this.pictureInput = input; }} type="file" name="image" onChange={this.handleUpload} disabled={disable}/>
+          </ControlLabel>
 
-        <label htmlFor="image"> Add Profile Picture:
-        <input ref={(input) => { this.pictureInput = input; }} type="file" name="image" onChange={this.handleUpload} disabled={disable}/>
-        </label>
+          <figure>
+            { (image !== blankImage) && <button type="button" onClick={this.handleImageRemove}>x</button> }
+            <img className="preview" src={image}/>
+          </figure>
+        </div>
 
-        <figure>
-          { (image !== blankImage) && <button type="button" onClick={this.handleImageRemove}>x</button> }
-          <img className="preview" src={image}/>
-        </figure>
-
-        <button type="submit">{buttonText}</button>
+        <ActionButton classData={'form-button'} type={'submit'} buttonText={buttonText}/>
         <pre style={{ color: 'red' }}>
           {error && error.message}
         </pre>
-      </form>
+      </Form>
     );
   }
 }
