@@ -18,4 +18,8 @@
   .review-form-button {
     width: 80%;
   }
+  .review-delete-button {
+    width: 80%;
+    background: $dark-grey;
+  }
 }

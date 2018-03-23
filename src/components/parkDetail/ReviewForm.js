@@ -75,8 +75,8 @@ class ReviewForm extends Component {
         <input name="rating" onChange={this.handleChange} value={rating} type="range" min="1" max="5" required/>{rating}
         </label>
 
-        {priorReview && <ActionButton classData={'review-delete-button'}type={'button'} buttonText={'Delete'} onClick={this.handleDelete}/>}
         <ActionButton classData={'review-form-button'}type={'submit'} buttonText={'Submit'}/>
+        {priorReview && <ActionButton classData={'review-delete-button'}type={'button'} buttonText={'Delete'} onClick={this.handleDelete}/>}
       </form>
     );
   }
