@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { searchByKeyword, searchByLocation } from '../search/actions';
+import { searchByKeyword, searchByLocation } from './actions';
 import qs from 'query-string';
 import Park from './Park';
 import './park.css';

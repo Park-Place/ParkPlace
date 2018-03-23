@@ -26,8 +26,10 @@
   }
   .user-links {
     text-align: right;
-    &:hover {
-      transform: scale(1.1);
+    li {
+      &:hover {
+        transform: scale(1.1);
+      }
     }
   }
   .user-header {

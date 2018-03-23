@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import promiseMiddleware from './promiseMiddleware';
-import { searchResults } from '../components/search/reducers';
+import { searchResults } from '../components/parkList/reducers';
 import { loading, error } from '../components/app/reducers';
 import { currentPark, currentParkReviews, currentParkDerivedData } from '../components/parkDetail/reducers';
 import { user as loggedIn, checkedUser } from '../components/auth/reducers';

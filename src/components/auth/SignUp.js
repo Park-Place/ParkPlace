@@ -75,11 +75,11 @@ class SignUp extends PureComponent {
         </ControlLabel>
 
         <ControlLabel htmlFor="location"> Location: 
-        <FormControl name="location"/>
+        <FormControl name="location" required/>
         </ControlLabel>
         <div className="picture-add">
           <ControlLabel htmlFor="image"> Add Profile Picture:
-          <input ref={(input) => { this.pictureInput = input; }} type="file" name="image" onChange={this.handleUpload} disabled={disable}/>
+          <input ref={(input) => { this.pictureInput = input; }} type="file" name="image" onChange={this.handleUpload} disabled={disable} required/>
           </ControlLabel>
 
           <figure>
