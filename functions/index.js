@@ -47,15 +47,18 @@ exports.updateUserDerived = functions.database.ref('/parksReviewed/{parkId}/revi
   const averageRatingRef = event.data.ref.parent.child('averageRating');
   const tagsRef = event.data.ref.parent.child('tags');
   const amenitiesRef = event.data.ref.parent.child('amenities');
-  const reviewsArray = Object.keys(reviews).map(key => reviews[key]);
+  let averageRating = null, tags = null, amenities = null;
+  if(reviews && Object.keys(reviews).length > 0) {
+    const reviewsArray = Object.keys(reviews).map(key => reviews[key]);
 
-  const sum = reviewsArray.map(review => review.rating).reduce((a, b) => a + b);
-  const count = reviewsArray.length;
+    const sum = reviewsArray.map(review => review.rating).reduce((a, b) => a + b);
+    const count = reviewsArray.length;
 
-  const averageRating = Math.round(sum / count);
+    averageRating = count !== 0 ? Math.round(sum / count) : null ;
 
-  const tags = createTagsObject(reviewsArray, 'tags');
-  const amenities = createTagsObject(reviewsArray, 'amenities');
+    tags = createTagsObject(reviewsArray, 'tags');
+    amenities = createTagsObject(reviewsArray, 'amenities');
+  }
 
   return Promise.all([
     averageRatingRef.set(averageRating),

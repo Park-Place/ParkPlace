@@ -66,3 +66,7 @@ export function submitReview(state, parkObj, userObj, priorReview) {
 
 }
 
+export function deleteReview(parkId, userId) {
+  users.child(userId).child('reviews').child(parkId).remove();
+  parksReviewed.child(parkId).child('reviews').child(userId).remove();
+}
