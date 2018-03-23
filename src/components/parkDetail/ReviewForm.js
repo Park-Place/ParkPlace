@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { auth } from '../../services/firebase';
 import { submitReview } from './actions';
+import './reviewForm.css';
+import ActionButton from '../actionButton/ActionButton';
 
 class ReviewForm extends Component {
 
@@ -62,7 +64,7 @@ class ReviewForm extends Component {
         <input name="rating" onChange={this.handleChange} value={rating} type="range" min="1" max="5" required/>{rating}
         </label>
 
-        <button type="submit">Submit</button>
+        <ActionButton classData={'review-form-button'}type={'submit'} buttonText={'Submit'}/>
       </form>
     );
   }

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { auth } from '../../services/firebase';
 import ReviewForm from './ReviewForm';
+import './review.css';
 
 class Review extends Component {
 
@@ -33,18 +34,20 @@ class Review extends Component {
         <Link to={`/users/${userId}`} className="user-content"> 
           <img src={image}/>
           <h4>{userName}</h4>
+          <p className="rating">{rating}</p>
         </Link>
-        {(uid === userId) && <button onClick={this.changeEditing}>{editing ? 'x' : <span className="fa fa-pencil"></span>}</button>}
-        {!editing && 
-          <Fragment>
-            <p>{timeStamp}</p>
-            <p>{rating}</p>
-            <p>{review}</p>
-          </Fragment>
-        }
-        {editing &&
-          <ReviewForm legendText={'Edit Your Review'} reviewObj={reviewObj} priorReview={true} handleClose={this.changeEditing}/>
-        }
+        <div className="editing-zone">
+          {(uid === userId) && <button className="edit-button" onClick={this.changeEditing}>{editing ? 'x' : <span className="fa fa-pencil"></span>}</button>}
+          {!editing && 
+            <Fragment>
+              <p>{timeStamp}</p>
+              <p>{review}</p>
+            </Fragment>
+          }
+          {editing &&
+            <ReviewForm legendText={'Edit Your Review'} reviewObj={reviewObj} priorReview={true} handleClose={this.changeEditing}/>
+          }
+        </div>
       </li>
     );
   }

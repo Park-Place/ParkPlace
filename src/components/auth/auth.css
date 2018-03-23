@@ -1,6 +1,35 @@
 
-
 .user-form {
   text-align: center;
-  
+  label {
+    width: 80%;
+  }
+  input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  .form-button {
+    width: 80%;
+  }
+
+  .picture-add {
+    padding: 1rem;
+  }
+  figure {
+    margin: 0 auto;
+    position: relative;
+    width: 150px;
+    button {
+      position: absolute;
+      width: 20%;
+      right: 0;
+    }
+  }
 }
+
+@media (min-width: )

@@ -1,7 +1,12 @@
 @import '../../styles/variables.css';
 
-#action-button{
-  width: 100%;
+#action-button {
   background: $green;
   color: white;
+  border-radius: .3rem;
+  padding: .5rem;
+  font-size: 1.3rem;
+  &:disabled {
+    background: $light-grey;
+  }
 }
