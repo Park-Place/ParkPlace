@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { searchByKeyword, searchByLocation } from './actions';
 import { withRouter } from 'react-router-dom';
 import { Form, Button, ControlLabel, FormControl } from 'react-bootstrap';
 import ActionButton from '../actionButton/ActionButton';
@@ -80,6 +79,5 @@ class Search extends Component {
 }
 
 export default withRouter(connect(
-  null,
-  ({ searchByKeyword, searchByLocation })
+  null
 )(Search));

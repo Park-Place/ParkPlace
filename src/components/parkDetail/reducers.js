@@ -1,6 +1,6 @@
 export const DETAIL_GET = 'DETAIL_GET';
 export const REVIEWS_LOAD = 'REVIEWS_LOAD';
-import { RESULTS_SET } from '../search/reducers';
+import { RESULTS_SET } from '../parkList/reducers';
 
 const sortArray = (object) => {
   if(!object) return [];
