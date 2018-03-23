@@ -1,6 +1,10 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { signin } from './actions';
+import { Form, FormControl } from 'react-bootstrap';
+import ActionButton from '../actionButton/ActionButton';
+import './auth.css';
+
 
 class SignIn extends PureComponent {
 
@@ -34,21 +38,21 @@ class SignIn extends PureComponent {
  
     return (
 
-      <form className="user-form" onSubmit={this.handleSubmit}>
+      <Form className="user-form" onSubmit={this.handleSubmit} horizontal>
         <legend>Sign In</legend>
         <label htmlFor="email"> Email:
-        <input name="email" required/>
+        <FormControl name="email" required/>
         </label>
 
         <label htmlFor="password" > Password:
-        <input name="password" type="password" required/>
+        <FormControl name="password" type="password" required/>
         </label>
 
-        <button type="submit">Sign In</button>
+        <ActionButton type={'submit'} buttonText={'Sign In'}/>
         <pre style={{ color: 'red' }}>
           {error && error.message}
         </pre>
-      </form>
+      </Form>
     );
   }
 }
