@@ -65,51 +65,56 @@ export class ParkDetail extends Component {
 
     return (
       <div className="park-details">
-      <div></div>
-        <figure className="splash-photo">
-          <img id="park-detail-pic" src={getParkImage(photos[0].photo_reference, 2000)} alt={name}/>
-          <h2>{name}</h2>
-          <p>Average Rating: {averageRating ? averageRating : 'No Reviews'}</p>
-        </figure>
 
-        <div className="park-info">
-          <div className="align">
-            <div className="contact">
-              <address>{formatted_address}</address>
-              {international_phone_number && <p>Phone: {international_phone_number}</p>}
-              <Link to={url} target="_blank" rel="noopener noreferrer"><span className="fa fa-external-link"></span> Directions</Link>
-            </div>
+        <div className="top-half">
+          <div className="protective">
+            <figure className="splash-photo">
+              <img id="park-detail-pic" src={getParkImage(photos[0].photo_reference, 2000)} alt={name}/>
+              <h2>{name}</h2>
+              <p>Average Rating: {averageRating ? averageRating : 'No Reviews'}</p>
+            </figure>
+          </div>
 
-            { opening_hours && 
+          <div className="park-info">
+            <div className="align">
+              <div className="contact">
+                <address>{formatted_address}</address>
+                {international_phone_number && <p>Phone: {international_phone_number}</p>}
+                <Link to={url} target="_blank" rel="noopener noreferrer"><span className="fa fa-external-link"></span> Directions</Link>
+              </div>
+
+              { opening_hours && 
               <ul className="hours">Hours: 
               {opening_hours.weekday_text.map((weekday, i) => <li key={i}>{weekday}</li>)}
               </ul>
-            }
-          </div>
+              }
+            </div>
 
 
-          <div className="tags-reviews">
+            <div className="tags-reviews">
 
-            {tags && 
+              {tags && 
             <ul className="tag-list">Tags:
             {tags.map(key => <li key={key}>{key}</li>)}
             </ul>
-            }
+              }
 
-            {amenities && 
+              {amenities && 
             <ul className="tag-list">Amenities: 
             {amenities.map(key => <li key={key}>{key}</li>)}
             </ul>
-            }
+              }
+            </div>
+
           </div>
 
-          <div className="park-reviews">
-            <h4 className="review-title">Reviews:</h4>
-            <Reviews/>
-          </div>
-
-          {auth.currentUser && <ActionButton classData={'review-add-button'}onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
         </div>
+        <div className="park-reviews">
+          <h4 className="review-title">Reviews:</h4>
+          <Reviews/>
+        </div>
+
+        {auth.currentUser && <ActionButton classData={'review-add-button'}onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
 
         <ReactModal
           isOpen={open}
