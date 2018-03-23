@@ -38,6 +38,9 @@
 
 @media (min-width: 700px) {
   #header {
+    .top-header {
+      margin: 0 5%;
+    }
     .user-header {
       .userName {
         display: inline;
@@ -50,6 +53,5 @@
     h1 {
       font-size: 3rem;
     }
-
   }
 }

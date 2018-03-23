@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { signup } from './actions';
 import blankImage from '../assets/default.png';
-import { Form, Button, ControlLabel, FormControl } from 'react-bootstrap';
+import { Form, ControlLabel, FormControl } from 'react-bootstrap';
 import ActionButton from '../actionButton/ActionButton';
 import './auth.css';
 

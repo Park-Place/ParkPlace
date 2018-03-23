@@ -30,4 +30,7 @@
     line-height: 1;
     background-color: whitesmoke;
   }
+
+  max-width: 1000px;
+  margin: 0 auto;
 }
