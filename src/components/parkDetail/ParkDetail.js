@@ -66,20 +66,24 @@ export class ParkDetail extends Component {
         <figure className="splash-photo">
           <img id="park-detail-pic" src={getParkImage(photos[0].photo_reference, 500)} alt={name}/>
           <h2>{name}</h2>
-          <p>{formatted_address}</p>
           <p>Average Rating: {averageRating ? averageRating : 'No Reviews'}</p>
         </figure>
 
         <div className="park-info">
-          {international_phone_number && <p>Phone: {international_phone_number}</p>}
+          <div className="align">
+            <div className="contact">
+              <address>{formatted_address}</address>
+              {international_phone_number && <p>Phone: {international_phone_number}</p>}
+              <Link to={url} target="_blank" rel="noopener noreferrer"><span className="fa fa-external-link"></span> Directions</Link>
+            </div>
 
-          { opening_hours && 
-            <ul className="hours">Hours: 
-            {opening_hours.weekday_text.map((weekday, i) => <li key={i}>{weekday}</li>)}
-            </ul>
-          }
+            { opening_hours && 
+              <ul className="hours">Hours: 
+              {opening_hours.weekday_text.map((weekday, i) => <li key={i}>{weekday}</li>)}
+              </ul>
+            }
+          </div>
 
-          <Link to={url} target="_blank" rel="noopener noreferrer"><span className="fa fa-external-link"></span>Directions</Link>
 
           <div className="tags-reviews">
 

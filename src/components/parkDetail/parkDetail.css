@@ -1,34 +1,65 @@
-div.park-details{
-  background-color: white;
-  border: 2px solid lightgray;
-  padding: 5px;
-}
+@import '../../styles/variables.css';
 
-#park-detail-pic{
-  border-radius: 5px;
-}
+.park-details {
+  .splash-photo {
+    position: relative;
+    h2, p {
+      position: absolute;
+      color: white;
+      background: rgba(0,0,0,.7);
+      width: 100%;
+      text-align: center;
+    }
+    p {
+      bottom: 0;
+      left: 0;
+      margin-bottom: 0;
+      font-size: 1.2rem;
+    }
+    h2 {
+      top: 0;
+    }
+  }
 
-.splash-photo h2, .splash-photo p{
-  margin-left: 5%;
 }
 
 .park-info{
-  padding: 5%;
-  ul.hours{
-    list-style-type: none;
+  padding: 1rem;
+  .hours {
     border: 1px solid black;
-    margin: 0 -4%;
-    padding: 4%;
+    padding: 1rem;
+    text-align: center;
   }
-  ul.tag-list{
-    list-style: none;
+  .contact {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
   }
-  ul.tag-list li{
-    display: inline;
-    margin: 5px;
-    padding: 3px;
-    border: 1px solid darkgreen;
-    border-radius: 4px;
-    background-color: green;
+
+  .tag-list {
+    font-weight: 600;
+    li{
+      display: inline-block;
+      margin: .5rem;
+      padding: .2rem .5rem;
+      border-radius: .3rem;
+      background-color: $green;
+      color: white;
+    }
+  }
+}
+
+@media (min-width: 600px) {
+  .align {
+    display: flex;
+    justify-content: space-between;
+    .contact {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+    .hours {
+      min-width: 350px;
+      margin-left: 1rem;
+    }
   }
 }
