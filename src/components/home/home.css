@@ -11,8 +11,11 @@
     font-size: 4rem;
     color: white;
     text-shadow: 0.1rem 0.2rem 0.2rem black;
+    text-transform: uppercase;
+    letter-spacing: .6rem;
   }
 }
+
 
 .home-search{
   background-color: rgba(255, 255, 255, 0.7);
@@ -35,5 +38,12 @@
 
   .home-logo {
     filter: drop-shadow( .1rem .2rem .2rem black );
+  }
+  h3 {
+    text-align: center;
+    color: white;
+    text-shadow: 0.1rem 0.2rem 0.2rem black;
+    margin-top: 5rem;
+    letter-spacing: .2rem;
   }
 } 
