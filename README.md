@@ -19,6 +19,7 @@ Research other websites that would be direct and indirect competition (yelp, All
 * allow users to cancel out of editing / leaving a review.
 * do not allow users to add another review after they've already left one (disable the action button).
 * allow users to edit their reviews either from the park detail page or from their user detail page (show with an editing pencil)
+  - show when a user last edited their review.
 * allow users to delete their reviews.
 * calculate aggregate data of average rating and top 5 most common tags / amenities mentioned through google cloud functions.
 * allow users to sign in, sign up, and log out. 
