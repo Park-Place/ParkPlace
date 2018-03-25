@@ -17,6 +17,7 @@ class Home extends Component {
           <h1>Park <img className="home-logo" src={svg}/> Place</h1>
         </div>
         <Search classData={'home-search'}/>
+        <h3>A place to find parks and review them.</h3>
         <div className="loader">
           <ClipLoader size={65} loading={loading}/>
         </div>

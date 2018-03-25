@@ -12,7 +12,7 @@ const filterDuplicates = (string) => {
 
   if(string === '') return ['empty'];
 
-  const array = string.toLowerCase().split(' ').map(s => s.trim());
+  const array = string.toLowerCase().split(' ').map(s => s.trim()).filter(s => s !== '');
 
   return [...new Set(array).keys()]; //filters out duplicates
 };
