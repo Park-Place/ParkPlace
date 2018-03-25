@@ -48,6 +48,7 @@ exports.updateUserDerived = functions.database.ref('/parksReviewed/{parkId}/revi
   const tagsRef = event.data.ref.parent.child('tags');
   const amenitiesRef = event.data.ref.parent.child('amenities');
   let averageRating = null, tags = null, amenities = null;
+  
   if(reviews && Object.keys(reviews).length > 0) {
     const reviewsArray = Object.keys(reviews).map(key => reviews[key]);
 
