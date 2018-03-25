@@ -71,8 +71,8 @@ class Search extends Component {
               <FormControl name="location" placeholder="City" onChange={this.handleInputChange} value={location}/>
             </Fragment>
           }
+          <ActionButton classData={'search-form-button'}id="search" type={'submit'} buttonText={'Search'} disabled={false}/>
         </fieldset>
-        <ActionButton classData={'search-form-button'}id="search" type={'submit'} buttonText={'Search'} disabled={false}/>
       </Form>
     );
   }

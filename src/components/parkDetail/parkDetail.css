@@ -3,6 +3,11 @@
 .park-details {
   max-width: 1000px;
   margin: 0 auto;
+  padding-bottom: 1rem;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   .splash-photo {
     position: relative;
     h2, p {

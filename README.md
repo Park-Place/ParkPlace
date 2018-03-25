@@ -13,6 +13,8 @@ Steps Taken
 
 Research other websites that would be direct and indirect competition (yelp, AllTrails, National parks). Start with a wireframe sketch of the desired page, and box the components necessary ( search, park list, park detail, reviews, review, user detail, home, header, auth). Then draw out a diagram that shows the flow of state / data through components. Start with one component and build its presentation in the browser. We started with the search, as that powered the entire app. After it successfully rendered in the browser, create actions and reducers. Rinse and repeat in a similar fashion for every following component. Create helpful functionalities:
 * allow users to go back to prior searches with the back button (store search query in the url)
+* Make clear which search option is selected.
+* save queries within search bar
 * have the review pop up on the park detail page with react-modal.
 * allow users to cancel out of editing / leaving a review.
 * do not allow users to add another review after they've already left one (disable the action button).
@@ -23,6 +25,7 @@ Research other websites that would be direct and indirect competition (yelp, All
 * allow a user to add a username and picture to their account upon sign up.
   - the user picture is previewed and users can delete the photo to pick a different one.
 * The add review button cannot be accessed unless the user is logged in. 
+* Show a user when a page is loading with a spinner.
 
 Reflection / Changes
 ===
