@@ -94,15 +94,15 @@ export class ParkDetail extends Component {
             <div className="tags-reviews">
 
               {tags && 
-            <ul className="tag-list">Tags:
-            {tags.map(key => <li key={key}>{key}</li>)}
-            </ul>
+                <ul className="tag-list">Tags:
+                {tags.map(key => <li key={key}>{key}</li>)}
+                </ul>
               }
 
               {amenities && 
-            <ul className="tag-list">Amenities: 
-            {amenities.map(key => <li key={key}>{key}</li>)}
-            </ul>
+                <ul className="tag-list">Amenities: 
+                {amenities.map(key => <li key={key}>{key}</li>)}
+                </ul>
               }
             </div>
 
@@ -114,7 +114,7 @@ export class ParkDetail extends Component {
           <Reviews/>
         </div>
 
-        {loggedIn && <ActionButton classData={'review-add-button'}onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
+        {loggedIn && <ActionButton classData={'review-add-button'} onClick={this.handleOpen} disabled={hasReviewed} type={'button'} buttonText={'Add Review'}/>}
 
         <ReactModal
           isOpen={open}

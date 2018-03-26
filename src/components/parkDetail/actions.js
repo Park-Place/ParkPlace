@@ -6,32 +6,35 @@ import { onReviewsList } from '../../services/parkApi';
 const users = db.ref('users');
 const parksReviewed = db.ref('parksReviewed');
 
-let listening;
 
 const filterDuplicates = (string) => {
-
   if(string === '') return ['empty'];
 
-  const array = string.toLowerCase().split(' ').map(s => s.trim()).filter(s => s !== '');
+  const array = string.toLowerCase()
+    .split(' ')
+    .map(s => s.trim())
+    .filter(s => s);
 
   return [...new Set(array).keys()]; //filters out duplicates
 };
 
 export function getParkById(id) {
-
-  return dispatch => {
-    dispatch({
-      type: DETAIL_GET,
-      payload: getParkDetail(id)
-    });
+  // let promise middleware do the work...
+  return {
+    type: DETAIL_GET,
+    payload: getParkDetail(id)
   };
 }
+
+let listening;
 
 export function loadReviews(id) {
   
   return dispatch => {
     if(listening === id) return;
     listening = id;
+
+    // you need to unsubscribe the prior listener...
 
     onReviewsList(id, reviews => {
       dispatch({
@@ -56,17 +59,21 @@ export function submitReview(state, parkObj, userObj, priorReview) {
     amenities: filteredAmenities,
     tags: filteredTags,
     review,
+    // not sure why these need to be saved beyond their id (key)
     parkObj,
     userObj
   };
 
-  users.child(userObj.userId).child('reviews').update({ [parkObj.parkId]: reviewObj });
+  // These should be coordinated...
 
-  parksReviewed.child(parkObj.parkId).child('reviews').update({ [userObj.userId]: reviewObj });
-
+  return Promise.all([
+    users.child(userObj.userId).child('reviews').update({ [parkObj.parkId]: reviewObj }),
+    parksReviewed.child(parkObj.parkId).child('reviews').update({ [userObj.userId]: reviewObj })
+  ]);
 }
 
 export function deleteReview(parkId, userId) {
+  // same here. You could also manage via a trigger in cloud function
   users.child(userId).child('reviews').child(parkId).remove();
   parksReviewed.child(parkId).child('reviews').child(userId).remove();
 }

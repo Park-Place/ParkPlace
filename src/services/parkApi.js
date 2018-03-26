@@ -14,18 +14,14 @@ export const onReviewsList = (id, handler) => {
   });
 };
 
+// you need to worry about double-subscribes in these...
+
 export const onUserLoad = (id, handler) => {
-  users.child(id).on('value', data => {
-    const userInfo = data.val(); 
-    
-    handler(userInfo);
-  });
+  users.child(id).off().on('value', data => handler(data.val()));
 };
 
 export const onUserStateChange = handler => {
-  auth.onAuthStateChanged(user => {
-    handler(user);
-  });
+  auth.onAuthStateChanged(user => handler(user));
 };
 
 export const onSignUp = (email, password) => {

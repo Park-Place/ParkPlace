@@ -22,6 +22,8 @@ class Review extends Component {
 
     const uid = auth.currentUser ? auth.currentUser.uid : null;
 
+    // Would be better not to have 'empty' as a value.
+    // Non-existant or null better check...
     const reviewObj = {
       rating,
       amenities: (amenities[0] === 'empty' && amenities.length === 1) ? '' : amenities.join(' '),

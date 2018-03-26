@@ -6,18 +6,18 @@ const cors = require('cors')();
 
 exports.getPlacesByTextSearch = functions.https.onRequest((req, res) => {
   cors(req, res, () => {
-    client.get(`${BASE_MAPS_URL}place/textsearch/json?query=${req.query.query}&types=park&key=${API_KEY}`)
-      .pipe(res);
+    const url = `${BASE_MAPS_URL}place/textsearch/json?query=${req.query.query}&types=park&key=${API_KEY}`;
+    client.get(url).pipe(res);
   });
 });
 
 
 exports.getGeocodeByQuery = functions.https.onRequest((req, res) => {
   cors(req, res, () => {
-    client.get(`${BASE_MAPS_URL}geocode/json?address=${req.query.query}&key=${API_KEY}`)
+    const url = `${BASE_MAPS_URL}geocode/json?address=${req.query.query}&key=${API_KEY}`;
+    client.get(url)
       .then(({ body }) => { 
-        const lat = body.results[0].geometry.location.lat;
-        const long = body.results[0].geometry.location.lng;    
+        const { lat, long } = body.results[0].geometry.location;
         res.json({ lat, long });
       })
       .catch(error => {
@@ -42,31 +42,44 @@ exports.getParkDetail = functions.https.onRequest((req, res) => {
   });
 });
 
-exports.updateUserDerived = functions.database.ref('/parksReviewed/{parkId}/reviews').onWrite((event) => {
-  const reviews = event.data.val();
-  const averageRatingRef = event.data.ref.parent.child('averageRating');
-  const tagsRef = event.data.ref.parent.child('tags');
-  const amenitiesRef = event.data.ref.parent.child('amenities');
-  let averageRating = null, tags = null, amenities = null;
+// use variables and destructuring to clean up repetitive access to deeply nested properties
+exports.updateUserDerived = functions.database.ref('/parksReviewed/{parkId}/reviews').onWrite(({ data }) => {
+  const reviews = data.val();
+  const { parent } = data.ref.parent;
+
+  const averageRatingRef = parent.child('averageRating');
+  const tagsRef = parent.child('tags');
+  const amenitiesRef = parent.child('amenities');
+
+  const { averageRating, tags, amenities } = getAggregates(reviews);
   
-  if(reviews && Object.keys(reviews).length > 0) {
-    const reviewsArray = Object.keys(reviews).map(key => reviews[key]);
-
-    const sum = reviewsArray.map(review => review.rating).reduce((a, b) => a + b);
-    const count = reviewsArray.length;
-
-    averageRating = count !== 0 ? Math.round(sum / count) : null ;
-
-    tags = createTagsObject(reviewsArray, 'tags');
-    amenities = createTagsObject(reviewsArray, 'amenities');
-  }
-
   return Promise.all([
     averageRatingRef.set(averageRating),
     tagsRef.set(tags),
     amenitiesRef.set(amenities)
   ]);
 });
+
+const EMPTY = {
+  averageRating: null,
+  tags: null,
+  amenities: null
+};
+
+const getAggregates = reviews => {
+  if(!reviews || Object.keys(reviews).length === 0) return EMPTY;
+
+  const reviewsArray = Object.keys(reviews).map(key => reviews[key]);
+
+  const sum = reviewsArray.map(review => review.rating).reduce((a, b) => a + b);
+  const count = reviewsArray.length;
+
+  return {
+    averageRating: count !== 0 ? Math.round(sum / count) : null,
+    tags: createTagsObject(reviewsArray, 'tags'),
+    amenities: createTagsObject(reviewsArray, 'amenities')
+  };
+}
 
 const createTagsObject = (array, tagName) => {
   return array.reduce((map, review) => {
