@@ -1,6 +1,8 @@
 Objective
 ===
 
+// initial commit 
+
 Create an application that allows users to view parks from around the world, leave reviews, see other users reviews, and see their review affect the aggregate data for that park.
 * Use react / redux
 * Use google firebase, authorization, and cloud functions
