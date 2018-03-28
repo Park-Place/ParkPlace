@@ -59,6 +59,7 @@ exports.updateUserDerived = functions.database.ref('/parksReviewed/{parkId}/revi
 
     tags = createTagsObject(reviewsArray, 'tags');
     amenities = createTagsObject(reviewsArray, 'amenities');
+
   }
 
   return Promise.all([
