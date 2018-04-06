@@ -6,7 +6,6 @@ import { onReviewsList } from '../../services/parkApi';
 const users = db.ref('users');
 const parksReviewed = db.ref('parksReviewed');
 
-let listening;
 
 const filterDuplicates = (string) => {
 
@@ -18,27 +17,27 @@ const filterDuplicates = (string) => {
 };
 
 export function getParkById(id) {
-
-  return dispatch => {
-    dispatch({
-      type: DETAIL_GET,
-      payload: getParkDetail(id)
-    });
+  return {
+    type: DETAIL_GET,
+    payload: getParkDetail(id)
   };
 }
+
+let listening;
 
 export function loadReviews(id) {
   
   return dispatch => {
     if(listening === id) return;
-    listening = id;
 
-    onReviewsList(id, reviews => {
+    onReviewsList(id, listening, reviews => {
       dispatch({
         type: REVIEWS_LOAD,
         payload: reviews
       });
     });
+
+    listening = id;    
   };
 }
 

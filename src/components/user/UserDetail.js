@@ -11,6 +11,12 @@ class UserDetail extends Component {
     loadUser(id);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { id, loadUser } = this.props;
+    const nextId = nextProps.match.params.id;
+    if(nextId !== id) loadUser(nextId);
+  }
+
   render() {
 
     const { currentUser } = this.props;

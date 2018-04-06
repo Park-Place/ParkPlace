@@ -5,7 +5,9 @@ import { auth } from './firebase';
 const parksReviewed = db.ref('parksReviewed');
 const users = db.ref('users');
 
-export const onReviewsList = (id, handler) => {
+export const onReviewsList = (id, prevId, handler) => {
+  if(prevId) parksReviewed.child(prevId).off();
+  
   parksReviewed.child(id).on('value', data => {
     const reviews = data.val();
     if(!reviews) return { reviews: [] };
@@ -15,17 +17,12 @@ export const onReviewsList = (id, handler) => {
 };
 
 export const onUserLoad = (id, handler) => {
-  users.child(id).on('value', data => {
-    const userInfo = data.val(); 
-    
-    handler(userInfo);
-  });
+  users.child(id).on('value', data => handler(data.val()));
 };
 
+
 export const onUserStateChange = handler => {
-  auth.onAuthStateChanged(user => {
-    handler(user);
-  });
+  auth.onAuthStateChanged(user => handler(user));
 };
 
 export const onSignUp = (email, password) => {
