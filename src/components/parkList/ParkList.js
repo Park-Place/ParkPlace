@@ -32,7 +32,7 @@ class ParkList extends Component {
     return (
       <Fragment>
         <ul id="park-list">
-          {results.map(result => <Park key={result.id} result={result} />)}
+          {results.map((result, index) => <Park key={result.id} index={index} result={result} />)}
         </ul>
       </Fragment>
     );
