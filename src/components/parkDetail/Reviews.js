@@ -10,13 +10,12 @@ class Reviews extends Component {
 
     const { reviews } = this.props;
 
-    if(!reviews) return (<p>There are no reviews yet</p>);
-
-    const keys = Object.keys(reviews);
+    if(!reviews) return null;
+    if(reviews.length === 0) return (<p>There are no reviews yet</p>);
 
     return (
       <ul className="reviews">
-        {keys.map(key => <Review key={key} {...reviews[key]}/>)}
+        {reviews.map(review => <Review key={review.userId} {...review}/>)}
       </ul>
     );
   }

@@ -53,8 +53,12 @@ export class ParkDetail extends Component {
     
     const { name, formatted_address, international_phone_number, photos, opening_hours, url } = this.props.result;
     const { open } = this.state;
-    const { hasReviewed, derivedData, loggedIn } = this.props;
-
+    const { hasReviewed, derivedData, loggedIn, id } = this.props;
+    const reviewObj = {
+      parkName: name,
+      parkId: id,
+      photoReference: photos[0].photo_reference
+    };
   
     let tags, amenities, averageRating;
     if(derivedData) {
@@ -121,7 +125,7 @@ export class ParkDetail extends Component {
           onRequestClose={this.handleClose}
         >
           <button className="modal-button" onClick={this.handleClose}>x</button>
-          <ReviewForm legendText={'Write a Review'} handleClose={this.handleClose}/>
+          <ReviewForm reviewObj={reviewObj} legendText={'Write a Review'} handleClose={this.handleClose}/>
         </ReactModal>
 
       </div>

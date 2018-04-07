@@ -1,8 +1,8 @@
 import { db } from './firebase';
 import { auth } from './firebase';
 
-
 const parksReviewed = db.ref('parksReviewed');
+const reviewsRef = db.ref('reviews');
 const users = db.ref('users');
 
 export const onReviewsList = (id, prevId, handler) => {
@@ -10,9 +10,18 @@ export const onReviewsList = (id, prevId, handler) => {
   
   parksReviewed.child(id).on('value', data => {
     const reviews = data.val();
-    if(!reviews) return { reviews: [] };
+    let reviewsArr = [];
+    if(!reviews) return reviewsArr;
+    else {
+      for(let key in reviews) {
+        reviewsRef.child(key).once('value', (data) => {
+          let review = data.val();
+          reviewsArr.push(review);
+        });
+      }
+    }
 
-    handler(reviews);
+    handler(reviewsArr);
   });
 };
 

@@ -21,21 +21,9 @@ class ReviewForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { handleClose, user, parkReviewed, priorReview, park } = this.props;
+    const { handleClose, priorReview, user } = this.props;
     
-    const userObj = {
-      userName: user.userName,
-      image: user.image,
-      userId: auth.currentUser.uid
-    };
-
-    const parkObj = {
-      parkName: parkReviewed ? parkReviewed.parkName : park.name,
-      parkId: parkReviewed ? parkReviewed.parkId : park.place_id,
-      photoReference: parkReviewed ? parkReviewed.photoReference : park.photos[0].photo_reference
-    };
-
-    submitReview(this.state, parkObj, userObj, priorReview);
+    submitReview(this.state, auth.currentUser.uid, user.userName, user.image, priorReview);
     handleClose();
   };
 
@@ -51,7 +39,6 @@ class ReviewForm extends Component {
   };
 
   render() {
-   
     const { review, tags, amenities, rating } = this.state;
     const { legendText, priorReview } = this.props;
 
@@ -83,6 +70,6 @@ class ReviewForm extends Component {
 }
 
 export default connect(
-  state => ({ user: state.loggedIn, park: state.currentPark }),
+  state => ({ user: state.loggedIn }),
   null
 )(ReviewForm);

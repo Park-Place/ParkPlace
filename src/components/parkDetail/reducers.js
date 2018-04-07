@@ -24,7 +24,7 @@ export function currentPark(state = null, { type, payload }) {
 export function currentParkReviews(state = null, { type, payload }) {
   switch(type) {
     case REVIEWS_LOAD:
-      return payload.reviews || null;
+      return payload || null;
     case RESULTS_SET:
       return null;
     default:

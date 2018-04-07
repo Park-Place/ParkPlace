@@ -5,7 +5,7 @@ import { onReviewsList } from '../../services/parkApi';
 
 const users = db.ref('users');
 const parksReviewed = db.ref('parksReviewed');
-
+const reviews = db.ref('reviews');
 
 const filterDuplicates = (string) => {
 
@@ -41,31 +41,38 @@ export function loadReviews(id) {
   };
 }
 
-export function submitReview(state, parkObj, userObj, priorReview) {
+export function submitReview(reviewObj, userId, userName, userPhoto, priorReview) {
 
-  const { rating, amenities, review, tags } = state;
+  const { rating, amenities, review, tags, parkName, parkId, photoReference } = reviewObj;
 
   const filteredAmenities = filterDuplicates(amenities);
   const filteredTags = filterDuplicates(tags);
   const date = new Date();
+  const newReview = reviews.push();
 
-  const reviewObj = {
+  const reviewObjRestructured = {
     timeStamp: priorReview ? `Edited on ${date.toLocaleString()}` : date.toLocaleString(),
     rating: parseInt(rating),
     amenities: filteredAmenities,
     tags: filteredTags,
     review,
-    parkObj,
-    userObj
+    parkName,
+    photoReference,
+    userId,
+    userName,
+    userPhoto,
+    parkId
   };
 
-  users.child(userObj.userId).child('reviews').update({ [parkObj.parkId]: reviewObj });
+  users.child(userId).child('reviews').update({ [newReview.key]: true });
 
-  parksReviewed.child(parkObj.parkId).child('reviews').update({ [userObj.userId]: reviewObj });
+  parksReviewed.child(parkId).update({ [newReview.key]: true });
 
+  reviews.child(newReview.key).set({ ...reviewObjRestructured });
 }
 
 export function deleteReview(parkId, userId) {
   users.child(userId).child('reviews').child(parkId).remove();
-  parksReviewed.child(parkId).child('reviews').child(userId).remove();
+  parksReviewed.child(parkId).child(userId).remove();
+  reviewsByUser.child(userId).child(parkId).remove();
 }

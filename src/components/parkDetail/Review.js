@@ -1,11 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { auth } from '../../services/firebase';
 import ReviewForm from './ReviewForm';
 import './review.css';
 
-class Review extends Component {
+export default class Review extends Component {
 
   state = {
     editing: false
@@ -16,8 +15,7 @@ class Review extends Component {
   };
 
   render() {
-    const { userObj, timeStamp, rating, review, amenities, tags } = this.props;
-    const { userId, image, userName } = userObj;
+    const { userName, userPhoto, userId, timeStamp, rating, review, amenities, tags } = this.props;
     const { editing } = this.state;
 
     const uid = auth.currentUser ? auth.currentUser.uid : null;
@@ -32,7 +30,7 @@ class Review extends Component {
     return (
       <li className="park-review">
         <Link to={`/users/${userId}`} className="user-content"> 
-          <img src={image}/>
+          <img src={userPhoto}/>
           <h4>{userName}</h4>
           <p className="rating">{rating}</p>
         </Link>
@@ -52,7 +50,3 @@ class Review extends Component {
     );
   }
 }
-
-export default connect(
-  null
-)(Review);
