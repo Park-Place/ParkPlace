@@ -23,22 +23,26 @@ export function getParkById(id) {
   };
 }
 
-let listening;
+let parkRef;
 
 export function loadReviews(id) {
   
   return dispatch => {
-    if(listening === id) return;
+    if(parkRef === id) return;
 
-    onReviewsList(id, listening, reviews => {
+    onReviewsList(id, parkRef, reviews => {
       dispatch({
         type: REVIEWS_LOAD,
         payload: reviews
       });
     });
 
-    listening = id;    
+    parkRef = id;    
   };
+}
+
+export function getUserById(id) {
+  return users.child(id).once('value');
 }
 
 export function submitReview(reviewObj, userId, userName, userPhoto, priorReview) {
@@ -74,5 +78,5 @@ export function submitReview(reviewObj, userId, userName, userPhoto, priorReview
 export function deleteReview(parkId, userId) {
   users.child(userId).child('reviews').child(parkId).remove();
   parksReviewed.child(parkId).child(userId).remove();
-  reviewsByUser.child(userId).child(parkId).remove();
+  reviews.child(userId).child(parkId).remove();
 }

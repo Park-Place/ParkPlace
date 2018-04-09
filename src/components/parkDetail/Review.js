@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { auth } from '../../services/firebase';
+import { getUserById } from './actions';
 import ReviewForm from './ReviewForm';
 import './review.css';
 
@@ -10,16 +11,25 @@ export default class Review extends Component {
     editing: false
   };
 
+  componentDidMount() {
+    getUserById(this.props.userId)
+      .then(result => {
+        const { image, userName } = result.val();
+        this.setState({ image, userName });
+      });
+  }
+
   changeEditing = () => {
     this.setState(prev => ({ editing: !prev.editing }));
   };
 
   render() {
-    const { userName, userPhoto, userId, timeStamp, rating, review, amenities, tags } = this.props;
-    const { editing } = this.state;
+    const { userId, timeStamp, rating, review, amenities, tags } = this.props;
+    const { editing, image, userName } = this.state;
+
+    if(!image) return null;
 
     const uid = auth.currentUser ? auth.currentUser.uid : null;
-
     const reviewObj = {
       rating,
       amenities: (amenities[0] === 'empty' && amenities.length === 1) ? '' : amenities.join(' '),
@@ -30,7 +40,7 @@ export default class Review extends Component {
     return (
       <li className="park-review">
         <Link to={`/users/${userId}`} className="user-content"> 
-          <img src={userPhoto}/>
+          <img src={image}/>
           <h4>{userName}</h4>
           <p className="rating">{rating}</p>
         </Link>
