@@ -1,7 +1,7 @@
 import { getParkDetail } from '../../services/googleAPI';
-import { DETAIL_GET, REVIEWS_LOAD } from './reducers';
+import { DETAIL_GET, REVIEWS_LOAD, DERIVED_GET } from './reducers';
 import { db } from '../../services/firebase';
-import { onReviewsList } from '../../services/parkApi';
+import { onReviewsList, onParkDerivedData } from '../../services/parkApi';
 
 const users = db.ref('users');
 const reviewsByPark = db.ref('reviewsByPark');
@@ -23,21 +23,38 @@ export function getParkById(id) {
   };
 }
 
-let parkRef;
+let prevParkDerivedId;
+
+export function setParkDerivedData(id) {
+  if(prevParkDerivedId === id) return;
+  return dispatch => {
+    
+    onParkDerivedData(id, prevParkDerivedId, data => {
+      dispatch({
+        type: DERIVED_GET,
+        payload: data
+      });
+    });
+
+    prevParkDerivedId = id;
+  };
+}
+
+let prevParkReviewId;
 
 export function loadReviews(id) {
   
+  if(prevParkReviewId === id) return;
   return dispatch => {
-    if(parkRef === id) return;
 
-    onReviewsList(id, parkRef, reviews => {
+    onReviewsList(id, prevParkReviewId, reviews => {
       dispatch({
         type: REVIEWS_LOAD,
         payload: reviews
       });
     });
 
-    parkRef = id;    
+    prevParkReviewId = id;    
   };
 }
 

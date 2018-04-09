@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getParkById, loadReviews } from './actions';
+import { getParkById, loadReviews, setParkDerivedData } from './actions';
 import { connect } from 'react-redux';
 import { getParkImage } from '../../services/googleAPI';
 import { Link } from 'react-router-dom';
@@ -33,6 +33,7 @@ export class ParkDetail extends Component {
     const { id } = this.props;
     this.props.getParkById(id);
     this.props.loadReviews(id);
+    this.props.setParkDerivedData(id);
   }
 
   componentWillMount() {
@@ -147,5 +148,5 @@ export default connect(
     derivedData: currentParkDerivedData,
     loggedIn
   }),
-  ({ getParkById, loadReviews })
+  ({ getParkById, loadReviews, setParkDerivedData })
 )(ParkDetail);

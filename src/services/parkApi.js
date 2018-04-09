@@ -4,6 +4,15 @@ import { auth } from './firebase';
 const reviewsByPark = db.ref('reviewsByPark');
 const reviewsRef = db.ref('reviews');
 const users = db.ref('users');
+const derivedParkData = db.ref('derivedParkData');
+
+const sortArray = (object) => {
+  if(!object) return [];
+  const array = Object.keys(object).sort((a, b) => object[b] - object[a]).filter(a => a != 'empty');
+  if(array.length > 5) array.length = 5;
+
+  return array;
+};
 
 export const onReviewsList = (id, prevId, handler) => {
   if(prevId) reviewsByPark.child(prevId).off();
@@ -22,6 +31,21 @@ export const onReviewsList = (id, prevId, handler) => {
     }
 
     handler(reviewsArr);
+  });
+};
+
+export const onParkDerivedData = (id, prevId, handler) => {
+  if(prevId) derivedParkData.child(prevId).off();
+
+  derivedParkData.child(id).on('value', data => {
+    const derivedData = data.val();
+    if(!derivedData) return null;
+    const derivedDataReformated = {
+      tags: sortArray(derivedData.tags),
+      amenities: sortArray(derivedData.amenities),
+      averageRating: derivedData.averageRating
+    };
+    handler(derivedDataReformated);
   });
 };
 
