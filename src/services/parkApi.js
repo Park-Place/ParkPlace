@@ -1,14 +1,14 @@
 import { db } from './firebase';
 import { auth } from './firebase';
 
-const parksReviewed = db.ref('parksReviewed');
+const reviewsByPark = db.ref('reviewsByPark');
 const reviewsRef = db.ref('reviews');
 const users = db.ref('users');
 
 export const onReviewsList = (id, prevId, handler) => {
-  if(prevId) parksReviewed.child(prevId).off();
+  if(prevId) reviewsByPark.child(prevId).off();
   
-  parksReviewed.child(id).on('value', data => {
+  reviewsByPark.child(id).on('value', data => {
     const reviews = data.val();
     let reviewsArr = [];
     if(!reviews) return reviewsArr;

@@ -4,7 +4,7 @@ import { db } from '../../services/firebase';
 import { onReviewsList } from '../../services/parkApi';
 
 const users = db.ref('users');
-const parksReviewed = db.ref('parksReviewed');
+const reviewsByPark = db.ref('reviewsByPark');
 const reviews = db.ref('reviews');
 
 const filterDuplicates = (string) => {
@@ -45,7 +45,7 @@ export function getUserById(id) {
   return users.child(id).once('value');
 }
 
-export function submitReview(reviewObj, userId, userName, userPhoto, priorReview) {
+export function submitReview(reviewObj, userId, priorReview) {
 
   const { rating, amenities, review, tags, parkName, parkId, photoReference } = reviewObj;
 
@@ -63,20 +63,18 @@ export function submitReview(reviewObj, userId, userName, userPhoto, priorReview
     parkName,
     photoReference,
     userId,
-    userName,
-    userPhoto,
     parkId
   };
 
   users.child(userId).child('reviews').update({ [newReview.key]: true });
 
-  parksReviewed.child(parkId).update({ [newReview.key]: true });
+  reviewsByPark.child(parkId).update({ [newReview.key]: true });
 
   reviews.child(newReview.key).set({ ...reviewObjRestructured });
 }
 
 export function deleteReview(parkId, userId) {
   users.child(userId).child('reviews').child(parkId).remove();
-  parksReviewed.child(parkId).child(userId).remove();
+  reviewsByPark.child(parkId).child(userId).remove();
   reviews.child(userId).child(parkId).remove();
 }

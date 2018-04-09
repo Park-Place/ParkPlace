@@ -21,9 +21,9 @@ class ReviewForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { handleClose, priorReview, user } = this.props;
+    const { handleClose, priorReview } = this.props;
     
-    submitReview(this.state, auth.currentUser.uid, user.userName, user.image, priorReview);
+    submitReview(this.state, auth.currentUser.uid, priorReview);
     handleClose();
   };
 
