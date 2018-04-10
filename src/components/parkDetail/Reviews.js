@@ -10,6 +10,7 @@ class Reviews extends Component {
 
     const { reviews } = this.props;
 
+    if(!reviews) return null;
     if(reviews.length < 1) return (<p>There are no reviews yet</p>);
 
     return (

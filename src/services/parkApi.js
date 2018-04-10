@@ -19,19 +19,21 @@ export const onReviewsList = (id, prevId, handler) => {
   
   reviewsByPark.child(id).on('value', data => {
     const reviews = data.val();
-    let reviewsArr = [];
-    if(!reviews) return reviewsArr;
-    else {
-      for(let key in reviews) {
-        reviewsRef.child(key).once('value', (data) => {
-          let review = data.val();
-          reviewsArr.push(review);
-        });
-      }
-    }
-
-    handler(reviewsArr);
+    if(!reviews) return null;
+    
+    return getReviews(reviews)
+      .then((reviewsArr) => handler(reviewsArr));
   });
+};
+
+const getReviews = (reviews) => {
+  let reviewsArr = [];
+  for(let key in reviews) {
+    reviewsArr.push(reviewsRef.child(key).once('value'));
+  }
+  
+  return Promise.all(reviewsArr)
+    .then(reviewsArr => reviewsArr.map(review => review.val()));
 };
 
 export const onParkDerivedData = (id, prevId, handler) => {

@@ -46,7 +46,6 @@ export function loadReviews(id) {
   
   if(prevParkReviewId === id) return;
   return dispatch => {
-
     onReviewsList(id, prevParkReviewId, reviews => {
       dispatch({
         type: REVIEWS_LOAD,

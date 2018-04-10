@@ -15,12 +15,12 @@ export function currentPark(state = null, { type, payload }) {
   }
 }
 
-export function currentParkReviews(state = [], { type, payload }) {
+export function currentParkReviews(state = null, { type, payload }) {
   switch(type) {
     case REVIEWS_LOAD:
-      return payload || [];
+      return payload || null;
     case RESULTS_SET:
-      return [];
+      return null;
     default:
       return state;
   }
