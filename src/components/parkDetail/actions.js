@@ -69,6 +69,7 @@ export function submitReview(reviewObj, userId, priorReview) {
   const filteredTags = filterDuplicates(tags);
   const date = new Date();
   const newReview = reviews.push();
+  const key = priorReview ? reviewObj.key : newReview.key;
 
   const reviewObjRestructured = {
     timeStamp: priorReview ? `Edited on ${date.toLocaleString()}` : date.toLocaleString(),
@@ -79,14 +80,16 @@ export function submitReview(reviewObj, userId, priorReview) {
     parkName,
     photoReference,
     userId,
-    parkId
+    parkId,
+    key
   };
 
-  users.child(userId).child('reviews').update({ [newReview.key]: true });
-
-  reviewsByPark.child(parkId).update({ [newReview.key]: true });
-
-  reviews.child(newReview.key).set({ ...reviewObjRestructured });
+  if(priorReview) reviews.child(key).set({ ...reviewObjRestructured });
+  else {
+    reviews.child(key).set({ ...reviewObjRestructured });
+    users.child(userId).child('reviews').update({ [key]: true });
+    reviewsByPark.child(parkId).update({ [key]: true });
+  }
 }
 
 export function deleteReview(parkId, userId) {

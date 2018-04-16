@@ -26,7 +26,7 @@ export default class Review extends Component {
 
   render() {
     
-    const { editing, image, userName, userId, timeStamp, rating, review, amenities, tags } = this.state;
+    const { editing, image, userName, userId, timeStamp, rating, review, amenities, tags, key, parkName, parkId, photoReference } = this.state;
 
     if(!image) return null;
 
@@ -35,7 +35,12 @@ export default class Review extends Component {
       rating,
       amenities: (amenities[0] === 'empty' && amenities.length === 1) ? '' : amenities.join(' '),
       tags: (tags[0] === 'empty' && tags.length === 1) ? '' : tags.join(' '),
-      review
+      review,
+      key,
+      parkName,
+      parkId,
+      userId,
+      photoReference
     };
 
     return (
