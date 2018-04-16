@@ -29,12 +29,9 @@ class ReviewForm extends Component {
 
   handleDelete = (event) => {
     event.preventDefault();
-    const { parkReviewed, park } = this.props;
+    const { key, userId, parkId } = this.state;
 
-    const parkId = parkReviewed ? parkReviewed.parkId : park.place_id;
-    const userId = auth.currentUser.uid;
-
-    deleteReview(parkId, userId);
+    deleteReview(parkId, userId, key);
     
   };
 
@@ -62,8 +59,8 @@ class ReviewForm extends Component {
         <input name="rating" onChange={this.handleChange} value={rating} type="range" min="1" max="5" required/>{rating}
         </label>
 
-        <ActionButton classData={'review-form-button'}type={'submit'} buttonText={'Submit'}/>
-        {priorReview && <ActionButton classData={'review-delete-button'}type={'button'} buttonText={'Delete'} onClick={this.handleDelete}/>}
+        <ActionButton classData={'review-form-button'} type={'submit'} buttonText={'Submit'}/>
+        {priorReview && <ActionButton classData={'review-delete-button'} type={'button'} buttonText={'Delete'} onClick={this.handleDelete}/>}
       </form>
     );
   }

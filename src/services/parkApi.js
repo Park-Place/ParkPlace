@@ -29,14 +29,16 @@ export const onReview = (id, cb) => {
 
   reviewsRef.child(id).on('value', data => {
     const review = data.val();
-    users.child(review.userId).on('value', d => {
-      const user = d.val();
-      const allInfo = {
-        ...user,
-        ...review
-      };
-      cb(allInfo);
-    });
+    if(review) {
+      users.child(review.userId).once('value', d => {
+        const user = d.val();
+        const allInfo = {
+          ...user,
+          ...review
+        };
+        cb(allInfo);
+      });
+    }
   });
 };
 

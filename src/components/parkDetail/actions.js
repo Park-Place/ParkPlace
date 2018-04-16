@@ -86,13 +86,13 @@ export function submitReview(reviewObj, userId, priorReview) {
   };
 
   reviews.child(key).set({ ...reviewObjRestructured });
-  reviewsByPark.child(parkId).update({ [key]: uid() }); //needs a random hash as firebase will not update children if same as prior (key: true will not work here). Needs to be updated every time to trigger derived data recalculation in cloud function
+  reviewsByPark.child(parkId).update({ [key]: uid() }); //needs a random hash as firebase will not update children if same as prior ({[key]: true} will not work here). Needs to be updated every time to trigger derived data recalculation in cloud function
   users.child(userId).child('reviews').update({ [key]: true });
 
 }
 
-export function deleteReview(parkId, userId) {
-  users.child(userId).child('reviews').child(parkId).remove();
-  reviewsByPark.child(parkId).child(userId).remove();
-  reviews.child(userId).child(parkId).remove();
+export function deleteReview(parkId, userId, reviewId) {
+  users.child(userId).child('reviews').child(reviewId).remove();
+  reviewsByPark.child(parkId).child(reviewId).remove();
+  reviews.child(reviewId).remove();
 }
