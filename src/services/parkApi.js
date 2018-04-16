@@ -18,22 +18,33 @@ export const onReviewsList = (id, prevId, handler) => {
   if(prevId) reviewsByPark.child(prevId).off();
   
   reviewsByPark.child(id).on('value', data => {
-    const reviews = data.val();
-    if(!reviews) return null;
+    const reviewIds = data.val();
+    if(!reviewIds) return null;
     
-    return getReviews(reviews)
-      .then((reviewsArr) => handler(reviewsArr));
+    return handler(reviewIds);
   });
 };
 
-const getReviews = (reviews) => {
-  let reviewsArr = [];
-  for(let key in reviews) {
-    reviewsArr.push(reviewsRef.child(key).once('value'));
-  }
-  
-  return Promise.all(reviewsArr)
-    .then(reviewsArr => reviewsArr.map(review => review.val()));
+export const onReview = (id) => {
+
+  console.log(typeof getUserData)
+
+  return reviewsRef.child(id).on('value', data => {
+    const review = data.val();
+    users.child(review.userId).on('value', d => {
+      const user = d.val();
+      const allInfo = {
+        ...user,
+        ...review
+      };
+      console.log(allInfo);
+      return allInfo;
+    });
+  });
+};
+
+export const getUserData = (id) => {
+  return users.child(id).on('value', (data) => data.val());
 };
 
 export const onParkDerivedData = (id, prevId, handler) => {
@@ -52,7 +63,8 @@ export const onParkDerivedData = (id, prevId, handler) => {
 };
 
 export const onUserLoad = (id, handler) => {
-  users.child(id).on('value', data => handler(data.val()));
+  getUserData(id)
+    .then((d) => handler(d));
 };
 
 

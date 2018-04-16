@@ -1,7 +1,7 @@
 import { getParkDetail } from '../../services/googleAPI';
 import { DETAIL_GET, REVIEWS_LOAD, DERIVED_GET } from './reducers';
 import { db } from '../../services/firebase';
-import { onReviewsList, onParkDerivedData } from '../../services/parkApi';
+import { onReviewsList, onParkDerivedData, onReview } from '../../services/parkApi';
 
 const users = db.ref('users');
 const reviewsByPark = db.ref('reviewsByPark');
@@ -40,6 +40,10 @@ export function setParkDerivedData(id) {
   };
 }
 
+export function getReview(id) {
+  return onReview(id);
+}
+
 let prevParkReviewId;
 
 export function loadReviews(id) {
@@ -55,10 +59,6 @@ export function loadReviews(id) {
 
     prevParkReviewId = id;    
   };
-}
-
-export function getUserById(id) {
-  return users.child(id).once('value');
 }
 
 export function submitReview(reviewObj, userId, priorReview) {

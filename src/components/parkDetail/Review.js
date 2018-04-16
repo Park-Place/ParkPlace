@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { auth } from '../../services/firebase';
-import { getUserById } from './actions';
+import { onReview } from '../../services/parkApi';
 import ReviewForm from './ReviewForm';
 import './review.css';
 
@@ -12,10 +12,11 @@ export default class Review extends Component {
   };
 
   componentDidMount() {
-    getUserById(this.props.userId)
+
+    onReview(this.props.reviewId) //.then does not recognize the promise inside of the function. Wat do?
       .then(result => {
-        const { image, userName } = result.val();
-        this.setState({ image, userName });
+        console.log(result);
+        this.setState({ ...result });
       });
   }
 
@@ -24,8 +25,8 @@ export default class Review extends Component {
   };
 
   render() {
-    const { userId, timeStamp, rating, review, amenities, tags } = this.props;
-    const { editing, image, userName } = this.state;
+    
+    const { editing, image, userName, userId, timeStamp, rating, review, amenities, tags } = this.state;
 
     if(!image) return null;
 
