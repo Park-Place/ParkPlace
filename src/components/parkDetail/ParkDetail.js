@@ -134,8 +134,8 @@ export class ParkDetail extends Component {
   }
 }
 
-const checkReviewed = (reviews) => {
-  if(auth.currentUser) return reviews.some(review => review.userId === auth.currentUser.uid); 
+const checkReviewed = (reviews, loggedIn) => {
+  if(loggedIn) return Object.keys(reviews).some(reviewId => loggedIn.reviews[reviewId]); 
   else return false;
 };
 
@@ -144,7 +144,7 @@ export default connect(
     id: match.params.id,
     result: currentPark,
     reviews: currentParkReviews,
-    // hasReviewed: !!currentParkReviews && checkReviewed(currentParkReviews),
+    hasReviewed: !!currentParkReviews && checkReviewed(currentParkReviews, loggedIn),
     derivedData: currentParkDerivedData,
     loggedIn
   }),

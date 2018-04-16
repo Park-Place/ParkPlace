@@ -13,7 +13,7 @@ export default class Review extends Component {
 
   componentDidMount() {
 
-    onReview(this.props.reviewId, this.setTheState); //have set state as a callback as onReview is not a promise (but contains promises) and cannot use .then
+    onReview(this.props.reviewId, this.setTheState); //have set state as a callback as onReview is not a promise (but contains promises) and cannot use .then. Does not work with this.setState() directly either
   }
 
   setTheState = (result) => {
