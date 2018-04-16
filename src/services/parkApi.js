@@ -25,11 +25,9 @@ export const onReviewsList = (id, prevId, handler) => {
   });
 };
 
-export const onReview = (id) => {
+export const onReview = (id, cb) => {
 
-  console.log(typeof getUserData)
-
-  return reviewsRef.child(id).on('value', data => {
+  reviewsRef.child(id).on('value', data => {
     const review = data.val();
     users.child(review.userId).on('value', d => {
       const user = d.val();
@@ -37,14 +35,9 @@ export const onReview = (id) => {
         ...user,
         ...review
       };
-      console.log(allInfo);
-      return allInfo;
+      cb(allInfo);
     });
   });
-};
-
-export const getUserData = (id) => {
-  return users.child(id).on('value', (data) => data.val());
 };
 
 export const onParkDerivedData = (id, prevId, handler) => {
@@ -63,8 +56,7 @@ export const onParkDerivedData = (id, prevId, handler) => {
 };
 
 export const onUserLoad = (id, handler) => {
-  getUserData(id)
-    .then((d) => handler(d));
+  users.child(id).on('value', (data) => handler(data.val()));
 };
 
 

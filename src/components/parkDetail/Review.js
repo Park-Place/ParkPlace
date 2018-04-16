@@ -13,12 +13,12 @@ export default class Review extends Component {
 
   componentDidMount() {
 
-    onReview(this.props.reviewId) //.then does not recognize the promise inside of the function. Wat do?
-      .then(result => {
-        console.log(result);
-        this.setState({ ...result });
-      });
+    onReview(this.props.reviewId, this.setTheState); //have set state as a callback as onReview is not a promise (but contains promises) and cannot use .then
   }
+
+  setTheState = (result) => {
+    this.setState({ ...result });    
+  };
 
   changeEditing = () => {
     this.setState(prev => ({ editing: !prev.editing }));
