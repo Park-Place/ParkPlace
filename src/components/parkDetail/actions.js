@@ -2,6 +2,7 @@ import { getParkDetail } from '../../services/googleAPI';
 import { DETAIL_GET, REVIEWS_LOAD, DERIVED_GET } from './reducers';
 import { db } from '../../services/firebase';
 import { onReviewsList, onParkDerivedData, onReview } from '../../services/parkApi';
+import uid from 'uuid/v1';
 
 const users = db.ref('users');
 const reviewsByPark = db.ref('reviewsByPark');
@@ -84,12 +85,10 @@ export function submitReview(reviewObj, userId, priorReview) {
     key
   };
 
-  if(priorReview) reviews.child(key).set({ ...reviewObjRestructured });
-  else {
-    reviews.child(key).set({ ...reviewObjRestructured });
-    users.child(userId).child('reviews').update({ [key]: true });
-    reviewsByPark.child(parkId).update({ [key]: true });
-  }
+  reviews.child(key).set({ ...reviewObjRestructured });
+  reviewsByPark.child(parkId).update({ [key]: uid() }); //needs a random hash as firebase will not update children if same as prior (key: true will not work here). Needs to be updated every time to trigger derived data recalculation in cloud function
+  users.child(userId).child('reviews').update({ [key]: true });
+
 }
 
 export function deleteReview(parkId, userId) {
