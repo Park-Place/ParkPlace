@@ -8,21 +8,21 @@ class Reviews extends Component {
 
   render() {
 
-    const { reviewIds } = this.props;
+    const { reviews } = this.props;
 
-    if(!reviewIds) return null;
-    const reviewIdsArr = Object.keys(reviewIds);
-    if(reviewIdsArr.length < 1) return (<p>There are no reviews yet.</p>);
+    if(!reviews) return (<p>There are no reviews yet</p>);
+
+    const reviewsArr = Object.keys(reviews);
 
     return (
       <ul className="reviews">
-        {reviewIdsArr.map(reviewId => <Review key={reviewId} reviewId={reviewId}/>)}
+        {reviewsArr.map(key => <Review key={key} {...reviews[key]}/>)}
       </ul>
     );
   }
 }
 
 export default connect(
-  state => ({ reviewIds: state.currentParkReviews }),
+  state => ({ reviews: state.currentParkReviews }),
   null
 )(Reviews);

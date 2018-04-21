@@ -1,23 +1,14 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { auth } from '../../services/firebase';
-import { onReview } from '../../services/parkApi';
 import ReviewForm from './ReviewForm';
 import './review.css';
 
-export default class Review extends Component {
+class Review extends Component {
 
   state = {
     editing: false
-  };
-
-  componentDidMount() {
-
-    onReview(this.props.reviewId, 'parkDetail', this.setTheState); //must pass in setState for listener, otherwise review will not update on edit
-  }
-
-  setTheState = (result) => {
-    this.setState({ ...result });    
   };
 
   changeEditing = () => {
@@ -25,22 +16,17 @@ export default class Review extends Component {
   };
 
   render() {
-    
-    const { editing, image, userName, userId, timeStamp, rating, review, amenities, tags, key, parkName, parkId, photoReference } = this.state;
-
-    if(!image) return null;
+    const { userObj, timeStamp, rating, review, amenities, tags } = this.props;
+    const { userId, image, userName } = userObj;
+    const { editing } = this.state;
 
     const uid = auth.currentUser ? auth.currentUser.uid : null;
+
     const reviewObj = {
       rating,
       amenities: (amenities[0] === 'empty' && amenities.length === 1) ? '' : amenities.join(' '),
       tags: (tags[0] === 'empty' && tags.length === 1) ? '' : tags.join(' '),
-      review,
-      key,
-      parkName,
-      parkId,
-      userId,
-      photoReference
+      review
     };
 
     return (
@@ -66,3 +52,7 @@ export default class Review extends Component {
     );
   }
 }
+
+export default connect(
+  null
+)(Review);

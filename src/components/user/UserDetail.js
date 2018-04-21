@@ -11,19 +11,13 @@ class UserDetail extends Component {
     loadUser(id);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { id, loadUser } = this.props;
-    const nextId = nextProps.match.params.id;
-    if(nextId !== id) loadUser(nextId); //to check if user clicked on their own page directly from another users page
-  }
-
   render() {
 
     const { currentUser } = this.props;
     
     if(!currentUser) return null;
     
-    const { userName, location, image, reviews } = this.props.currentUser;
+    const { userName, location, image } = this.props.currentUser;
     
     
     return (
@@ -36,7 +30,7 @@ class UserDetail extends Component {
 
         <section className="user-review-list">
           <h4 className="user-review-title">Reviews:</h4>
-          <Reviews reviewIds={reviews}/>
+          <Reviews/>
         </section>
       </div>
     );

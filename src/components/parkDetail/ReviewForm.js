@@ -21,21 +21,37 @@ class ReviewForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { handleClose, priorReview } = this.props;
+    const { handleClose, user, parkReviewed, priorReview, park } = this.props;
     
-    submitReview(this.state, auth.currentUser.uid, priorReview);
+    const userObj = {
+      userName: user.userName,
+      image: user.image,
+      userId: auth.currentUser.uid
+    };
+
+    const parkObj = {
+      parkName: parkReviewed ? parkReviewed.parkName : park.name,
+      parkId: parkReviewed ? parkReviewed.parkId : park.place_id,
+      photoReference: parkReviewed ? parkReviewed.photoReference : park.photos[0].photo_reference
+    };
+
+    submitReview(this.state, parkObj, userObj, priorReview);
     handleClose();
   };
 
   handleDelete = (event) => {
     event.preventDefault();
-    const { key, userId, parkId } = this.state;
+    const { parkReviewed, park } = this.props;
 
-    deleteReview(parkId, userId, key);
+    const parkId = parkReviewed ? parkReviewed.parkId : park.place_id;
+    const userId = auth.currentUser.uid;
+
+    deleteReview(parkId, userId);
     
   };
 
   render() {
+   
     const { review, tags, amenities, rating } = this.state;
     const { legendText, priorReview } = this.props;
 
@@ -59,14 +75,14 @@ class ReviewForm extends Component {
         <input name="rating" onChange={this.handleChange} value={rating} type="range" min="1" max="5" required/>{rating}
         </label>
 
-        <ActionButton classData={'review-form-button'} type={'submit'} buttonText={'Submit'}/>
-        {priorReview && <ActionButton classData={'review-delete-button'} type={'button'} buttonText={'Delete'} onClick={this.handleDelete}/>}
+        <ActionButton classData={'review-form-button'}type={'submit'} buttonText={'Submit'}/>
+        {priorReview && <ActionButton classData={'review-delete-button'}type={'button'} buttonText={'Delete'} onClick={this.handleDelete}/>}
       </form>
     );
   }
 }
 
 export default connect(
-  state => ({ user: state.loggedIn }),
+  state => ({ user: state.loggedIn, park: state.currentPark }),
   null
 )(ReviewForm);
