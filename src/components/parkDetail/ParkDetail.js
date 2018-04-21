@@ -7,7 +7,6 @@ import ActionButton from '../actionButton/ActionButton';
 import Reviews from './Reviews';
 import ReactModal from 'react-modal';
 import ReviewForm from './ReviewForm';
-import { auth } from '../../services/firebase';
 import './parkDetail.css';
 
 export class ParkDetail extends Component {

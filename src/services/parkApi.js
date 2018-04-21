@@ -25,21 +25,23 @@ export const onReviewsList = (id, prevId, handler) => {
   });
 };
 
-export const onReview = (id, cb) => {
+export const onReview = (id, location = null, cb) => {
 
-  reviewsRef.child(id).on('value', data => {
+  reviewsRef.child(id).on('value', async data => {
     const review = data.val();
-    if(review) {
-      users.child(review.userId).once('value', d => {
-        const user = d.val();
-        const allInfo = {
-          ...user,
-          ...review
-        };
-        cb(allInfo);
-      });
+    if(!review) return;
+    let values;
+    if(location === 'parkDetail') {
+      values = await onUserData(review.userId);
     }
+    cb({ ...review, ...values });
   });
+};
+
+export const onUserData = (id) => {
+  return new Promise((resolve, reject) => users.child(id).on('value', data => {
+    resolve(data.val());
+  }));
 };
 
 export const onParkDerivedData = (id, prevId, handler) => {
@@ -57,7 +59,8 @@ export const onParkDerivedData = (id, prevId, handler) => {
   });
 };
 
-export const onUserLoad = (id, handler) => {
+export const onUserLoad = (id, prevId, handler) => {
+  if(prevId) users.child(id).off(); //take previous listener off
   users.child(id).on('value', (data) => handler(data.val()));
 };
 

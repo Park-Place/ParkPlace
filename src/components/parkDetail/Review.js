@@ -13,7 +13,7 @@ export default class Review extends Component {
 
   componentDidMount() {
 
-    onReview(this.props.reviewId, this.setTheState); //have set state as a callback as onReview is not a promise (but contains promises) and cannot use .then. Does not work with this.setState() directly either
+    onReview(this.props.reviewId, 'parkDetail', this.setTheState); //must pass in setState for listener, otherwise review will not update on edit
   }
 
   setTheState = (result) => {
