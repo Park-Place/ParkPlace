@@ -2,20 +2,20 @@ import { onUserLoad } from '../../services/parkApi';
 import { USER_LOAD } from './reducers';
 
 
-let prevId;
+let listening;
 
 export function loadUser(id) {
 
   return dispatch => {
-    if(prevId === id) return;
-    
-    onUserLoad(id, prevId, userInfo => {
+    if(listening === id) return;
+    listening = id;
+
+    onUserLoad(id, userInfo => {
       dispatch({
         type: USER_LOAD, 
         payload: userInfo
       });
     });
-    prevId = id;
   };
 }
 

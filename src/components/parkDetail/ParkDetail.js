@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getParkById, loadReviews, setParkDerivedData } from './actions';
+import { getParkById, loadReviews } from './actions';
 import { connect } from 'react-redux';
 import { getParkImage } from '../../services/googleAPI';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,7 @@ import ActionButton from '../actionButton/ActionButton';
 import Reviews from './Reviews';
 import ReactModal from 'react-modal';
 import ReviewForm from './ReviewForm';
+import { auth } from '../../services/firebase';
 import './parkDetail.css';
 
 export class ParkDetail extends Component {
@@ -32,7 +33,6 @@ export class ParkDetail extends Component {
     const { id } = this.props;
     this.props.getParkById(id);
     this.props.loadReviews(id);
-    this.props.setParkDerivedData(id);
   }
 
   componentWillMount() {
@@ -53,12 +53,8 @@ export class ParkDetail extends Component {
     
     const { name, formatted_address, international_phone_number, photos, opening_hours, url } = this.props.result;
     const { open } = this.state;
-    const { hasReviewed, derivedData, loggedIn, id } = this.props;
-    const reviewObj = {
-      parkName: name,
-      parkId: id,
-      photoReference: photos[0].photo_reference
-    };
+    const { hasReviewed, derivedData, loggedIn } = this.props;
+
   
     let tags, amenities, averageRating;
     if(derivedData) {
@@ -96,16 +92,17 @@ export class ParkDetail extends Component {
 
 
             <div className="tags-reviews">
+
               {tags && 
-                <ul className="tag-list">Tags:
-                {tags.map(key => <li key={key}>{key}</li>)}
-                </ul>
+            <ul className="tag-list">Tags:
+            {tags.map(key => <li key={key}>{key}</li>)}
+            </ul>
               }
 
               {amenities && 
-                <ul className="tag-list">Amenities: 
-                {amenities.map(key => <li key={key}>{key}</li>)}
-                </ul>
+            <ul className="tag-list">Amenities: 
+            {amenities.map(key => <li key={key}>{key}</li>)}
+            </ul>
               }
             </div>
 
@@ -125,7 +122,7 @@ export class ParkDetail extends Component {
           onRequestClose={this.handleClose}
         >
           <button className="modal-button" onClick={this.handleClose}>x</button>
-          <ReviewForm reviewObj={reviewObj} legendText={'Write a Review'} handleClose={this.handleClose}/>
+          <ReviewForm legendText={'Write a Review'} handleClose={this.handleClose}/>
         </ReactModal>
 
       </div>
@@ -133,8 +130,8 @@ export class ParkDetail extends Component {
   }
 }
 
-const checkReviewed = (reviews, loggedIn) => {
-  if(loggedIn) return Object.keys(reviews).some(reviewId => loggedIn.reviews[reviewId]); 
+const checkReviewed = (reviews) => {
+  if(auth.currentUser) return reviews.hasOwnProperty(auth.currentUser.uid); 
   else return false;
 };
 
@@ -143,9 +140,9 @@ export default connect(
     id: match.params.id,
     result: currentPark,
     reviews: currentParkReviews,
-    hasReviewed: !!currentParkReviews && checkReviewed(currentParkReviews, loggedIn),
+    hasReviewed: !!currentParkReviews && checkReviewed(currentParkReviews),
     derivedData: currentParkDerivedData,
     loggedIn
   }),
-  ({ getParkById, loadReviews, setParkDerivedData })
+  ({ getParkById, loadReviews })
 )(ParkDetail);

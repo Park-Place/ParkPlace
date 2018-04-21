@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Review from './Review';
 
-export default class Reviews extends Component {
+class Reviews extends Component {
 
   render() {
 
-    const { reviewIds } = this.props;
-    if(!reviewIds) return null;
+    const { reviews } = this.props;
+    console.log(reviews);
+    if(!reviews) return null;
     
-    const reviewsArr = Object.keys(reviewIds);
+    const reviewsArr = Object.keys(reviews);
 
     return (
       <ul className="reviews">
-        {reviewsArr.map(id => <Review key={id} id={id}/>)}
+        {reviewsArr.map(key => <Review key={key} {...reviews[key]}/>)}
       </ul>
     );
   }
 }
+
+export default connect(
+  state => ({ reviews: state.currentUser.reviews }),
+  null
+)(Reviews);

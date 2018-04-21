@@ -6,6 +6,7 @@ Create an application that allows users to view parks from around the world, lea
 * Use google firebase, authorization, and cloud functions
 * Bring in data from a 3rd party api (google places and google geocoding)
 * Mobile first with responsive design
+* Use ReactCSSTransitionGroup to add some animations
 
 Steps Taken
 ===

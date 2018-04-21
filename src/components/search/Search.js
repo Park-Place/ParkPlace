@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Form, Button, ControlLabel, FormControl } from 'react-bootstrap';
 import ActionButton from '../actionButton/ActionButton';
@@ -57,8 +58,19 @@ class Search extends Component {
           <Button className={'Location' === currentForm ? 'active' : ''} id="location" type="button" onClick={event => this.handleFormChange(event)} name="Location" >location</Button>
         </div>
         <fieldset>
-          { currentForm === 'Keyword' && <SearchForm label="Keyword" value={keyword} placeholder="Name of Park" onChange={this.handleInputChange}/> }
-          { currentForm === 'Location' && <SearchForm label="Location" value={location} placeholder="City" onChange={this.handleInputChange}/> }
+          { (currentForm === 'Keyword') && 
+            <Fragment>
+              <ControlLabel htmlFor="keyword" className="clip">Keyword:</ControlLabel>
+              <FormControl name="keyword" placeholder="Name of Park" value={keyword} onChange={this.handleInputChange}/>
+            </Fragment>
+          }
+
+          { (currentForm === 'Location') && 
+            <Fragment>
+              <ControlLabel htmlFor="location" className="clip">Location:</ControlLabel>
+              <FormControl name="location" placeholder="City" onChange={this.handleInputChange} value={location}/>
+            </Fragment>
+          }
           <ActionButton classData={'search-form-button'}id="search" type={'submit'} buttonText={'Search'} disabled={false}/>
         </fieldset>
       </Form>
@@ -66,14 +78,6 @@ class Search extends Component {
   }
 }
 
-const SearchForm = ({ label, value, placeholder, onChange }) => {
-  const name = label.toLowerCase();
-  return (
-    <Fragment>
-      <ControlLabel htmlFor={name} className="clip">{label}:</ControlLabel>
-      <FormControl name={name} id={name} placeholder={placeholder} value={value} onChange={onChange}/>
-    </Fragment>
-  );
-};
-
-export default withRouter(Search);
+export default withRouter(connect(
+  null
+)(Search));
