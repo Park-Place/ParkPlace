@@ -1,12 +1,12 @@
 import { getParkDetail } from '../../services/googleAPI';
-import { DETAIL_GET, REVIEWS_LOAD } from './reducers';
+import { DETAIL_GET, REVIEWS_LOAD, DERIVED_GET } from './reducers';
 import { db } from '../../services/firebase';
-import { onReviewsList } from '../../services/parkApi';
+import { onReviewsList, onParkDerivedData, onReview } from '../../services/parkApi';
+import uid from 'uuid/v1';
 
 const users = db.ref('users');
-const parksReviewed = db.ref('parksReviewed');
-
-let listening;
+const reviewsByPark = db.ref('reviewsByPark');
+const reviews = db.ref('reviews');
 
 const filterDuplicates = (string) => {
 
@@ -18,55 +18,81 @@ const filterDuplicates = (string) => {
 };
 
 export function getParkById(id) {
-
-  return dispatch => {
-    dispatch({
-      type: DETAIL_GET,
-      payload: getParkDetail(id)
-    });
+  return {
+    type: DETAIL_GET,
+    payload: getParkDetail(id)
   };
 }
 
+let prevParkDerivedId;
+
+export function setParkDerivedData(id) {
+  if(prevParkDerivedId === id) return;
+  return dispatch => {
+    
+    onParkDerivedData(id, prevParkDerivedId, data => {
+      dispatch({
+        type: DERIVED_GET,
+        payload: data
+      });
+    });
+
+    prevParkDerivedId = id;
+  };
+}
+
+export function getReview(id) {
+  return onReview(id);
+}
+
+let prevParkReviewId;
+
 export function loadReviews(id) {
   
+  if(prevParkReviewId === id) return;
   return dispatch => {
-    if(listening === id) return;
-    listening = id;
-
-    onReviewsList(id, reviews => {
+    onReviewsList(id, prevParkReviewId, reviews => {
       dispatch({
         type: REVIEWS_LOAD,
         payload: reviews
       });
     });
+
+    prevParkReviewId = id;    
   };
 }
 
-export function submitReview(state, parkObj, userObj, priorReview) {
+export function submitReview(reviewObj, userId, priorReview) {
 
-  const { rating, amenities, review, tags } = state;
+  const { rating, amenities, review, tags, parkName, parkId, photoReference } = reviewObj;
 
   const filteredAmenities = filterDuplicates(amenities);
   const filteredTags = filterDuplicates(tags);
   const date = new Date();
+  const newReview = reviews.push();
+  const key = priorReview ? reviewObj.key : newReview.key;
 
-  const reviewObj = {
+  const reviewObjRestructured = {
     timeStamp: priorReview ? `Edited on ${date.toLocaleString()}` : date.toLocaleString(),
     rating: parseInt(rating),
     amenities: filteredAmenities,
     tags: filteredTags,
     review,
-    parkObj,
-    userObj
+    parkName,
+    photoReference,
+    userId,
+    parkId,
+    key
   };
 
-  users.child(userObj.userId).child('reviews').update({ [parkObj.parkId]: reviewObj });
-
-  parksReviewed.child(parkObj.parkId).child('reviews').update({ [userObj.userId]: reviewObj });
+  reviews.child(key).set({ ...reviewObjRestructured });
+  reviewsByPark.child(parkId).update({ [key]: uid() }); //needs a random hash as firebase will not update children if same as prior ({[key]: true} will not work here). Needs to be updated every time to trigger derived data recalculation in cloud function
+  users.child(userId).child('reviews').update({ [key]: true });
 
 }
 
-export function deleteReview(parkId, userId) {
-  users.child(userId).child('reviews').child(parkId).remove();
-  parksReviewed.child(parkId).child('reviews').child(userId).remove();
+export function deleteReview(parkId, userId, reviewId) {
+  users.child(userId).child('reviews').child(reviewId).remove();
+  reviewsByPark.child(parkId).child(reviewId).remove();
+  reviews.child(reviewId).remove();
 }

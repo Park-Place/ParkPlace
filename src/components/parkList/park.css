@@ -3,6 +3,7 @@
 .park-link {
 
   border: 2px solid $light-grey;
+  height: 100%;
   border-radius: 3px, 3px, 0px, 0px;
   display: block;
   margin-bottom: 1rem;
@@ -59,4 +60,15 @@
     flex-direction: column;
     justify-content: space-between;
   }
+}
+
+.slide-up-appear {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all .5s ease;
+  
+}
+.slide-up-appear-active {
+  opacity: 1;
+  transform: translateY(0px);
 }

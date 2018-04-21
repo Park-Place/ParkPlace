@@ -1,14 +1,23 @@
 import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getParkImage } from '../../services/googleAPI';
 import ReviewForm from '../parkDetail/ReviewForm';
+import { onReview } from '../../services/parkApi';
 import { auth } from '../../services/firebase';
 
-class Review extends Component {
+export default class Review extends Component {
 
   state = {
     editing: false
+  };
+
+  componentDidMount() {
+
+    onReview(this.props.id, 'reviewDetail', this.setTheState); //must pass in setState for listener, otherwise review will not update on edit
+  }
+
+  setTheState = (result) => {
+    this.setState({ ...result });    
   };
 
   changeEditing = () => {
@@ -16,18 +25,23 @@ class Review extends Component {
   };
 
   render() {
-    const { userObj, timeStamp, rating, review, parkObj, amenities, tags } = this.props;
-    const { parkName, photoReference, parkId } = parkObj;
-    const { userId } = userObj;
-    const { editing } = this.state;
+    const { editing, userId, timeStamp, rating, review, amenities, tags, key, parkName, parkId, photoReference } = this.state;
+    // const { parkName, photoReference, parkId } = parkObj;
 
+    if(!rating) return null;
+  
     const uid = auth.currentUser ? auth.currentUser.uid : null;
 
     const reviewObj = {
       rating,
-      amenities: amenities.join(' '),
-      tags: tags.join(' '),
-      review
+      amenities: (amenities[0] === 'empty' && amenities.length === 1) ? '' : amenities.join(' '),
+      tags: (tags[0] === 'empty' && tags.length === 1) ? '' : tags.join(' '),
+      review,
+      key,
+      parkName,
+      parkId,
+      userId,
+      photoReference
     };
 
     return (
@@ -47,15 +61,11 @@ class Review extends Component {
           }
           {editing &&
             <ReviewForm legendText={'Edit Your Review'} reviewObj={reviewObj} priorReview={true} 
-              handleClose={this.changeEditing} parkReviewed={parkObj}/>
+              handleClose={this.changeEditing}/>
           }
         </div>
       </li>
     );
   }
 }
-
-export default connect(
-  null
-)(Review);
 
