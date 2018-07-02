@@ -12,11 +12,11 @@ class Reviews extends Component {
 
     if(!reviews) return (<p>There are no reviews yet</p>);
 
-    const reviewsArr = Object.keys(reviews);
+    const keys = Object.keys(reviews);
 
     return (
       <ul className="reviews">
-        {reviewsArr.map(key => <Review key={key} {...reviews[key]}/>)}
+        {keys.map(key => <Review key={key} {...reviews[key]}/>)}
       </ul>
     );
   }

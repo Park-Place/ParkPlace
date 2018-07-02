@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
 import './park.css';
 
+// Better to create your own Image wrapper around the one from react-bootstrap and move getParkImage into that component
+
 export class Park extends Component {
 
   render() {

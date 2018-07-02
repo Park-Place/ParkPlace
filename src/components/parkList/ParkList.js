@@ -18,10 +18,8 @@ class ParkList extends Component {
   runSearch(queryString) {
     const { searchByKeyword, searchByLocation } = this.props;
     const { type, search } = qs.parse(queryString);
-
     const action = type === 'Keyword' ? searchByKeyword : searchByLocation;
     action(search);
-
   }
 
   render() {
